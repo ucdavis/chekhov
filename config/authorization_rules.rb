@@ -1,7 +1,9 @@
 authorization do
   role :admin do
     has_permission_on :templates, :to => :manage
+    has_permission_on :template_entries, :to => :manage
     has_permission_on :checklists, :to => :manage
+    has_permission_on :checklist_entries, :to => :manage
   end
   role :access do
     has_permission_on :templates, :to => :read

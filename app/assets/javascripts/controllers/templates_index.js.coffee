@@ -1,4 +1,4 @@
-Chekhov.controller "TemplatesCtrl", @TemplatesCtrl = ($scope, $routeParams, Templates) ->
+Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $routeParams, Templates) ->
   #$(".navbar-nav li").removeClass "active"
   #$("li#schedules").addClass "active"
   
