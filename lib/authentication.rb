@@ -96,7 +96,6 @@ module Authentication
     if session[:cas_user]
       # CAS session exists. Valid user account?
       @user = User.find_by_loginid(session[:cas_user])
-      @user = nil if @user and @user.disabled # Don't allow disabled users to log in
 
       if @user
         # Valid user found through CAS.
@@ -105,8 +104,6 @@ module Authentication
         Authorization.current_user = @user
         Authorization.ignore_access_control(true)
         
-        # Update 'logged_in_at' field
-        @user.logged_in_at = DateTime.now()
         @user.save
 
         Authorization.ignore_access_control(false)
@@ -119,7 +116,7 @@ module Authentication
         session[:user_id] = nil
         session[:auth_via] = nil
 
-        logger.warn "Valid CAS user is denied. Not in our local database or is disabled."
+        logger.warn "Valid CAS user is denied. Not in our local database."
         flash[:error] = 'You have authenticated but are not allowed access.'
 
         redirect_to :controller => "site", :action => "access_denied"

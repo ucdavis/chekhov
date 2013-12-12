@@ -1,62 +1,44 @@
 class ChecklistEntriesController < ApplicationController
   before_action :set_checklist_entry, only: [:show, :edit, :update, :destroy]
+  respond_to :json
+  filter_resource_access
 
-  # GET /checklist_entries
-  # GET /checklist_entries.json
   def index
     @checklist_entries = ChecklistEntry.all
   end
 
-  # GET /checklist_entries/1
-  # GET /checklist_entries/1.json
   def show
   end
 
-  # GET /checklist_entries/new
   def new
     @checklist_entry = ChecklistEntry.new
   end
 
-  # GET /checklist_entries/1/edit
   def edit
   end
 
-  # POST /checklist_entries
-  # POST /checklist_entries.json
   def create
     @checklist_entry = ChecklistEntry.new(checklist_entry_params)
 
-    respond_to do |format|
-      if @checklist_entry.save
-        format.html { redirect_to @checklist_entry, notice: 'Checklist entry was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @checklist_entry }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @checklist_entry.errors, status: :unprocessable_entity }
-      end
+    flash[:notice] = "Checklst entry was successfully created." if @checklist_entry.save
+
+    respond_with(@checklist_entry) do |format|
+      format.json { render }
     end
   end
 
-  # PATCH/PUT /checklist_entries/1
-  # PATCH/PUT /checklist_entries/1.json
   def update
-    respond_to do |format|
-      if @checklist_entry.update(checklist_entry_params)
-        format.html { redirect_to @checklist_entry, notice: 'Checklist entry was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @checklist_entry.errors, status: :unprocessable_entity }
-      end
+    flash[:notice] = "Checklst entry was successfully updated." if @checklist_entry.update(checklist_entry_params)
+    
+    respond_with(@checklist_entry) do |format|
+      format.json { head :no_content }
     end
   end
 
-  # DELETE /checklist_entries/1
-  # DELETE /checklist_entries/1.json
   def destroy
     @checklist_entry.destroy
-    respond_to do |format|
-      format.html { redirect_to checklist_entries_url }
+    
+    respond_with(@checklist_entry) do |format|
       format.json { head :no_content }
     end
   end

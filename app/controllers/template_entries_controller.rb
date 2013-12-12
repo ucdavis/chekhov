@@ -1,62 +1,40 @@
 class TemplateEntriesController < ApplicationController
   before_action :set_template_entry, only: [:show, :edit, :update, :destroy]
+  respond_with :json
+  filter_resource_access
 
-  # GET /template_entries
-  # GET /template_entries.json
   def index
     @template_entries = TemplateEntry.all
   end
 
-  # GET /template_entries/1
-  # GET /template_entries/1.json
   def show
   end
 
-  # GET /template_entries/new
   def new
     @template_entry = TemplateEntry.new
   end
 
-  # GET /template_entries/1/edit
   def edit
   end
 
-  # POST /template_entries
-  # POST /template_entries.json
   def create
     @template_entry = TemplateEntry.new(template_entry_params)
+    
+    flash[:notice] = "Template entry was successfully created." if @template_entry.save
 
-    respond_to do |format|
-      if @template_entry.save
-        format.html { redirect_to @template_entry, notice: 'Template entry was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @template_entry }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @template_entry.errors, status: :unprocessable_entity }
-      end
-    end
+    respond_with(@template_entry)
   end
 
-  # PATCH/PUT /template_entries/1
-  # PATCH/PUT /template_entries/1.json
   def update
-    respond_to do |format|
-      if @template_entry.update(template_entry_params)
-        format.html { redirect_to @template_entry, notice: 'Template entry was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @template_entry.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = "Template entry was successfully updated." if @template_entry.update(template_entry_params)
+
+    respond_with @template_entry
   end
 
-  # DELETE /template_entries/1
-  # DELETE /template_entries/1.json
   def destroy
     @template_entry.destroy
+
     respond_to do |format|
-      format.html { redirect_to template_entries_url }
       format.json { head :no_content }
     end
   end

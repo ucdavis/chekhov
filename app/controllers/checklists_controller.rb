@@ -1,62 +1,40 @@
 class ChecklistsController < ApplicationController
   before_action :set_checklist, only: [:show, :edit, :update, :destroy]
+  respond_to :json
+  filter_resource_access
 
-  # GET /checklists
-  # GET /checklists.json
   def index
     @checklists = Checklist.all
   end
 
-  # GET /checklists/1
-  # GET /checklists/1.json
   def show
   end
 
-  # GET /checklists/new
   def new
     @checklist = Checklist.new
   end
 
-  # GET /checklists/1/edit
   def edit
   end
 
-  # POST /checklists
-  # POST /checklists.json
   def create
     @checklist = Checklist.new(checklist_params)
-
-    respond_to do |format|
-      if @checklist.save
-        format.html { redirect_to @checklist, notice: 'Checklist was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @checklist }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @checklist.errors, status: :unprocessable_entity }
-      end
-    end
+    
+    flash[:notice] = "Checklist was successfully created." if @checklist.save
+    
+    respond_with(@checklist)
   end
 
-  # PATCH/PUT /checklists/1
-  # PATCH/PUT /checklists/1.json
   def update
-    respond_to do |format|
-      if @checklist.update(checklist_params)
-        format.html { redirect_to @checklist, notice: 'Checklist was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @checklist.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = "Checklist was successfully updated." if @checklist.update(checklist_params)
+    
+    respond_with @checklist
   end
 
-  # DELETE /checklists/1
-  # DELETE /checklists/1.json
   def destroy
     @checklist.destroy
+
     respond_to do |format|
-      format.html { redirect_to checklists_url }
       format.json { head :no_content }
     end
   end

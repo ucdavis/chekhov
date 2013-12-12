@@ -1,60 +1,44 @@
 class TemplatesController < ApplicationController
   before_action :set_template, only: [:show, :edit, :update, :destroy]
+  respond_to :json
+  filter_resource_access
 
-  # GET /templates
-  # GET /templates.json
   def index
     @templates = Template.all
+    
+    respond_with(@templates) do |format|
+      format.json
+      format.html
+    end
   end
 
-  # GET /templates/1
-  # GET /templates/1.json
   def show
   end
 
-  # GET /templates/new
   def new
     @template = Template.new
   end
 
-  # GET /templates/1/edit
   def edit
   end
 
-  # POST /templates
-  # POST /templates.json
   def create
     @template = Template.new(template_params)
 
-    respond_to do |format|
-      if @template.save
-        format.html { redirect_to @template, notice: 'Template was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @template }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @template.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Template was successfully created.' if @template.save
+
+    respond_with(@template)
   end
 
-  # PATCH/PUT /templates/1
-  # PATCH/PUT /templates/1.json
   def update
-    respond_to do |format|
-      if @template.update(template_params)
-        format.html { redirect_to @template, notice: 'Template was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @template.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Template was successfully updated.' if @template.update(template_params)
+    
+    respond_with(@template)
   end
 
-  # DELETE /templates/1
-  # DELETE /templates/1.json
   def destroy
     @template.destroy
+
     respond_to do |format|
       format.html { redirect_to templates_url }
       format.json { head :no_content }

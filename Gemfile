@@ -36,3 +36,8 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'rubycas-client'
+
+# Provides authorization layer
+gem 'declarative_authorization'
