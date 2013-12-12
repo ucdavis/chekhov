@@ -1,0 +1,31 @@
+<h1>Listing template_entries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Template</th>
+      <th>Content</th>
+      <th>Position</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @template_entries.each do |template_entry| %>
+      <tr>
+        <td><%= template_entry.template_id %></td>
+        <td><%= template_entry.content %></td>
+        <td><%= template_entry.position %></td>
+        <td><%= link_to 'Show', template_entry %></td>
+        <td><%= link_to 'Edit', edit_template_entry_path(template_entry) %></td>
+        <td><%= link_to 'Destroy', template_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Template entry', new_template_entry_path %>

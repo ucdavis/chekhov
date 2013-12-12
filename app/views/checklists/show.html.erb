@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Template:</strong>
+  <%= @checklist.template_id %>
+</p>
+
+<p>
+  <strong>Public:</strong>
+  <%= @checklist.public %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @checklist.user_id %>
+</p>
+
+<p>
+  <strong>Started:</strong>
+  <%= @checklist.started %>
+</p>
+
+<p>
+  <strong>Finished:</strong>
+  <%= @checklist.finished %>
+</p>
+
+<%= link_to 'Edit', edit_checklist_path(@checklist) %> |
+<%= link_to 'Back', checklists_path %>

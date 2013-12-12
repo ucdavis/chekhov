@@ -1,0 +1,31 @@
+<h1>Listing checklist_entries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Checklist</th>
+      <th>Template entry</th>
+      <th>User</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @checklist_entries.each do |checklist_entry| %>
+      <tr>
+        <td><%= checklist_entry.checklist_id %></td>
+        <td><%= checklist_entry.template_entry_id %></td>
+        <td><%= checklist_entry.user_id %></td>
+        <td><%= link_to 'Show', checklist_entry %></td>
+        <td><%= link_to 'Edit', edit_checklist_entry_path(checklist_entry) %></td>
+        <td><%= link_to 'Destroy', checklist_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Checklist entry', new_checklist_entry_path %>

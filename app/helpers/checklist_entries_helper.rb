@@ -1,0 +1,2 @@
+module ChecklistEntriesHelper
+end
