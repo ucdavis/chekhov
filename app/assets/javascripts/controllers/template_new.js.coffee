@@ -4,6 +4,8 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, $routeParams, 
   $scope.newContent = null
   $scope.position = 1
   
+  console.debug 'TemplateNewCtrl', 'Initializing...'
+  
   $scope.addToEntries = () ->
     if $scope.newContent
       $scope.newTemplate.entries_attributes.push {content: $scope.newContent, position: $scope.position}
@@ -11,11 +13,7 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, $routeParams, 
     $scope.newContent = ""
   
   $scope.save = () ->
-    $scope.newTemplate.owner_id = User.id
-    Templates.save $scope.newTemplate, (data) ->
-      $location.path("/")
-      # $scope.newTemplate = {}
-      # $scope.newTemplate.entries_attributes = []
-      # $scope.newContent = null
-      # $scope.position = 1
-      
+    if $scope.newTemplate.entries_attributes.length and $scope.newTemplate.name
+      $scope.newTemplate.owner_id = User.id
+      Templates.save $scope.newTemplate, (data) ->
+        $location.path("/")
