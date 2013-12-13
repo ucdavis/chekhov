@@ -1,8 +1,11 @@
 class TemplatesController < ApplicationController
   before_action :set_template, only: [:show, :edit, :update, :destroy]
   respond_to :json
-  filter_resource_access
-
+  filter_access_to :all, :attribute_check => true
+  filter_access_to :create, :attribute_check => false
+  filter_access_to :index, :attribute_check => true, :load_method => :load_templates
+  wrap_parameters :template, include: [:owner_id, :name, :entries_attributes]
+  
   def index
     @templates = Template.all
     
@@ -24,7 +27,7 @@ class TemplatesController < ApplicationController
 
   def create
     @template = Template.new(template_params)
-
+    
     flash[:notice] = 'Template was successfully created.' if @template.save
 
     respond_with(@template)
@@ -53,6 +56,10 @@ class TemplatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def template_params
-      params.require(:template).permit(:owner_id, :name, :entries)
+      params.require(:template).permit(:owner_id, :name, entries_attributes: [:content, :position])
+    end
+
+    def load_templates
+      @templates = Template.with_permissions_to(:read).all
     end
 end

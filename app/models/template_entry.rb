@@ -3,5 +3,5 @@ class TemplateEntry < ActiveRecord::Base
   
   belongs_to :template
   
-  validates_presence_of :content, :position, :template_id
+  validates_presence_of :content, :position
 end
