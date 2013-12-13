@@ -98,14 +98,14 @@ body {
     width: 400px;
 }
 
-input[type=checkbox] {
-  width: 30px;
-  height: 30px;
-  margin-top: 16px;
-}
-
 table {
   tr {
+    input[type=checkbox] {
+      width: 30px;
+      height: 30px;
+      margin-top: 16px;
+    }
+    
     .hint-text {
       display: none;
     }

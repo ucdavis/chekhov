@@ -1,6 +1,6 @@
 <div class="row-fluid">
-  <button class="btn pull-right">
-    Public
+  <button class="btn btn-large pull-right" ng-click="togglePublic()" ng-class="{active: checklist.public}" style="margin-top: 5px;">
+    Make Public
   </button>
   <h1 class="span10">{{checklist.name}}</h1>
 </div>
@@ -9,7 +9,7 @@
   <div class="span10 offset1">
     <table class="table table-hover" id="entries">
       <tbody>
-        <tr ng-repeat="entry in checklist.template_entries" ng-click="check()">
+        <tr ng-repeat="entry in checklist.entries" ng-click="check(entry)">
           <td><input type="checkbox"></input></td>
           <td><h3>{{ entry.content }}</h3></td>
         </tr>
