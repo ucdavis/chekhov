@@ -5,5 +5,7 @@ class Template < ActiveRecord::Base
   has_many :entries, :class_name => 'TemplateEntry', :dependent => :destroy
   
   validates_presence_of :owner, :name
+  validates_uniqueness_of :name
+  
   accepts_nested_attributes_for :entries
 end
