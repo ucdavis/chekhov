@@ -7,6 +7,12 @@ authorization do
   end
   role :access do
     has_permission_on :templates, :to => :read
+    has_permission_on :checklists, :to => :manage do
+      if_attribute :user => is { user }
+    end
+    has_permission_on :checklists, :to => :read do
+      if_attribute :public => true
+    end
   end
 end
 
