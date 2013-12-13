@@ -18,6 +18,13 @@ body {
   margin: 60px 0;
 }
 
+.masthead h3 a {
+  color: #999999;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 /* Main marketing message and sign up button */
 .jumbotron {
   margin: 80px 0;
