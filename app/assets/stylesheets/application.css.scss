@@ -104,6 +104,7 @@ table {
       width: 30px;
       height: 30px;
       margin-top: 16px;
+      pointer-events: none; /* because why would you want to click a checkbox? */
     }
     
     .hint-text {

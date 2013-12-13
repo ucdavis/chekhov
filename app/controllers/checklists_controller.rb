@@ -4,6 +4,7 @@ class ChecklistsController < ApplicationController
   filter_access_to :all, :attribute_check => true
   filter_access_to :create, :attribute_check => false
   filter_access_to :index, :attribute_check => true, :load_method => :load_checklists
+  wrap_parameters :checklist, include: [:template_id, :name, :public, :entries_attributes]
 
   def index
     @checklists = Checklist.all
@@ -49,10 +50,10 @@ class ChecklistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def checklist_params
-      params.require(:checklist).permit(:template_id, :name, :public, :user_id, :started, :finished)
+      params.require(:checklist).permit(:template_id, :name, :public, :user_id, :started, :finished, entries_attributes: [:id, :content, :position, :user_id, :checked])
     end
 
     def load_checklists
-      @checklists = Checklist.with_permissions_to(:read).all
+      @checklists = Checklist.with_permissions_to(:read).where(:finished => nil)
     end
 end

@@ -11,6 +11,8 @@ class Checklist < ActiveRecord::Base
   before_create :set_start_time
   after_create :create_checklist_entries
   
+  accepts_nested_attributes_for :entries
+  
   private
   
   def set_start_time
