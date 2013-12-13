@@ -1,6 +1,8 @@
 Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $routeParams, Templates) ->
   $scope.templates = Templates.query()
   $scope.activeTab = 1
+  
+  console.debug 'TemplatesIndexCtrl', 'Initializing...'
 
   $('ul.nav li#checklists_open').removeClass 'active'
   $('ul.nav li#checklists_all').addClass 'active'

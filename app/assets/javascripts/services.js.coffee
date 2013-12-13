@@ -5,5 +5,11 @@ angular.module("chekhovServices", ["ngResource"])
     ,
       update:
         method: "PUT"
+  .factory "Checklists", ($resource) ->
+    $resource "/checklists/:id.json",
+      id: "@id"
+    ,
+      update:
+        method: "PUT"
   .factory "User", () ->
     user = { id: 1 }

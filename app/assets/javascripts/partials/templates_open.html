@@ -1,0 +1,11 @@
+<div class="row-fluid" style="margin-top: 2em;">
+  <div class="span10 offset1">
+    <table class="table table-hover" id="templates">
+      <tbody>
+        <tr ng-repeat="template in templates" ng-click="startChecklist(template.id)">
+          <td><span class="pull-right hint-text" style="padding-top: 1.5em; color: #999; padding-right: 3em;">Start this checklist</span><h3>{{ template.name }}</h3></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
