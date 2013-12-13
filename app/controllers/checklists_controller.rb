@@ -4,7 +4,7 @@ class ChecklistsController < ApplicationController
   filter_access_to :all, :attribute_check => true
   filter_access_to :create, :attribute_check => false
   filter_access_to :index, :attribute_check => true, :load_method => :load_checklists
-  wrap_parameters :checklist, include: [:template_id, :name, :public, :entries_attributes]
+  wrap_parameters :checklist, include: [:template_id, :name, :public, :entries_attributes, :user_id]
 
   def index
     @checklists = Checklist.all
