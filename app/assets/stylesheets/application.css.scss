@@ -98,7 +98,13 @@ body {
     width: 400px;
 }
 
-table#templates {
+input[type=checkbox] {
+  width: 30px;
+  height: 30px;
+  margin-top: 16px;
+}
+
+table {
   tr {
     .hint-text {
       display: none;

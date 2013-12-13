@@ -9,3 +9,6 @@ window.chekhovRouter = ($routeProvider) ->
     .when "/templates/new",
       templateUrl: "/assets/partials/template_new.html"
       controller: "TemplateNewCtrl"
+    .when "/checklists/:id",
+      templateUrl: "/assets/partials/checklist.html"
+      controller: "ChecklistCtrl"
