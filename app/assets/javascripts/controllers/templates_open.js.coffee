@@ -1,5 +1,5 @@
 Chekhov.controller "TemplatesOpenIndexCtrl", @TemplatesOpenIndexCtrl = ($scope, $routeParams, Templates) ->
-  $scope.checklists = Checklists.query()
+  # $scope.checklists = Checklists.query()
   
   console.debug 'TemplatesOpenIndexCtrl', 'Initializing...'
 

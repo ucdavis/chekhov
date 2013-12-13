@@ -7,4 +7,11 @@ class Checklist < ActiveRecord::Base
   
   validates_presence_of :template, :user_id, :name
   validates :public, :inclusion => {:in => [true, false]}
+  
+  before_create :set_start_time
+  
+  private
+  def set_start_time
+    self.started = Time.now
+  end
 end

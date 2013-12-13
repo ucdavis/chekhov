@@ -1,7 +1,9 @@
 class ChecklistsController < ApplicationController
   before_action :set_checklist, only: [:show, :edit, :update, :destroy]
   respond_to :json
-  filter_resource_access
+  filter_access_to :all, :attribute_check => true
+  filter_access_to :create, :attribute_check => false
+  filter_access_to :index, :attribute_check => true, :load_method => :load_checklists
 
   def index
     @checklists = Checklist.all
@@ -47,6 +49,10 @@ class ChecklistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def checklist_params
-      params.require(:checklist).permit(:template_id, :public, :user_id, :started, :finished)
+      params.require(:checklist).permit(:template_id, :name, :public, :user_id, :started, :finished)
+    end
+
+    def load_checklists
+      @checklists = Checklist.with_permissions_to(:read).all
     end
 end
