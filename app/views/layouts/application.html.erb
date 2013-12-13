@@ -26,7 +26,7 @@
 
   <body>
     
-    <div class="container">
+    <div class="container" ng-app="ChekhovApp">
 
       <div class="masthead">
         <h3 class="muted"><%= link_to 'Chekhov', root_url %></h3>
@@ -34,8 +34,8 @@
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
-                <li class="active"><a href="#">All Checklists</a></li>
-                <li><a href="#">Open Checklists</a></li>
+                <li class="active" id="checklists_all"><a href="#/">All Checklists</a></li>
+                <li><a href="#/open" id="checklists_open">Open Checklists</a></li>
               </ul>
             </div>
           </div>

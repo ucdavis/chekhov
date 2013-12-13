@@ -1,20 +1,22 @@
 <h3 class="text-center">New Checklist</h3>
 
-<div class="span6 offset3">
-  <input class="span12 input-large" type="text" placeholder="Name this checklist" ng-model="newTemplate.name" />
+<div class="aspan6 aoffset3" style="text-align: center; margin-left: 0;">
+  <input class="span12 input-large span6" type="text" placeholder="Name this checklist" ng-model="newTemplate.name" style="text-align: center;" />
 </div>
 
-<table class="table table-condensed">
-  <tbody>
-    <tr ng-repeat="entry in newTemplate.entries_attributes">
-      <td>{{ entry.content }}</td>
-    </tr>
-    <tr>
-      <td>
-        <input class="span12" type="text" placeholder="New entry" ng-model="newContent" on-enter="addToEntries()" />
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="row-fluid span8 offset2">
+  <table class="table table-condensed">
+    <tbody>
+      <tr ng-repeat="entry in newTemplate.entries_attributes">
+        <td style="border: none;">{{ entry.content }}</td>
+      </tr>
+      <tr>
+        <td style="border: none;">
+          <input class="span12" type="text" placeholder="New entry" ng-model="newContent" on-enter="addToEntries()" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-<button class="btn btn-primary span4 offset4" ng-click="save()">Create</button>
+  <button class="btn btn-primary span4 offset4" ng-click="save()">Create</button>
+</div>
