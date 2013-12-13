@@ -56,6 +56,7 @@ class TemplatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def template_params
+      params[:template][:owner_id] = Authorization.current_user[:id]
       params.require(:template).permit(:owner_id, :name, entries_attributes: [:content, :position])
     end
 

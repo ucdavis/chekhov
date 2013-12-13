@@ -50,6 +50,10 @@ class ChecklistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def checklist_params
+      params[:checklist][:user_id] = Authorization.current_user[:id]
+      params[:checklist][:entries_attributes].each do |e|
+        e[:user_id] = Authorization.current_user[:id]
+      end if params[:checklist][:entries_attributes]
       params.require(:checklist).permit(:template_id, :name, :public, :user_id, :started, :finished, entries_attributes: [:id, :content, :position, :user_id, :checked])
     end
 

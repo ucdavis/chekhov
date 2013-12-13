@@ -14,6 +14,5 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, $routeParams, 
   
   $scope.save = () ->
     if $scope.newTemplate.entries_attributes.length and $scope.newTemplate.name
-      $scope.newTemplate.owner_id = User.id
       Templates.save $scope.newTemplate, (data) ->
         $location.path("/")
