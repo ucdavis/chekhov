@@ -18,6 +18,7 @@ body {
   margin: 60px 0;
 }
 
+/* Keep the site title pretty and un-link-like */
 .masthead h3 a {
   color: #999999;
   &:hover {
@@ -95,4 +96,18 @@ body {
 
 .input-large[class=input-large] {
     width: 400px;
+}
+
+table#templates {
+  tr {
+    .hint-text {
+      display: none;
+    }
+    
+    &:hover {
+      .hint-text {
+        display: block;
+      }
+    }
+  }
 }
