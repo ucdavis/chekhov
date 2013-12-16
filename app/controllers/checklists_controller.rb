@@ -7,7 +7,7 @@ class ChecklistsController < ApplicationController
   wrap_parameters :checklist, include: [:template_name, :name, :public, :entries_attributes]
 
   def index
-    @checklists = Checklist.all
+    @checklists = Checklist.joins(:entries).where(checklist_entries: {checked: false}).uniq
   end
 
   def show

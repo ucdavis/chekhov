@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131216220224) do
+ActiveRecord::Schema.define(version: 20131216225302) do
 
   create_table "checklist_entries", force: true do |t|
     t.integer  "checklist_id"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20131216220224) do
     t.datetime "updated_at"
     t.integer  "position"
     t.text     "content"
-    t.boolean  "checked"
+    t.boolean  "checked",      default: false
   end
 
   create_table "checklists", force: true do |t|
