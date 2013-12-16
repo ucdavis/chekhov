@@ -1,5 +1,5 @@
 <div class="row-fluid">
-  <button class="btn btn-large pull-right" ng-click="togglePublic()" ng-class="{active: checklist.public}" style="margin-top: 5px;">
+  <button class="btn btn-large pull-right" ng-click="togglePublic()" ng-class="{active: checklist.public}" style="margin-top: 5px;" ng-show="user.is_admin || user.id == checklist.user_id">
     Make Public
   </button>
   <h4 class="span10" style="color: #999;">Using checklist '{{ checklist.template_name }}'</h4>
