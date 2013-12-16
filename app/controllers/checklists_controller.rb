@@ -52,7 +52,11 @@ class ChecklistsController < ApplicationController
     def checklist_params
       params[:checklist][:user_id] = Authorization.current_user[:id]
       params[:checklist][:entries_attributes].each do |e|
-        e[:user_id] = Authorization.current_user[:id]
+        # If saving a checked item with no author, it's implied the current_user
+        # is checking the box.
+        if e[:checked] and e[:user_id].nil?
+          e[:user_id] = Authorization.current_user[:id]
+        end
       end if params[:checklist][:entries_attributes]
       params.require(:checklist).permit(:template_id, :name, :public, :user_id, :started, :finished, entries_attributes: [:id, :content, :position, :user_id, :checked])
     end
