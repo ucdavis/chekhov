@@ -1,10 +1,10 @@
-Chekhov.controller "TemplatesOpenIndexCtrl", @TemplatesOpenIndexCtrl = ($scope, $routeParams, $location, Checklists) ->
+Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($scope, $routeParams, $location, Checklists) ->
   $scope.checklists = Checklists.query()
   
-  console.debug 'TemplatesOpenIndexCtrl', 'Initializing...'
+  console.debug 'TemplatesActiveIndexCtrl', 'Initializing...'
 
   $('ul.nav li#checklists_all').removeClass 'active'
-  $('ul.nav li#checklists_open').addClass 'active'
+  $('ul.nav li#checklists_active').addClass 'active'
   
   $scope.openChecklist = (checklist_id) ->
     $location.path("/checklists/#{checklist_id}")

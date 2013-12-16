@@ -4,13 +4,9 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $routePa
   
   console.debug 'TemplatesIndexCtrl', 'Initializing...'
 
-  $('ul.nav li#checklists_open').removeClass 'active'
+  $('ul.nav li#checklists_active').removeClass 'active'
   $('ul.nav li#checklists_all').addClass 'active'
   
-  # <li class="active"><a href="#/">All Checklists</a></li>
-  # <li><a href="#/open">Open Checklists</a></li>
-  
-
   $scope.startChecklist = (template_id) ->
     modalInstance = $modal.open
       templateUrl: "/assets/partials/checklist_new.html"
