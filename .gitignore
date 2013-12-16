@@ -16,4 +16,5 @@
 /tmp
 
 config/dss_rm.yml
+.DS_Store
 
