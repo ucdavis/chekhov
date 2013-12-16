@@ -94,33 +94,21 @@ module Authentication
     CASClient::Frameworks::Rails::Filter.filter(self)
 
     if session[:cas_user]
-      # CAS session exists. Valid user account?
-      @user = User.find_by_loginid(session[:cas_user])
+      @user = User.find_or_create_by_loginid(session[:cas_user])
 
-      if @user
-        # Valid user found through CAS.
-        session[:user_id] = @user.id
-        session[:auth_via] = :cas
-        Authorization.current_user = @user
-        Authorization.ignore_access_control(true)
-        
-        @user.save
+      @user.rm_id = RolesManagement.fetch_id_by_loginid(@user.loginid) unless @user.rm_id
 
-        Authorization.ignore_access_control(false)
+      # Valid user found through CAS.
+      session[:user_id] = @user.id
+      session[:auth_via] = :cas
+      Authorization.current_user = @user
+      Authorization.ignore_access_control(true)
+      
+      @user.save!
 
-        logger.info "Valid CAS user is in our database. Passes authentication."
+      Authorization.ignore_access_control(false)
 
-        return
-      else
-        # Proper CAS request but user not in our database.
-        session[:user_id] = nil
-        session[:auth_via] = nil
-
-        logger.warn "Valid CAS user is denied. Not in our local database."
-        flash[:error] = 'You have authenticated but are not allowed access.'
-
-        redirect_to :controller => "site", :action => "access_denied"
-      end
+      logger.info "Valid CAS user. Passes authentication."
     end
   end
 

@@ -4,6 +4,6 @@ class User < ActiveRecord::Base
   validates_presence_of :loginid, :rm_id
   
   def role_symbols
-    [:admin]
+    RolesManagement.fetch_role_symbols_by_loginid(loginid)
   end
 end
