@@ -1,6 +1,7 @@
 Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $routeParams, Checklists, User) ->
   $scope.checklist = {}
   $scope.checklist.entries_attributes = []
+  $scope.user = User
   
   $('ul.nav li').removeClass 'active'
   

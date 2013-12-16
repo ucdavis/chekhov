@@ -4,7 +4,7 @@ class ChecklistsController < ApplicationController
   filter_access_to :all, :attribute_check => true
   filter_access_to :create, :attribute_check => false
   filter_access_to :index, :attribute_check => true, :load_method => :load_checklists
-  wrap_parameters :checklist, include: [:template_name, :name, :public, :entries_attributes, :user_id]
+  wrap_parameters :checklist, include: [:template_name, :name, :public, :entries_attributes]
 
   def index
     @checklists = Checklist.all
@@ -21,7 +21,14 @@ class ChecklistsController < ApplicationController
   end
 
   def create
+    params[:checklist][:user_id] = Authorization.current_user[:id]
     @checklist = Checklist.new(checklist_params)
+
+    @template = Template.find_by_id(params[:template_id])
+  
+    if @template
+      @checklist.template_name = @template.name
+    end
     
     if @checklist.save
       flash[:notice] = "Checklist was successfully created."
@@ -59,21 +66,15 @@ class ChecklistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def checklist_params
-      @template = Template.find_by_id(params[:template_id])
-      
-      if @template
-        params[:checklist][:template_name] = @template.name
-        params[:checklist][:user_id] = Authorization.current_user[:id]
-        params[:checklist][:entries_attributes].each do |e|
-          # If saving a checked item with no author, it's implied the current_user
-          # is checking the box.
-          if e[:checked] and e[:user_id].nil?
-            e[:user_id] = Authorization.current_user[:id]
-          end
-        end if params[:checklist][:entries_attributes]
+      params[:checklist][:entries_attributes].each do |e|
+        # If saving a checked item with no author, it's implied the current_user
+        # is checking the box.
+        if e[:checked] and e[:user_id].nil?
+          e[:user_id] = Authorization.current_user[:id]
+        end
+      end if params[:checklist][:entries_attributes]
 
-        params.require(:checklist).permit(:template_name, :name, :public, :user_id, :started, :finished, entries_attributes: [:id, :content, :position, :user_id, :checked])
-      end
+      params.require(:checklist).permit(:template_name, :name, :public, :user_id, :started, :finished, entries_attributes: [:id, :content, :position, :user_id, :checked])
     end
 
     def load_checklists
