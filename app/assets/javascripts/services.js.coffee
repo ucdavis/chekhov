@@ -12,4 +12,4 @@ angular.module("chekhovServices", ["ngResource"])
       update:
         method: "PUT"
   .factory "User", () ->
-    user = { id: 1 }
+    user = { is_admin: window.is_admin }
