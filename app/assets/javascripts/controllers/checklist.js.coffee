@@ -15,6 +15,8 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $routeParams, Chec
 
   $scope.saveChanges = () ->
     Checklists.update $scope.checklist, (data) ->
+      $scope.checklist = data
+      $scope.checklist.entries_attributes = $scope.checklist.entries
       console.log 'saved?'
       console.log data
   

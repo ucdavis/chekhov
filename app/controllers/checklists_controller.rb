@@ -47,7 +47,9 @@ class ChecklistsController < ApplicationController
   def update
     flash[:notice] = "Checklist was successfully updated." if @checklist.update(checklist_params)
     
-    respond_with @checklist
+    respond_to do |format|
+      format.json { render :show }
+    end
   end
 
   def destroy
