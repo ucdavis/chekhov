@@ -94,19 +94,24 @@ module Authentication
     CASClient::Frameworks::Rails::Filter.filter(self)
 
     if session[:cas_user]
-      @user = User.find_or_create_by_loginid(session[:cas_user])
+      @user = User.find_or_initialize_by_loginid(session[:cas_user])
+      
+      if @user.new_record?
+        rm_json = RolesManagement.fetch_json_by_loginid(@user.loginid)
+        @user.rm_id = rm_json["id"]
+        @user.name = rm_json["name"]
 
-      @user.rm_id = RolesManagement.fetch_id_by_loginid(@user.loginid) unless @user.rm_id
+        Authorization.ignore_access_control(true)
+      
+        @user.save!
+
+        Authorization.ignore_access_control(false)
+      end
 
       # Valid user found through CAS.
       session[:user_id] = @user.id
       session[:auth_via] = :cas
       Authorization.current_user = @user
-      Authorization.ignore_access_control(true)
-      
-      @user.save!
-
-      Authorization.ignore_access_control(false)
 
       logger.info "Valid CAS user. Passes authentication."
     end
