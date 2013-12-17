@@ -9,7 +9,8 @@ class ChecklistsController < ApplicationController
   def index
     archived = ( params[:archived] == 'true' )
     archived ||= false
-    @checklists = Checklist.joins(:entries).where(checklist_entries: {checked: archived}).uniq
+    @checklists = Checklist.joins(:entries).where(checklist_entries: {checked: false}).uniq
+    @checklists = Checklist.where("id NOT IN (?)", @checklists.pluck(:id)) if archived
   end
 
   def show
