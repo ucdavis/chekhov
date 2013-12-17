@@ -6,6 +6,9 @@ window.chekhovRouter = ($routeProvider) ->
     .when "/active",
       templateUrl: "/assets/partials/templates_active.html"
       controller: "TemplatesActiveIndexCtrl"
+    .when "/archived",
+      templateUrl: "/assets/partials/templates_archived.html"
+      controller: "TemplatesArchivedIndexCtrl"
     .when "/templates/new",
       templateUrl: "/assets/partials/template_new.html"
       controller: "TemplateNewCtrl"

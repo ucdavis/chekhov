@@ -3,7 +3,7 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
   
   console.debug 'TemplatesActiveIndexCtrl', 'Initializing...'
 
-  $('ul.nav li#checklists_all').removeClass 'active'
+  $('ul.nav li').removeClass 'active'
   $('ul.nav li#checklists_active').addClass 'active'
   
   $scope.openChecklist = (checklist_id) ->

@@ -5,7 +5,7 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $routePa
   
   console.debug 'TemplatesIndexCtrl', 'Initializing...'
 
-  $('ul.nav li#checklists_active').removeClass 'active'
+  $('ul.nav li').removeClass 'active'
   $('ul.nav li#checklists_all').addClass 'active'
   
   $scope.startChecklist = (template_id) ->
