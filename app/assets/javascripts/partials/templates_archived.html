@@ -2,7 +2,10 @@
   <div class="span10 offset1">
     <table class="table table-hover" id="templates">
       <tbody>
-        <tr ng-repeat="checklist in checklists" ng-click="openChecklist(checklist.id)">
+        <tr ng-hide="loaded"><td class="span12">
+          <div class="row text-center"><img src="assets/ajax-loader.gif"></div>
+        </td></tr>
+        <tr ng-repeat="checklist in checklists" ng-click="openChecklist(checklist.id)" ng-show="loaded">
           <td><span class="pull-right hint-text" style="padding-top: 1.5em; color: #999; padding-right: 3em;">Re-open this checklist</span><h3 class="muted">{{ checklist.name }}</h3></td>
         </tr>
       </tbody>

@@ -1,5 +1,8 @@
 Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $routeParams, $modal, $location, Templates, Checklists, User) ->
-  $scope.templates = Templates.query()
+  $scope.loaded = false
+  $scope.templates = Templates.query ->
+    $scope.loaded = true
+
   $scope.activeTab = 1
   $scope.user = User
   

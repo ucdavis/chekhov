@@ -1,4 +1,5 @@
 Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $routeParams, Checklists, User) ->
+  $scope.loaded = false
   $scope.checklist = {}
   $scope.checklist.entries_attributes = []
   $scope.user = User
@@ -24,3 +25,4 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $routeParams, Chec
     $scope.checklist = data
     $scope.checklist.entries_attributes = $scope.checklist.entries
     delete $scope.checklist.entries
+    $scope.loaded = true

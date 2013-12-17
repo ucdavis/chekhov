@@ -1,5 +1,8 @@
 Chekhov.controller "TemplatesArchivedIndexCtrl", @TemplatesArchivedIndexCtrl = ($scope, $routeParams, $location, Checklists) ->
-  $scope.checklists = Checklists.archived()
+  $scope.loaded = false
+  $scope.checklists = Checklists.archived ->
+    $scope.loaded = true
+  
   
   console.debug 'TemplatesArchivedIndexCtrl', 'Initializing...'
 

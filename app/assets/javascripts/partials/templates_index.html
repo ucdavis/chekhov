@@ -6,7 +6,10 @@
   <div class="span10 offset1">
     <table class="table table-hover" id="templates">
       <tbody>
-        <tr ng-repeat="template in templates" ng-click="startChecklist(template.id)">
+        <tr ng-hide="loaded"><td class="span12">
+          <div class="row text-center"><img src="assets/ajax-loader.gif"></div>
+        </td></tr>
+        <tr ng-repeat="template in templates" ng-click="startChecklist(template.id)" ng-show="loaded">
           <td><span class="pull-right hint-text" style="padding-top: 1.5em; color: #999; padding-right: 3em;">Start this checklist</span><h3>{{ template.name }}</h3></td>
         </tr>
       </tbody>
