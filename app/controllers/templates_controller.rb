@@ -41,9 +41,7 @@ class TemplatesController < ApplicationController
 
   def destroy
     @template.destroy
-
     respond_to do |format|
-      format.html { redirect_to templates_url }
       format.json { head :no_content }
     end
   end
