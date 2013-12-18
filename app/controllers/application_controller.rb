@@ -7,12 +7,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   def permission_denied
-    if session[:auth_via] == :cas
-      # Human-facing error
+    if request.format.to_s.include? 'json'
+      # JSON request
+      render :json => "Permission denied.", :status => 403
+    elsif session[:auth_via] == :cas
+      # Non-JSON, human-facing error
       flash[:error] = "Sorry, you are not allowed to access that page."
       redirect_to access_denied_path
     else
-      # Machine-facing error
+      # Non-JSON, machine-facing error
       render :text => "Permission denied.", :status => 403
     end
   end
