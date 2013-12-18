@@ -7,7 +7,7 @@ class TemplatesController < ApplicationController
   wrap_parameters :template, include: [:owner_id, :name, :checklist_count, :entries_attributes]
   
   def index
-    @templates = Template.all
+    @templates = Template.order(checklist_count: :desc)
     
     respond_with(@templates) do |format|
       format.json
@@ -34,9 +34,7 @@ class TemplatesController < ApplicationController
   end
 
   def update
-    logger.debug "||||||||UPDATING TEMPLATE||||||||"
     flash[:notice] = 'Template was successfully updated.' if @template.update(template_params)
-    logger.debug "||||||||DONE UPDATING TEMPLATE||||||||"
     
     respond_with(@template)
   end
