@@ -15,7 +15,7 @@
               Start this checklist
               <span class="template-actions" ng-show="user.is_admin">
                 <a class="icon-edit" tooltip="Edit this checklist" stop-event="click" href="#/templates/edit/{{template.id}}"></a>
-                <a class="icon-trash" tooltip="Delete this checklist" ng-click="deleteChecklist(template.id)" stop-event="click"></a>
+                <a class="icon-trash" tooltip="Delete this checklist" ng-click="deleteTemplate(template.id)" stop-event="click"></a>
               </span>
             </span>
             <h3>{{ template.name }}</h3></td>
