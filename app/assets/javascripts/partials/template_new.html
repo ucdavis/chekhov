@@ -5,10 +5,13 @@
 </div>
 
 <div class="row-fluid span8 offset2">
-  <table class="table table-condensed">
+  <table class="table table-condensed table-hover">
     <tbody>
       <tr ng-repeat="entry in newTemplate.entries_attributes">
-        <td style="border: none;">{{ entry.content }}</td>
+        <td style="border: none;">
+          {{ entry.content }}
+          <i class="icon-trash close" ng-click="removeFromEntries(entry)"></i>
+        </td>
       </tr>
       <tr>
         <td style="border: none;">

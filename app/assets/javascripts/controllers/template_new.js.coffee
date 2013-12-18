@@ -12,6 +12,10 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, $routeParams, 
       $scope.position++
     $scope.newContent = ""
   
+  $scope.removeFromEntries = (entry) ->
+    index = $scope.newTemplate.entries_attributes.indexOf(entry)
+    $scope.newTemplate.entries_attributes.splice(index,1)
+  
   $scope.save = () ->
     if $scope.newTemplate.entries_attributes.length and $scope.newTemplate.name
       Templates.save $scope.newTemplate, (data) ->
