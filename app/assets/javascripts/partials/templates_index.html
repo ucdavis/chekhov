@@ -11,13 +11,12 @@
         </td></tr>
         <tr ng-repeat="template in templates" ng-click="startChecklist(template.id)" ng-show="loaded">
           <td>
-            <span class="pull-right hint-text" style="padding-top: 1.5em; color: #999; padding-right: 3em;">
+            <span class="pull-right hint-text">
               Start this checklist
-              <a class="icon-edit" tooltip="Edit this checklist" stop-event="click" href="#/templates/edit/{{template.id}}"></a>
-            </span>
-            <span class="pull-right hint-text" style="padding-top: 1.5em; color: #999; padding-right: 3em;">
-              Delete this checklist
-              <a class="icon-trash" tooltip="Delete this checklist" ng-click="deleteChecklist(template.id)" stop-event="click"></a>
+              <span class="template-actions" ng-show="user.is_admin">
+                <a class="icon-edit" tooltip="Edit this checklist" stop-event="click" href="#/templates/edit/{{template.id}}"></a>
+                <a class="icon-trash" tooltip="Delete this checklist" ng-click="deleteChecklist(template.id)" stop-event="click"></a>
+              </span>
             </span>
             <h3>{{ template.name }}</h3></td>
         </tr>

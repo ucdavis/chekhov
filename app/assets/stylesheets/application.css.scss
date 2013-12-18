@@ -109,6 +109,14 @@ table {
     
     .hint-text {
       display: none;
+      padding-top: 1.5em;
+      color: #999;
+      padding-right: 3em;
+      white-space: nowrap;
+      
+        .template-actions {
+          margin: 0 0.7em;
+        }
     }
     
     &:hover {
