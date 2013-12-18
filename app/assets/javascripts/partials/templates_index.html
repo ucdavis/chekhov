@@ -4,11 +4,9 @@
 
 <div class="row-fluid" style="margin-top: 2em;">
   <div class="span10 offset1">
+    <div class="row text-center" ng-hide="loaded" id="loading"><img src="assets/ajax-loader.gif"></div>
     <table class="table table-hover" id="templates">
       <tbody>
-        <tr ng-hide="loaded"><td class="span12">
-          <div class="row text-center"><img src="assets/ajax-loader.gif"></div>
-        </td></tr>
         <tr ng-repeat="template in templates" ng-click="startChecklist(template.id)" ng-show="loaded">
           <td>
             <span class="pull-right hint-text">
