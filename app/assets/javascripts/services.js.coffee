@@ -6,7 +6,7 @@ angular.module("chekhovServices", ["ngResource"])
       update:
         method: "PUT"
       destroy:
-        method:  "DELETE"
+        method: "DELETE"
       
   .factory "Checklists", ($resource) ->
     $resource "/checklists/:id.json",
@@ -14,6 +14,8 @@ angular.module("chekhovServices", ["ngResource"])
     ,
       update:
         method: "PUT"
+      destroy:
+        method: "DELETE"
       archived:
         method: 'GET'
         isArray:true
