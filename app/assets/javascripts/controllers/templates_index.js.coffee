@@ -17,7 +17,11 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $routePa
       controller: ChecklistNewCtrl
 
     modalInstance.result.then (checklist) ->
+      # Create and redirect to the new checklist
       Checklists.save {template_id: template_id, name: checklist.name, public: checklist.public, user_id: User.id}, (data) ->
+        template = _.findWhere($scope.templates, id: template_id)
+        # Increment the checklict count of the selected template
+        Templates.update {id: template_id, checklist_count: template.checklist_count + 1}
         $location.path("/checklists/#{data.id}")
 
   $scope.deleteTemplate = (template) ->
