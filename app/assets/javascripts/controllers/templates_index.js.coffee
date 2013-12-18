@@ -20,11 +20,12 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $routePa
       Checklists.save {template_id: template_id, name: checklist.name, public: checklist.public, user_id: User.id}, (data) ->
         $location.path("/checklists/#{data.id}")
 
-  $scope.deleteTemplate = (template_id) ->
+  $scope.deleteTemplate = (template) ->
     modalInstance = $modal.open
       templateUrl: "/assets/partials/template_delete.html"
       controller: TemplateDeleteCtrl
 
     modalInstance.result.then () ->
-      Templates.delete {id: template_id}, (data) ->
-        $location.path("/active")
+      Templates.delete {id: template.id}, (data) ->
+        index = $scope.templates.indexOf(template)
+        $scope.templates.splice(index,1)
