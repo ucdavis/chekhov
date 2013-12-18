@@ -9,7 +9,7 @@
           <td>
             <span class="pull-right hint-text">
               Continue this checklist
-              <span class="template-actions" ng-show="user.is_admin">
+              <span class="template-actions" ng-show="user.is_admin || user.id == checklist.id">
                 <a class="icon-trash" tooltip="Delete this checklist" ng-click="deleteChecklist(checklist.id)" stop-event="click"></a>
               </span>
             </span>
