@@ -15,7 +15,7 @@
               Start this checklist
               <a class="icon-edit" tooltip="Edit this checklist" ng-click="edit()" stop-event="click"></a>
             </span>
-            <span class="pull-right hint-text" style="padding-top: 1.5em; color: #999; padding-right: 3em;">
+            <span class="pull-right hint-text" ng-show="user.is_admin" style="padding-top: 1.5em; color: #999; padding-right: 3em;">
               Delete this checklist
               <a class="icon-trash" tooltip="Delete this checklist" ng-click="deleteChecklist(template.id)" stop-event="click"></a>
             </span>
