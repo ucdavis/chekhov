@@ -7,5 +7,5 @@ class Template < ActiveRecord::Base
   validates_presence_of :owner, :name
   validates_uniqueness_of :name
   
-  accepts_nested_attributes_for :entries
+  accepts_nested_attributes_for :entries,  :allow_destroy => true
 end
