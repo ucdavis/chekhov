@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   validates_presence_of :loginid, :rm_id
   
   def role_symbols
-    RolesManagement.fetch_role_symbols_by_loginid(loginid)
+    # ||= 'trick' to avoid multiple RM fetches per worker instance
+    # (_should_ reload from RolesManagement on page load)
+    @role_symbols ||= RolesManagement.fetch_role_symbols_by_loginid(loginid)
   end
 end
