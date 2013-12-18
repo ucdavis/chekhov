@@ -6,7 +6,15 @@
           <div class="row text-center"><img src="assets/ajax-loader.gif"></div>
         </td></tr>
         <tr ng-repeat="checklist in checklists" ng-click="openChecklist(checklist.id)" ng-show="loaded">
-          <td><span class="pull-right hint-text" style="padding-top: 1.5em; color: #999; padding-right: 3em;">Continue this checklist</span><h3>{{ checklist.name }}</h3></td>
+          <td>
+            <span class="pull-right hint-text">
+              Continue this checklist
+              <span class="template-actions" ng-show="user.is_admin">
+                <a class="icon-trash" tooltip="Delete this checklist" ng-click="deleteChecklist(checklist.id)" stop-event="click"></a>
+              </span>
+            </span>
+            <h3>{{ checklist.name }}</h3>
+          </td>
         </tr>
       </tbody>
     </table>

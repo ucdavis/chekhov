@@ -1,8 +1,8 @@
-Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($scope, $routeParams, $location, Checklists) ->
+Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($scope, $routeParams, $modal, $location, Checklists, User) ->
   $scope.loaded = false
   $scope.checklists = Checklists.query ->
     $scope.loaded = true
-  
+    $scope.user = User
   console.debug 'TemplatesActiveIndexCtrl', 'Initializing...'
 
   $('ul.nav li').removeClass 'active'
