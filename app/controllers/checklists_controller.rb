@@ -7,10 +7,11 @@ class ChecklistsController < ApplicationController
   wrap_parameters :checklist, include: [:template_name, :name, :public, :entries_attributes]
 
   def index
-    archived = ( params[:archived] == 'true' )
-    archived ||= false
-    @checklists = Checklist.joins(:entries).where(checklist_entries: {checked: false}).uniq
-    @checklists = Checklist.where("id NOT IN (?)", @checklists.pluck(:id)) if archived
+    if params[:archived] == 'true'
+      @checklists = Checklist.where("id NOT IN (?)", @checklists.pluck(:id))
+    else
+      @checklists = Checklist.joins(:entries).where(checklist_entries: {checked: false}).uniq
+    end
   end
 
   def show
