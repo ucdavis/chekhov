@@ -7,7 +7,7 @@ authorization do
   end
   role :access do
     has_permission_on :templates, :to => :read
-    has_permission_on :checklists, :to => :create
+    has_permission_on :checklists, :to => [:index, :create]
     has_permission_on :checklists, :to => :manage do
       if_attribute :user => is { user }
     end
