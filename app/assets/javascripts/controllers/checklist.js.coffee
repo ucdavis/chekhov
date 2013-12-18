@@ -21,8 +21,14 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $routeParams, Chec
       console.log 'saved?'
       console.log data
   
-  Checklists.get {id: $routeParams.id}, (data) ->
-    $scope.checklist = data
-    $scope.checklist.entries_attributes = $scope.checklist.entries
-    delete $scope.checklist.entries
-    $scope.loaded = true
+  Checklists.get({id: $routeParams.id},
+    (data) ->
+      # Success
+      $scope.checklist = data
+      $scope.checklist.entries_attributes = $scope.checklist.entries
+      delete $scope.checklist.entries
+      $scope.loaded = true
+  , (data) ->
+      # Error
+      $('div#loading').html("<b>You don't have permission to view this checklist.</b>")
+  )
