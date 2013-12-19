@@ -4,6 +4,7 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $routeParams
   $scope.template.entries_attributes = []
   $scope.newContent = null
   $scope.position = 1
+  $scope.error = null
 
   console.debug 'TemplateEditCtrl', 'Initializing...'
   
@@ -18,12 +19,25 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $routeParams
   
   $scope.save = () ->
     if $scope.template.entries_attributes.length and $scope.template.name
-      Templates.update $scope.template, (data) ->
-        $location.path("/")
+      Templates.update $scope.template,
+        (data) ->
+          # Success
+          $location.path("/")
+      , (data) ->
+          # Error
+          $scope.error = "Could not save changes"
 
-  Templates.get {id: $routeParams.id}, (data) ->
-    $scope.template = data
-    $scope.template.entries_attributes = $scope.template.entries
-    delete $scope.template.entries
-    $scope.position = _.max(_.pluck($scope.template.entries_attributes, "position")) + 1
-    $scope.loaded = true
+  $scope.clearError = ->
+    $scope.error = null
+  
+  Templates.get {id: $routeParams.id},
+    (data) ->
+      # Success
+      $scope.template = data
+      $scope.template.entries_attributes = $scope.template.entries
+      delete $scope.template.entries
+      $scope.position = _.max(_.pluck($scope.template.entries_attributes, "position")) + 1
+      $scope.loaded = true
+  , (data) ->
+      # Error
+      $scope.error = "Error retrieving information from server"

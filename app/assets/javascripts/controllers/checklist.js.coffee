@@ -3,6 +3,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $routeParams, Chec
   $scope.checklist = {}
   $scope.checklist.entries_attributes = []
   $scope.user = User
+  $scope.error = null
   
   $('ul.nav li').removeClass 'active'
   
@@ -15,11 +16,17 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $routeParams, Chec
     $scope.saveChanges()
 
   $scope.saveChanges = () ->
-    Checklists.update $scope.checklist, (data) ->
-      $scope.checklist = data
-      $scope.checklist.entries_attributes = $scope.checklist.entries
-      console.log 'saved?'
-      console.log data
+    Checklists.update $scope.checklist,
+      (data) ->
+        # Success
+        $scope.checklist = data
+        $scope.checklist.entries_attributes = $scope.checklist.entries
+    , (data) ->
+        # Error
+        $scope.error = "Could not save changes!"
+  
+  $scope.clearError = ->
+    $scope.error = null
   
   Checklists.get({id: $routeParams.id},
     (data) ->

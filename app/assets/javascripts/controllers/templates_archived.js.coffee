@@ -1,7 +1,13 @@
 Chekhov.controller "TemplatesArchivedIndexCtrl", @TemplatesArchivedIndexCtrl = ($scope, $location, Checklists) ->
   $scope.loaded = false
-  $scope.checklists = Checklists.archived ->
-    $scope.loaded = true
+  $scope.error = null
+  $scope.checklists = Checklists.archived {},
+    (data) ->
+      # Success
+      $scope.loaded = true
+  , (data) ->
+      # Error
+      $scope.error = "Error retrieving information from server"
   
   
   console.debug 'TemplatesArchivedIndexCtrl', 'Initializing...'
@@ -11,3 +17,6 @@ Chekhov.controller "TemplatesArchivedIndexCtrl", @TemplatesArchivedIndexCtrl = (
   
   $scope.openChecklist = (checklist_id) ->
     $location.path("/checklists/#{checklist_id}")
+
+  $scope.clearError = ->
+    $scope.error = null
