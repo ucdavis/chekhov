@@ -9,21 +9,17 @@
     <input class="span12 input-large span6" type="text" placeholder="Name this checklist" ng-model="template.name" style="text-align: center;" />
   </div>
 
-  <table class="table table-condensed table-hover">
-    <tbody>
-      <tr ng-repeat="entry in template.entries_attributes">
-        <td style="border: none;" ng-hide="entry._destroy">
-          {{ entry.content }}
-          <i class="icon-trash close" ng-click="removeFromEntries(entry)"></i>
-        </td>
-      </tr>
-      <tr>
-        <td style="border: none;">
-          <input class="span12" type="text" placeholder="New entry" ng-model="newContent" on-enter="addToEntries()" />
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <ul class="nav nav-pills nav-stacked" ng-model="template.entries_attributes" ui-sortable="sortableOptions">
+    <li ng-repeat="entry in template.entries_attributes" ng-hide="entry._destroy">
+        {{ entry.content }}
+        <i class="icon-trash close" ng-click="removeFromEntries(entry)"></i>
+    </li>
+  </ul>
+  <ul class="nav nav-pills nav-stacked">
+    <li>
+      <input class="span12" type="text" placeholder="New entry" ng-model="newContent" on-enter="addToEntries()" />
+    </li>
+  </ul>
 
   <button class="btn btn-primary span4 offset4" ng-click="save()">Save</button>
 </div>

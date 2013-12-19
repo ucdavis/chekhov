@@ -2,7 +2,7 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, $lo
   $scope.newTemplate = {}
   $scope.newTemplate.entries_attributes = []
   $scope.newContent = null
-  $scope.position = 1
+  $scope.position = 0
   $scope.error = null
   
   console.debug 'TemplateNewCtrl', 'Initializing...'
@@ -29,3 +29,8 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, $lo
 
   $scope.clearError = ->
     $scope.error = null
+
+  $scope.sortableOptions =
+    update: (e, ui, a, b) ->
+      $scope.newTemplate.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex
+      $scope.newTemplate.entries_attributes[ui.item.sortable.dropindex].position = ui.item.sortable.index

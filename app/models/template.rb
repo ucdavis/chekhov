@@ -2,7 +2,7 @@ class Template < ActiveRecord::Base
   using_access_control
   
   belongs_to :owner, :class_name => 'User'
-  has_many :entries, :class_name => 'TemplateEntry', :dependent => :destroy
+  has_many :entries, :class_name => 'TemplateEntry', :dependent => :destroy, :order => "position"
   
   validates_presence_of :owner, :name
   validates_uniqueness_of :name

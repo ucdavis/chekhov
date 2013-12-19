@@ -3,7 +3,7 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $routeParams
   $scope.template = {}
   $scope.template.entries_attributes = []
   $scope.newContent = null
-  $scope.position = 1
+  $scope.position = 0
   $scope.error = null
 
   console.debug 'TemplateEditCtrl', 'Initializing...'
@@ -30,6 +30,11 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $routeParams
   $scope.clearError = ->
     $scope.error = null
   
+  $scope.sortableOptions =
+    update: (e, ui, a, b) ->
+      $scope.template.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex
+      $scope.template.entries_attributes[ui.item.sortable.dropindex].position = ui.item.sortable.index
+
   Templates.get {id: $routeParams.id},
     (data) ->
       # Success

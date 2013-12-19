@@ -9,21 +9,17 @@
     <button type="button" class="close" ng-click="clearError()">&times;</button>{{error}}
   </div>
 
-  <table class="table table-condensed table-hover">
-    <tbody>
-      <tr ng-repeat="entry in newTemplate.entries_attributes">
-        <td style="border: none;">
-          {{ entry.content }}
-          <i class="icon-trash close" ng-click="removeFromEntries(entry)"></i>
-        </td>
-      </tr>
-      <tr>
-        <td style="border: none;">
-          <input class="span12" type="text" placeholder="New entry" ng-model="newContent" on-enter="addToEntries()" />
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <ul class="nav nav-pills nav-stacked" ng-model="newTemplate.entries_attributes" ui-sortable="sortableOptions">
+    <li ng-repeat="entry in newTemplate.entries_attributes">
+        {{ entry.content }}
+        <i class="icon-trash close" ng-click="removeFromEntries(entry)"></i>
+    </li>
+  </ul>
+  <ul class="nav nav-pills nav-stacked">
+    <li>
+      <input class="span12" type="text" placeholder="New entry" ng-model="newContent" on-enter="addToEntries()" />
+    </li>
+  </ul>
 
   <button class="btn btn-primary span4 offset4" ng-click="save()">Create</button>
 </div>
