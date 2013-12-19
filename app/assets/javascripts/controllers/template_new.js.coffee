@@ -1,4 +1,4 @@
-Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, $routeParams, Templates, $location) ->
+Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, $location) ->
   $scope.newTemplate = {}
   $scope.newTemplate.entries_attributes = []
   $scope.newContent = null

@@ -1,4 +1,4 @@
-Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($scope, $routeParams, $modal, $location, Checklists, User) ->
+Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($scope, $modal, $location, Checklists, User) ->
   $scope.loaded = false
   $scope.checklists = Checklists.query ->
     $scope.loaded = true
