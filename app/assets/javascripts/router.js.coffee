@@ -21,3 +21,4 @@ window.chekhovRouter = ($routeProvider) ->
     .when "/checklists/:id",
       templateUrl: "/assets/partials/checklist.html"
       controller: "ChecklistCtrl"
+    .otherwise redirectTo: "/"
