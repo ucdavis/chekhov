@@ -8,7 +8,7 @@ module.exports = function(config) {
     'spec/javascripts/lib/angular-mocks.js',
 
     //test files
-    'spec/javascripts/unit/**/*.js.coffee'
+    'spec/javascripts/unit/**/*.js'
   ]);
 
   config.set(conf);
