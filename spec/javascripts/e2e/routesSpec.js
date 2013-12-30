@@ -20,8 +20,8 @@ describe("E2E: Testing Routes", function() {
   });
 
   it('should have a working //templates/edit/:id route', function() {
-    browser().navigateTo('#//templates/edit/1');
-    expect(browser().window().hash()).toBe("//templates/edit/1");
+    browser().navigateTo('#/templates/edit/1');
+    expect(browser().window().hash()).toBe("/templates/edit/1");
   });
 
   it('should have a working /templates/duplicate/:id route', function() {
