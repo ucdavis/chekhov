@@ -21,6 +21,9 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
     modalInstance = $modal.open
       templateUrl: "/assets/partials/checklist_new.html"
       controller: ChecklistNewCtrl
+      resolve:
+          template_id: ->
+            template_id
 
     modalInstance.result.then (checklist) ->
       # Create and redirect to the new checklist
