@@ -100,6 +100,7 @@ module Authentication
         rm_json = RolesManagement.fetch_json_by_loginid(@user.loginid)
         @user.rm_id = rm_json["id"]
         @user.name = rm_json["name"]
+        @user.email = rm_json["email"]
 
         Authorization.ignore_access_control(true)
       

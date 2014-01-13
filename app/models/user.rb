@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   using_access_control
   
-  validates_presence_of :loginid, :rm_id
+  validates_presence_of :loginid, :rm_id, :email
   
   def role_symbols
     # ||= 'trick' to avoid multiple RM fetches per worker instance
