@@ -14,7 +14,6 @@ Chekhov.controller "ChecklistNewCtrl", @ChecklistNewCtrl = ($scope, $modalInstan
       $scope.newChecklist = {public: true, name: template.name + ' ' + count.toString() }
   , true
   
-
   $scope.create = ->
     $modalInstance.close $scope.newChecklist
 
