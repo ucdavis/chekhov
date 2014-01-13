@@ -10,8 +10,8 @@
   </div>
 
   <ul class="nav nav-pills nav-stacked" ng-model="template.entries_attributes" ui-sortable="sortableOptions">
-    <li ng-repeat="entry in template.entries_attributes" ng-hide="entry._destroy">
-        {{ entry.content }}
+    <li class="sortable-item" ng-repeat="entry in template.entries_attributes" ng-hide="entry._destroy">
+        <span>{{$index+1}}. {{ entry.content }}</span>
         <i class="icon-trash close" ng-click="removeFromEntries(entry)"></i>
     </li>
   </ul>

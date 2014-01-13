@@ -127,3 +127,19 @@ table {
     }
   }
 }
+
+/* Sortable List */
+li.sortable-item {
+  border: 1px dotted #ccc;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 3px 0px;
+  background: #eee;
+  cursor: move;
+  
+    span {
+      border-left: 1px dotted #888;
+      margin-left: 3px;
+      padding-left: 5px;
+    }
+}
