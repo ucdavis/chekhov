@@ -14,7 +14,11 @@
     </div>
   </div>
   <h4 class="span10" style="color: #999;">Using checklist '{{ checklist.template_name }}'</h4>
-  <h1 class="span10">{{ checklist.name }}</h1>
+  <h1 class="span10">
+    {{ checklist.name }}
+    <span class="pull-right badge" ng-show="checklist.finished">
+      Completed: {{ checklist.finished | date:'short' }}</span>
+  </h1>
 </div>
 
 <div class="row-fluid" style="margin-top: 2em;">
