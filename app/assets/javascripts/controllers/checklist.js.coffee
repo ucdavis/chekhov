@@ -5,7 +5,6 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $timeout, $routePa
   $scope.user = User
   $scope.error = null
   $scope.saved = null
-  delayedSave = null
   
   $('ul.nav li').removeClass 'active'
   
@@ -29,8 +28,17 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $timeout, $routePa
         # Success
         $scope.checklist = data
         $scope.checklist.entries_attributes = $scope.checklist.entries
-        $scope.saved = "Saved Successfully!"
-        $timeout (->
+
+        # check if all entries are checked
+        checkedEntries = _.filter($scope.checklist.entries, (e) -> e.checked).length
+        allEntries = $scope.checklist.entries.length
+        if checkedEntries is allEntries
+          $scope.saved = "Saved Successfully and archived!"
+        else
+          $scope.saved = "Saved Successfully!"
+
+        $timeout.cancel(displayStatus)
+        displayStatus = $timeout (->
           $scope.saved = null
         ), 3000
     , (data) ->

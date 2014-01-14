@@ -4,7 +4,7 @@ class ChecklistsController < ApplicationController
   filter_access_to :all, :attribute_check => true
   filter_access_to :create, :attribute_check => false
   filter_access_to :index, :attribute_check => true, :load_method => :load_checklists
-  wrap_parameters :checklist, include: [:template_name, :name, :public, :entries_attributes, :ticket_number, :comments]
+  wrap_parameters :checklist, include: [:template_name, :name, :public, :entries_attributes, :ticket_number, :comments, :finished]
 
   def index
   end
@@ -44,6 +44,14 @@ class ChecklistsController < ApplicationController
   end
 
   def update
+    # Set the finished time value only if all entries are checked 
+    unchecked_entries = params[:checklist][:entries_attributes].select {|e| e['checked'] == false}
+    if unchecked_entries.length == 0
+      params[:checklist][:finished] = Time.now
+    else
+      params[:checklist][:finished] = nil
+    end
+    
     flash[:notice] = "Checklist was successfully updated." if @checklist.update(checklist_params)
     
     respond_to do |format|
