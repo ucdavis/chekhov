@@ -6,7 +6,7 @@
     </div>
     <div class="span3 pull-right">
       <input type="text" ng-model="checklist.ticket_number" placeholder="SysAid Ticket #"
-        ng-change="saveChanges()"></input>
+        ng-change="saveAfterDelay()"></input>
     </div>
   </div>
   <h4 class="span10" style="color: #999;">Using checklist '{{ checklist.template_name }}'</h4>
@@ -25,6 +25,12 @@
         <tr ng-repeat="entry in checklist.entries_attributes" ng-click="check(entry)">
           <td><input type="checkbox" ng-model="entry.checked" style="pointer-events: none;"></input></td>
           <td><span class="pull-right" style="padding-top: 1.5em; color: #999; padding-right: 3em;">{{entry.user_name}}</span><h3>{{$index+1}}. {{ entry.content }}</h3></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            Comments:
+            <textarea class="span12" ng-model="checklist.comments" ng-change="saveAfterDelay()"></textarea>
+          </td>
         </tr>
       </tbody>
     </table>
