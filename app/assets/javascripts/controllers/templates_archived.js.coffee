@@ -25,7 +25,9 @@ Chekhov.controller "TemplatesArchivedIndexCtrl", @TemplatesArchivedIndexCtrl = (
   $scope.$watch "search", (value) ->
     if value
       $scope.checklists = _.filter($scope.allArchived, (c) ->
-          c.name.toLowerCase().indexOf(value) != -1
+          name = c.name.toLowerCase()
+          ticket = c.ticket_number || ""
+          name.indexOf(value.toLowerCase()) != -1 || ticket.toString().indexOf(value.toLowerCase()) != -1
         )
     else
       $scope.checklists = $scope.allArchived

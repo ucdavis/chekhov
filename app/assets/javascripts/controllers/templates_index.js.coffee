@@ -61,7 +61,7 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
   $scope.$watch "search", (value) ->
     if value
       $scope.templates = _.filter($scope.allTemplates, (t) ->
-          t.name.toLowerCase().indexOf(value) != -1
+          t.name.toLowerCase().indexOf(value.toLowerCase()) != -1
         )
     else
       $scope.templates = $scope.allTemplates
