@@ -8,6 +8,8 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
   , (data) ->
       # Error
       $scope.error = "Error retrieving information from server"
+
+  $scope.allTemplates = $scope.templates
     
   $scope.activeTab = 1
   $scope.user = User
@@ -55,3 +57,12 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
 
   $scope.clearError = ->
     $scope.error = null
+
+  $scope.$watch "search", (value) ->
+    if value
+      $scope.templates = _.filter($scope.allTemplates, (t) ->
+          t.name.toLowerCase().indexOf(value) != -1
+        )
+    else
+      $scope.templates = $scope.allTemplates
+  , true

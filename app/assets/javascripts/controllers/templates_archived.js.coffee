@@ -8,7 +8,8 @@ Chekhov.controller "TemplatesArchivedIndexCtrl", @TemplatesArchivedIndexCtrl = (
   , (data) ->
       # Error
       $scope.error = "Error retrieving information from server"
-  
+
+  $scope.allArchived = $scope.checklists
   
   console.debug 'TemplatesArchivedIndexCtrl', 'Initializing...'
 
@@ -20,3 +21,12 @@ Chekhov.controller "TemplatesArchivedIndexCtrl", @TemplatesArchivedIndexCtrl = (
 
   $scope.clearError = ->
     $scope.error = null
+
+  $scope.$watch "search", (value) ->
+    if value
+      $scope.checklists = _.filter($scope.allArchived, (c) ->
+          c.name.toLowerCase().indexOf(value) != -1
+        )
+    else
+      $scope.checklists = $scope.allArchived
+  , true

@@ -1,5 +1,8 @@
 <div class="row-fluid" style="margin-top: 2em;">
   <div class="span10 offset1">
+    <div class="span6 offset3" style="margin-bottom: 1em;">
+      <input type="search" placeholder="Search Active Checklists" class="span12" ng-model="search" />
+    </div>
     <div class="alert alert-error" ng-show="error">
       <button type="button" class="close" ng-click="clearError()">&times;</button>{{error}}
     </div>

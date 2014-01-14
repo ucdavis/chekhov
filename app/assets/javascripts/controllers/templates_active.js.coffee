@@ -10,6 +10,8 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
       # Error
       $scope.error = "Error retrieving information from server"
 
+  $scope.allActive = $scope.checklists
+
   console.debug 'TemplatesActiveIndexCtrl', 'Initializing...'
 
   $('ul.nav li').removeClass 'active'
@@ -35,3 +37,12 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
 
   $scope.clearError = ->
     $scope.error = null
+
+  $scope.$watch "search", (value) ->
+    if value
+      $scope.checklists = _.filter($scope.allActive, (c) ->
+          c.name.toLowerCase().indexOf(value) != -1
+        )
+    else
+      $scope.checklists = $scope.allActive
+  , true
