@@ -1,3 +1,7 @@
+<div class="alert alert-success affix" style="bottom: 0; right: 15px;" ng-show="saved">
+  <strong>{{saved}}</strong>
+</div>
+
 <div class="row-fluid" ng-show="loaded">
   <div style="margin-top: 25px;">
     <div class="btn-group pull-right" ng-show="user.is_admin || user.id == checklist.user_id">
@@ -6,7 +10,7 @@
     </div>
     <div class="span3 pull-right">
       <input type="text" ng-model="checklist.ticket_number" placeholder="SysAid Ticket #"
-        ng-change="saveAfterDelay()"></input>
+        ng-change="saveAfterDelay()" on-blur="saveChanges()"></input>
     </div>
   </div>
   <h4 class="span10" style="color: #999;">Using checklist '{{ checklist.template_name }}'</h4>
@@ -29,7 +33,7 @@
         <tr>
           <td colspan="2">
             Comments:
-            <textarea class="span12" ng-model="checklist.comments" ng-change="saveAfterDelay()"></textarea>
+            <textarea class="span12" ng-model="checklist.comments" ng-change="saveAfterDelay()" on-blur="saveChanges()"></textarea>
           </td>
         </tr>
       </tbody>

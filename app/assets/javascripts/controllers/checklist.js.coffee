@@ -4,6 +4,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $timeout, $routePa
   $scope.checklist.entries_attributes = []
   $scope.user = User
   $scope.error = null
+  $scope.saved = null
   delayedSave = null
   
   $('ul.nav li').removeClass 'active'
@@ -28,6 +29,10 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $timeout, $routePa
         # Success
         $scope.checklist = data
         $scope.checklist.entries_attributes = $scope.checklist.entries
+        $scope.saved = "Saved Successfully!"
+        $timeout (->
+          $scope.saved = null
+        ), 3000
     , (data) ->
         # Error
         $scope.error = "Could not save changes!"

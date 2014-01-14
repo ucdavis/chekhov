@@ -1,8 +1,7 @@
-Chekhov.directive "onEnter", @onEnter = () ->
+Chekhov.directive "onBlur", @onBlur = () ->
   (scope, element, attrs) ->
-    element.bind "keydown keypress", (event) ->
-      if event.which is 13
-        scope.$apply ->
-          scope.$eval attrs.onEnter
+    element.bind "blur", (event) ->
+      scope.$apply ->
+        scope.$eval attrs.onBlur
 
         event.preventDefault()
