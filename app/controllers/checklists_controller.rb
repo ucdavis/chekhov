@@ -80,10 +80,14 @@ class ChecklistsController < ApplicationController
         # is checking the box.
         if e[:checked] and e[:user_id].nil?
           e[:user_id] = Authorization.current_user[:id]
+          e[:finished] = Time.now
+        elsif not e[:checked]
+          e[:user_id] = nil
+          e[:finished] = nil
         end
       end if params[:checklist][:entries_attributes]
 
-      params.require(:checklist).permit(:template_name, :name, :public, :user_id, :started, :finished, :ticket_number, :comments, entries_attributes: [:id, :content, :position, :user_id, :checked])
+      params.require(:checklist).permit(:template_name, :name, :public, :user_id, :started, :finished, :ticket_number, :comments, entries_attributes: [:id, :content, :position, :user_id, :checked, :finished])
     end
 
     def load_checklists
