@@ -30,7 +30,7 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
 
     modalInstance.result.then (checklist) ->
       # Create and redirect to the new checklist
-      Checklists.save {template_id: template_id, name: checklist.name, public: checklist.public, user_id: User.id},
+      Checklists.save {template_id: template_id, name: checklist.name, public: checklist.public, user_id: User.id, ticket_number: checklist.ticket_number},
         (data) ->
           # Success
           template = _.findWhere($scope.templates, id: template_id)
