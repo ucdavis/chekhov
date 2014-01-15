@@ -52,7 +52,7 @@
       <hr>
 
       <div class="footer">
-        <p>&copy; 2013 UC Davis Division of Social Science IT</p>
+        <p>&copy; <%= Time.now.year %> UC Davis Division of Social Science IT</p>
         <p>Logged in as <%= Authorization.current_user.name %> (<%= Authorization.current_user.role_symbols.include?(:admin) ? "Administrator" : "Regular User" %>)</p>
       </div>
 
