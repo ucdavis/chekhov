@@ -1,10 +1,11 @@
-Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, $location, Templates, Checklists, User) ->
+Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, $location, Templates, Checklists, User, navDisplayService) ->
   $scope.loaded = false
   $scope.error = null
   $scope.templates = Templates.query {},
     (data) ->
       # Success
       $scope.loaded = true
+      navDisplayService.updateTotalTemplate $scope.templates.length
   , (data) ->
       # Error
       $scope.error = "Error retrieving information from server"
@@ -51,6 +52,7 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
           # Success
           index = $scope.templates.indexOf(template)
           $scope.templates.splice(index,1)
+          navDisplayService.updateTotalTemplate $scope.templates.length
       , (data) ->
           # Error
           $scope.error = "Error deleting template '#{template.name}'"

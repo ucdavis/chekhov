@@ -1,4 +1,4 @@
-Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($scope, $modal, $location, Checklists, User) ->
+Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($scope, $modal, $location, Checklists, User, navDisplayService) ->
   $scope.loaded = false
   $scope.error = null
   $scope.checklists = Checklists.query {},
@@ -6,6 +6,8 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
       # Success
       $scope.loaded = true
       $scope.user = User
+      navDisplayService.updateTotalActive $scope.checklists.length
+
   , (data) ->
       # Error
       $scope.error = "Error retrieving information from server"
@@ -31,6 +33,7 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
           # Success
           index = $scope.checklists.indexOf(checklist)
           $scope.checklists.splice(index,1)
+          navDisplayService.updateTotalActive $scope.checklists.length
       , (data) ->
           # Error
           $scope.error = "Error deleting checklist '#{checklist.name}'"
