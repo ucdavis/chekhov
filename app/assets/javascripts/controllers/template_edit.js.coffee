@@ -26,6 +26,9 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $routeParams
       , (data) ->
           # Error
           $scope.error = "Could not save changes"
+          _.each(data.data.errors , (e,i) ->
+              $scope.error = $scope.error + "<li>#{i} #{e}</li>"
+            )
 
   $scope.clearError = ->
     $scope.error = null

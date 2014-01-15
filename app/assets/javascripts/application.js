@@ -4,6 +4,7 @@
 //= require angular
 //= require angular-route
 //= require angular-resource
+//= require angular-sanitize
 //= require bootstrap
 //= require ui-bootstrap
 //= require sortable

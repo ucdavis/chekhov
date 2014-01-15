@@ -9,7 +9,8 @@
 <div class="row-fluid" style="margin-top: 2em;">
   <div class="span10 offset1">
     <div class="alert alert-error" ng-show="error">
-      <button type="button" class="close" ng-click="clearError()">&times;</button>{{error}}
+      <button type="button" class="close" ng-click="clearError()">&times;</button>
+      <div ng-bind-html="error"></div>
     </div>
 
     <div class="row text-center" ng-hide="loaded" id="loading"><img src="assets/ajax-loader.gif"></div>

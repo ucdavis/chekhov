@@ -37,6 +37,9 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
       , (data) ->
           # Error
           $scope.error = "Error deleting checklist '#{checklist.name}'"
+          _.each(data.data.errors , (e,i) ->
+              $scope.error = $scope.error + "<li>#{i} #{e}</li>"
+            )
 
   $scope.clearError = ->
     $scope.error = null

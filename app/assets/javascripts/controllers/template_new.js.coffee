@@ -25,7 +25,10 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, $lo
           $location.path("/")
       , (data) ->
           # Error
-          $scope.error = "Could not save changes!"
+          $scope.error = "Could not save changes"
+          _.each(data.data.errors , (e,i) ->
+              $scope.error = $scope.error + "<li>#{i} #{e}</li>"
+            )
 
   $scope.clearError = ->
     $scope.error = null

@@ -41,6 +41,9 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
       , (data) ->
           # Error
           $scope.error = "Error creating a new checklist"
+          _.each(data.data.errors , (e,i) ->
+              $scope.error = $scope.error + "<li>#{i} #{e}</li>"
+            )
 
   $scope.deleteTemplate = (template) ->
     modalInstance = $modal.open
