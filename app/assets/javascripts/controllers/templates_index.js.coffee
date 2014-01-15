@@ -37,6 +37,7 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
           # Increment the checklict count of the selected template
           Templates.update {id: template_id, checklist_count: template.checklist_count + 1}
           $location.path("/checklists/#{data.id}")
+          navDisplayService.incrementActiveTotal "inc"
       , (data) ->
           # Error
           $scope.error = "Error creating a new checklist"

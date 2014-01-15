@@ -1,4 +1,4 @@
-Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $timeout, $routeParams, Checklists, User) ->
+Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $timeout, $routeParams, Checklists, User, navDisplayService) ->
   $scope.loaded = false
   $scope.checklist = {}
   $scope.checklist.entries_attributes = []
@@ -34,9 +34,13 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $timeout, $routePa
         allEntries = $scope.checklist.entries.length
         if checkedEntries is allEntries
           $scope.saved = "Saved Successfully and archived!"
+          navDisplayService.decrementActiveTotal "dec"
+          navDisplayService.incrementArchivedTotal "inc"
         else
           $scope.saved = "Saved Successfully!"
-
+          if (checkedEntries + 1) is allEntries
+            navDisplayService.incrementActiveTotal "inc"
+            navDisplayService.decrementArchivedTotal "dec"
         $timeout.cancel(displayStatus)
         displayStatus = $timeout (->
           $scope.saved = null
