@@ -3,22 +3,28 @@
 </div>
 
 <div class="row-fluid" ng-show="loaded">
-  <div style="margin-top: 25px;">
-    <div class="btn-group pull-right" ng-show="user.is_admin || user.id == checklist.user_id">
-        <button type="button" class="btn" ng-model="checklist.public" btn-radio="true" ng-click="togglePublic()">Public</button>
-        <button type="button" class="btn" ng-model="checklist.public" btn-radio="false" ng-click="togglePublic()">Not Public</button>
-    </div>
-    <div class="span3 pull-right">
-      <input type="text" ng-model="checklist.ticket_number" placeholder="SysAid Ticket #"
-        ng-change="saveAfterDelay()" on-blur="saveChanges()"></input>
-    </div>
-  </div>
-  <h4 class="span10" style="color: #999;">Using checklist '{{ checklist.template_name }}'</h4>
+  <p class="text-info span10">Using checklist '{{ checklist.template_name }}'</h4>
   <h1 class="span10">
     {{ checklist.name }}
     <span class="pull-right badge" ng-show="checklist.finished">
       Completed: {{ checklist.finished | date:'short' }}</span>
   </h1>
+</div>
+
+<div class="row-fluid" ng-show="loaded" style="margin-top: 25px;">
+  <div class="span5 offset1">
+    <div class="input-prepend">
+      <span class="add-on">SysAid Ticket #</span>
+      <input type="text" ng-model="checklist.ticket_number" placeholder="SysAid Ticket #"
+        ng-change="saveAfterDelay()" on-blur="saveChanges()"></input>
+    </div>
+  </div>
+  <div class="span5">
+    <div class="btn-group pull-right" ng-show="user.is_admin || user.id == checklist.user_id">
+        <button type="button" class="btn btn-info" ng-model="checklist.public" btn-radio="true" ng-click="togglePublic()">Public</button>
+        <button type="button" class="btn btn-info" ng-model="checklist.public" btn-radio="false" ng-click="togglePublic()">Not Public</button>
+    </div>
+  </div>
 </div>
 
 <div class="row-fluid" style="margin-top: 2em;">
