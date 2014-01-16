@@ -5,8 +5,8 @@
 <div class="row-fluid" ng-show="loaded">
   <div style="margin-top: 25px;">
     <div class="btn-group pull-right" ng-show="user.is_admin || user.id == checklist.user_id">
-        <button type="button" class="btn btn-large" ng-model="checklist.public" btn-radio="true" ng-click="togglePublic()">Public</button>
-        <button type="button" class="btn btn-large" ng-model="checklist.public" btn-radio="false" ng-click="togglePublic()">Not Public</button>
+        <button type="button" class="btn" ng-model="checklist.public" btn-radio="true" ng-click="togglePublic()">Public</button>
+        <button type="button" class="btn" ng-model="checklist.public" btn-radio="false" ng-click="togglePublic()">Not Public</button>
     </div>
     <div class="span3 pull-right">
       <input type="text" ng-model="checklist.ticket_number" placeholder="SysAid Ticket #"
