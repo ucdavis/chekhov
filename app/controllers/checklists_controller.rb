@@ -4,7 +4,7 @@ class ChecklistsController < ApplicationController
   filter_access_to :all, :attribute_check => true
   filter_access_to :create, :attribute_check => false
   filter_access_to :index, :attribute_check => true, :load_method => :load_checklists
-  wrap_parameters :checklist, include: [:template_name, :name, :public, :entries_attributes, :ticket_number, :comments, :finished]
+  wrap_parameters :checklist, include: [:template_name, :name, :public, :entries_attributes, :ticket_number, :finished]
 
   def index
   end
@@ -87,7 +87,7 @@ class ChecklistsController < ApplicationController
         end
       end if params[:checklist][:entries_attributes]
 
-      params.require(:checklist).permit(:template_name, :name, :public, :user_id, :started, :finished, :ticket_number, :comments, entries_attributes: [:id, :content, :position, :user_id, :checked, :finished])
+      params.require(:checklist).permit(:template_name, :name, :public, :user_id, :started, :finished, :ticket_number, entries_attributes: [:id, :content, :position, :user_id, :checked, :finished])
     end
 
     def load_checklists

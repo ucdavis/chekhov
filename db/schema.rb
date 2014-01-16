@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140116030919) do
+ActiveRecord::Schema.define(version: 20140116033815) do
 
   create_table "checklist_entries", force: true do |t|
     t.integer  "checklist_id"
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 20140116030919) do
     t.string   "name"
     t.string   "template_name"
     t.integer  "ticket_number"
-    t.text     "comments"
   end
 
   create_table "comments", force: true do |t|
