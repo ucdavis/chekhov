@@ -4,6 +4,7 @@ class Checklist < ActiveRecord::Base
   
   belongs_to :user
   has_many :entries, :class_name => 'ChecklistEntry', :dependent => :destroy
+  has_many :comments, :dependent => :destroy
   
   validates_presence_of :user_id, :name, :template_name
   validates :public, :inclusion => {:in => [true, false]}
@@ -11,6 +12,7 @@ class Checklist < ActiveRecord::Base
   before_create :set_start_time
   
   accepts_nested_attributes_for :entries
+  accepts_nested_attributes_for :comments
   
   private
   
