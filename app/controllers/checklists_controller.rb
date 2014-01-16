@@ -4,7 +4,7 @@ class ChecklistsController < ApplicationController
   filter_access_to :all, :attribute_check => true
   filter_access_to :create, :attribute_check => false
   filter_access_to :index, :attribute_check => true, :load_method => :load_checklists
-  wrap_parameters :checklist, include: [:template_name, :name, :public, :entries_attributes, :ticket_number, :finished]
+  wrap_parameters :checklist, include: [:template_name, :name, :public, :entries_attributes, :ticket_number, :finished, :comments_attributes]
 
   def index
   end
@@ -87,7 +87,14 @@ class ChecklistsController < ApplicationController
         end
       end if params[:checklist][:entries_attributes]
 
-      params.require(:checklist).permit(:template_name, :name, :public, :user_id, :started, :finished, :ticket_number, entries_attributes: [:id, :content, :position, :user_id, :checked, :finished])
+      params[:checklist][:comments_attributes].each do |c|
+        # If saving a comment with no author, it's implied the current_user is the one
+        if c[:author].nil?
+          c[:author] = Authorization.current_user[:name]
+        end
+      end if params[:checklist][:comments_attributes]
+
+      params.require(:checklist).permit(:template_name, :name, :public, :user_id, :started, :finished, :ticket_number, entries_attributes: [:id, :content, :position, :user_id, :checked, :finished], comments_attributes: [:id, :content, :author])
     end
 
     def load_checklists

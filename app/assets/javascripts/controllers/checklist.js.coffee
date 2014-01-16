@@ -2,6 +2,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $timeout, $routePa
   $scope.loaded = false
   $scope.checklist = {}
   $scope.checklist.entries_attributes = []
+  $scope.checklist.comments_attributes = []
   $scope.user = User
   $scope.error = null
   $scope.saved = null
@@ -23,6 +24,8 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $timeout, $routePa
     ), 3000
     
   $scope.saveChanges = () ->
+    $scope.checklist.comments_attributes.push {content: $scope.newComment} if $scope.newComment
+
     Checklists.update $scope.checklist,
       (data) ->
         # Success

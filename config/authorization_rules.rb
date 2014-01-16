@@ -4,6 +4,7 @@ authorization do
     has_permission_on :template_entries, :to => :manage
     has_permission_on :checklists, :to => :manage
     has_permission_on :checklist_entries, :to => :manage
+    has_permission_on :comments, :to => :manage
   end
   role :access do
     has_permission_on :templates, :to => :read
@@ -15,6 +16,10 @@ authorization do
       if_attribute :public => true
     end
     has_permission_on :checklist_entries, :to => :manage do
+      if_permitted_to :use, :checklist
+      if_permitted_to :manage, :checklist
+    end
+    has_permission_on :comments, :to => [:index, :create] do
       if_permitted_to :use, :checklist
       if_permitted_to :manage, :checklist
     end

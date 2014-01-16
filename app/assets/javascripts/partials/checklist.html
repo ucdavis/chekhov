@@ -41,10 +41,33 @@
           <td><input type="checkbox" ng-model="entry.checked" style="pointer-events: none;"></input></td>
           <td><span class="pull-right" style="padding-top: 1.5em; color: #999; padding-right: 3em;">{{entry.user_name}}<br />{{entry.finished | date:'short'}}</span><h3>{{$index+1}}. {{ entry.content }}</h3></td>
         </tr>
+        <tr class="info">
+          <td colspan="2">
+            <h3>Comments:</h3>
+          </td>
+        </tr>
+        <tr ng-repeat="comment in checklist.comments_attributes" class="info">
+          <td colspan="2">
+            <blockquote>
+              <p>{{ comment.content }}</p>
+              <small>{{comment.author}} <cite>{{comment.created_at | date:'short'}}</cite></small>
+            </blockquote>
+        </tr>
         <tr>
           <td colspan="2">
-            Comments:
-            <textarea class="span12" ng-model="checklist.comments" ng-change="saveAfterDelay()" on-blur="saveChanges()"></textarea>
+            <form class="form-horizontal">
+              <div class="control-group">
+                <label class="control-label" for="comments">Add comment</label>
+                <div class="controls">
+                  <textarea class="span10" ng-model="newComment" on-blur="saveChanges()"></textarea>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <button type="submit" class="btn" ng-click="saveChanges()">Submit</button>
+                </div>
+              </div>
+            </form>
           </td>
         </tr>
       </tbody>
