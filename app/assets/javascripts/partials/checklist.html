@@ -41,7 +41,7 @@
           <td><input type="checkbox" ng-model="entry.checked" style="pointer-events: none;"></input></td>
           <td><span class="pull-right" style="padding-top: 1.5em; color: #999; padding-right: 3em;">{{entry.user_name}}<br />{{entry.finished | date:'short'}}</span><h3>{{$index+1}}. {{ entry.content }}</h3></td>
         </tr>
-        <tr class="info">
+        <tr class="info" ng-show="checklist.comments_attributes">
           <td colspan="2">
             <h3>Comments:</h3>
           </td>
