@@ -24,11 +24,11 @@ angular.module("chekhovServices", ["ngResource"])
     user = { is_admin: window.is_admin, id: window.user_id }
   .service "navDisplayService", ->
     updateTotalTemplate: (length) ->
-      $('ul.nav li#checklists_all a').text "All Checklists (" + length + ")"
+      $('ul.nav li#checklists_all a').html "All Checklists <span class='badge badge-info'>#{length}</span>"
     updateTotalActive: (length) ->
-      $('ul.nav li#checklists_active a').text "Active Checklists (" + length + ")"
+      $('ul.nav li#checklists_active a').html "Active Checklists <span class='badge badge-success'>#{length}</span>"
     updateTotalArchived: (length) ->
-      $('ul.nav li#checklists_archived a').text "Archived Checklists (" + length + ")"
+      $('ul.nav li#checklists_archived a').html "Archived Checklists <span class='badge'>#{length}</span>"
     incrementActiveTotal: (action) ->
       text = $('ul.nav li#checklists_active a').text()
       start = text.length - 2
