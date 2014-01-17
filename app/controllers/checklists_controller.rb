@@ -53,10 +53,18 @@ class ChecklistsController < ApplicationController
       params[:checklist][:finished] = nil
     end
     
-    flash[:notice] = "Checklist was successfully updated." if @checklist.update(checklist_params)
-    
-    respond_to do |format|
-      format.json { render :show }
+    begin
+      flash[:notice] = "Checklist was successfully updated." if @checklist.update(checklist_params)
+
+      respond_to do |format|
+        format.json { render :show }
+      end
+    rescue SysAidError => e
+      flash[:notice] = "Could not update checklist: #{e}."
+      
+      respond_to do |format|
+        format.json { render :json => {:errors => {:sysaid => ["Could not save comment with the SysAid server."]}}, status: 422 }
+      end
     end
   end
 
@@ -89,9 +97,19 @@ class ChecklistsController < ApplicationController
       end if params[:checklist][:entries_attributes]
 
       params[:checklist][:comments_attributes].each do |c|
-        # If saving a comment with no author, it's implied the current_user is the one
+        # New comments will have no author. Set to current_user and
+        # sync only the new comment with SysAid (if ticket number is available)
         if c[:author].nil?
           c[:author] = Authorization.current_user[:name]
+          
+          unless params[:checklist][:ticket_number].blank?
+            ticket = SysAid::Ticket.find_by_id params[:checklist][:ticket_number]
+            ticket.add_note c[:author], c[:content]
+            
+            unless ticket.save
+              raise SysAidError, "failed to save new comment to SysAid"
+            end
+          end
         end
       end if params[:checklist][:comments_attributes]
 

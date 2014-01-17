@@ -1,3 +1,7 @@
+# This exception error is provided for your use.
+class SysAidError < StandardError
+end
+
 SYSAID_SETTINGS_FILE = Rails.root.join( "config", "sysaid.yml")
 
 if File.file?(SYSAID_SETTINGS_FILE)
