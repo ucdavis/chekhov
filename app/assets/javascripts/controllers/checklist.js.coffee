@@ -17,12 +17,6 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $timeout, $routePa
     entry.checked = (if entry.checked then false else true)
     $scope.saveChanges()
 
-  $scope.saveAfterDelay = () ->
-    $timeout.cancel(delayedSave)
-    delayedSave = $timeout (->
-      $scope.saveChanges()
-    ), 3000
-    
   $scope.saveChanges = () ->
     previouslyFinished = $scope.checklist.finished
     $scope.checklist.comments_attributes.push {content: $scope.newComment} if $scope.newComment
@@ -32,6 +26,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $timeout, $routePa
         # Success
         $scope.checklist = data
         $scope.checklist.entries_attributes = $scope.checklist.entries
+        $scope.newComment = ''
 
         # check if all entries are checked
         checkedEntries = _.filter($scope.checklist.entries, (e) -> e.checked).length
