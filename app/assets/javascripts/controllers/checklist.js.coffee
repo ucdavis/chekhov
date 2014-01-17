@@ -19,7 +19,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $timeout, $routePa
 
   $scope.saveChanges = () ->
     previouslyFinished = $scope.checklist.finished
-    $scope.checklist.comments_attributes.push {content: $scope.newComment} if $scope.newComment
+    $scope.checklist.comments_attributes.push {content: $scope.newComment.replace(/\r\n|\r|\n/g,"<br />")} if $scope.newComment
 
     Checklists.update $scope.checklist,
       (data) ->

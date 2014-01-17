@@ -49,7 +49,7 @@
         <tr ng-repeat="comment in checklist.comments_attributes" class="info">
           <td colspan="2">
             <blockquote>
-              <p>{{ comment.content }}</p>
+              <p ng-bind-html="comment.content"></p>
               <small>{{comment.author}} <cite>{{comment.created_at | date:'short'}}</cite></small>
             </blockquote>
         </tr>
