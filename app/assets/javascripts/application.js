@@ -15,3 +15,4 @@
 //= require services
 //= require_tree ./controllers
 //= require_tree ./directives
+//= require_tree ./filters
