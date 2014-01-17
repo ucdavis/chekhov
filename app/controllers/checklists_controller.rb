@@ -79,12 +79,10 @@ class ChecklistsController < ApplicationController
       params[:checklist][:entries_attributes].each do |e|
         # If saving a checked item with no author, it's implied the current_user
         # is checking the box.
-        if e[:checked] and e[:user_id].nil?
-          e[:user_id] = Authorization.current_user[:id]
-          e[:completed_by] = User.find(e[:user_id]).name
+        if e[:checked] and e[:completed_by].nil?
+          e[:completed_by] = User.find(Authorization.current_user[:id]).name
           e[:finished] = Time.now
         elsif not e[:checked]
-          e[:user_id] = nil
           e[:completed_by]
           e[:finished] = nil
         end
@@ -97,7 +95,7 @@ class ChecklistsController < ApplicationController
         end
       end if params[:checklist][:comments_attributes]
 
-      params.require(:checklist).permit(:template_name, :name, :public, :user_id, :started, :finished, :ticket_number, entries_attributes: [:id, :content, :position, :user_id, :checked, :finished, :completed_by], comments_attributes: [:id, :content, :author])
+      params.require(:checklist).permit(:template_name, :name, :public, :user_id, :started, :finished, :ticket_number, entries_attributes: [:id, :content, :position, :checked, :finished, :completed_by], comments_attributes: [:id, :content, :author])
     end
 
     def load_checklists

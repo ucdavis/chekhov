@@ -21,7 +21,7 @@ class Checklist < ActiveRecord::Base
   end
   
   def notify_complete
-    if !self.finished.blank?
+    if !self.finished.blank? && !self.user.blank?
       message = "A checklist has been completed. Name: #{name}, Finished at: #{Time.now}"
       recipient = self.user.email
       subject = "Checklist completed"

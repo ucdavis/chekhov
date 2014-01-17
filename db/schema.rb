@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140117160619) do
+ActiveRecord::Schema.define(version: 20140117170831) do
 
   create_table "checklist_entries", force: true do |t|
     t.integer  "checklist_id"
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
