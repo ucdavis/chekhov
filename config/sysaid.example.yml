@@ -1,0 +1,4 @@
+ACCOUNT: account
+USER: user
+PASSWORD: password
+WSDL_URI: https://the.sysaid.server/services/SysaidApiService?wsdl

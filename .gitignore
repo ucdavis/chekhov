@@ -16,6 +16,7 @@
 /tmp
 
 config/dss_rm.yml
+config/sysaid.yml
 .DS_Store
 *~
 .powenv
