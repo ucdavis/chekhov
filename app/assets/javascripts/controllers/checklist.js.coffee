@@ -24,6 +24,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $timeout, $routePa
     ), 3000
     
   $scope.saveChanges = () ->
+    previouslyFinished = $scope.checklist.finished
     $scope.checklist.comments_attributes.push {content: $scope.newComment} if $scope.newComment
 
     Checklists.update $scope.checklist,
@@ -41,7 +42,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $timeout, $routePa
           navDisplayService.incrementArchivedTotal "inc"
         else
           $scope.saved = "Saved Successfully!"
-          if (checkedEntries + 1) is allEntries
+          if (checkedEntries + 1) is allEntries && previouslyFinished 
             navDisplayService.incrementActiveTotal "inc"
             navDisplayService.decrementArchivedTotal "dec"
         $timeout.cancel(displayStatus)
