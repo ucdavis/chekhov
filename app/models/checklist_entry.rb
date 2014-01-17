@@ -10,6 +10,9 @@ class ChecklistEntry < ActiveRecord::Base
   
   private
   def clear_user_id_if_unchecking
-    self.user_id = nil if self.checked == false
+    if self.checked == false
+      self.user_id = nil
+      self.completed_by = nil
+    end
   end
 end

@@ -21,6 +21,7 @@ class ChecklistsController < ApplicationController
 
   def create
     params[:checklist][:user_id] = Authorization.current_user[:id]
+
     @checklist = Checklist.new(checklist_params)
 
     @template = Template.find_by_id(params[:template_id])
@@ -80,9 +81,11 @@ class ChecklistsController < ApplicationController
         # is checking the box.
         if e[:checked] and e[:user_id].nil?
           e[:user_id] = Authorization.current_user[:id]
+          e[:completed_by] = User.find(e[:user_id]).name
           e[:finished] = Time.now
         elsif not e[:checked]
           e[:user_id] = nil
+          e[:completed_by]
           e[:finished] = nil
         end
       end if params[:checklist][:entries_attributes]
@@ -94,7 +97,7 @@ class ChecklistsController < ApplicationController
         end
       end if params[:checklist][:comments_attributes]
 
-      params.require(:checklist).permit(:template_name, :name, :public, :user_id, :started, :finished, :ticket_number, entries_attributes: [:id, :content, :position, :user_id, :checked, :finished], comments_attributes: [:id, :content, :author])
+      params.require(:checklist).permit(:template_name, :name, :public, :user_id, :started, :finished, :ticket_number, entries_attributes: [:id, :content, :position, :user_id, :checked, :finished, :completed_by], comments_attributes: [:id, :content, :author])
     end
 
     def load_checklists
