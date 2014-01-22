@@ -5,10 +5,10 @@ class ChecklistEntry < ActiveRecord::Base
   
   validates_presence_of :checklist
   
-  before_save :clear_user_id_if_unchecking
+  before_save :clear_completed_by_if_unchecking
   
   private
-  def clear_user_id_if_unchecking
+  def clear_completed_by_if_unchecking
     if self.checked == false
       self.completed_by = nil
     end
