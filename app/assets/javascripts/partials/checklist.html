@@ -56,10 +56,11 @@
         <tr>
           <td colspan="2">
             <form class="form-horizontal">
-              <div class="control-group">
+              <div id="newCommentGroup" class="control-group">
                 <label class="control-label" for="comments">Add comment</label>
                 <div class="controls">
                   <textarea class="span10" ng-model="newComment"></textarea>
+                  <span class="help-inline">{{SysAidError}}</span>
                 </div>
               </div>
               <div class="control-group">
