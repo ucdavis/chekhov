@@ -5,7 +5,4 @@ class TemplatesControllerTest < ActionController::TestCase
     @template = templates(:one)
   end
 
-
-    assert_redirected_to templates_path
-  end
 end

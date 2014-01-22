@@ -5,6 +5,4 @@ class TemplateEntriesControllerTest < ActionController::TestCase
     @template_entry = template_entries(:one)
   end
 
-    assert_redirected_to template_entries_path
-  end
 end

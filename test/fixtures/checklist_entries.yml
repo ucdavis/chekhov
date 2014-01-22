@@ -2,10 +2,20 @@
 
 one:
   checklist_id: 1
-  template_entry_id: 1
-  user_id: 1
-
+  position: 1
+  content: "do the needful"
+  checked: false
+  
 two:
   checklist_id: 1
-  template_entry_id: 1
-  user_id: 1
+  position: 2
+  content: "also important"
+  checked: false
+
+three:
+  checklist_id: 1
+  position: 3
+  content: "this one starts checked"
+  checked: true
+  finished: "2014-01-22 09:32:00"
+  completed_by: "daniel"

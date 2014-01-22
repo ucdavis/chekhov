@@ -5,7 +5,4 @@ class ChecklistsControllerTest < ActionController::TestCase
     @checklist = checklists(:one)
   end
 
-
-    assert_redirected_to checklists_path
-  end
 end
