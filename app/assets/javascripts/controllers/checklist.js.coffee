@@ -24,11 +24,14 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $timeout, $routePa
     Checklists.update $scope.checklist,
       (data) ->
         # Success
+        $scope.clearError()
         $scope.checklist = data
         $scope.checklist.entries_attributes = $scope.checklist.entries
+
+        # Clear new comment field
         $scope.newComment = ''
 
-        # check if all entries are checked
+        # Check if all entries are checked
         checkedEntries = _.filter($scope.checklist.entries, (e) -> e.checked).length
         allEntries = $scope.checklist.entries.length
         if checkedEntries is allEntries
@@ -47,12 +50,20 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $timeout, $routePa
     , (data) ->
         # Error
         $scope.error = "Could not save changes"
+        # Display errors
         _.each(data.data.errors , (e,i) ->
-            $scope.error = $scope.error + "<li>#{i} #{e}</li>"
+            $scope.error = $scope.error + "<li>#{i}: #{e}</li>"
+            if i is 'SysAid'
+              $scope.SysAidError = e[0]
+              $('#newCommentGroup').addClass('error')
+              # Remove unsaved comments from checklist model
+              $scope.checklist.comments_attributes = _.filter($scope.checklist.comments_attributes, (c) -> c.id)
           )
-  
+
   $scope.clearError = ->
     $scope.error = null
+    $scope.SysAidError = null
+    $('#newCommentGroup').removeClass('error')
   
   Checklists.get({id: $routeParams.id},
     (data) ->
