@@ -12,6 +12,12 @@ class ActiveSupport::TestCase
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
   fixtures :all
-
-  # Add more helper methods to be used by all tests here...
+  
+  def revoke_all_access
+    Authorization.current_user = nil
+    request.env.delete('REMOTE_ADDR')
+    request.session.delete(:auth_via)
+    request.session.delete(:user_id)
+    CASClient::Frameworks::Rails::Filter.fake(nil)
+  end
 end
