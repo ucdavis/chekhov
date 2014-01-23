@@ -18,6 +18,7 @@ module.exports = function() {
       'vendor/assets/javascripts/jquery.js', 
       'vendor/assets/javascripts/angular.js', 
       'vendor/assets/javascripts/angular-route.js', 
+      'vendor/assets/javascripts/angular-sanitize.js', 
       'vendor/assets/javascripts/angular-resource.js', 
       'vendor/assets/javascripts/ui-bootstrap.js', 
       'vendor/assets/javascripts/sortable.js', 
