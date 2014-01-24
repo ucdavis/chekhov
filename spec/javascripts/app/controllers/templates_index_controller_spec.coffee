@@ -73,11 +73,12 @@ describe 'TemplatesIndexCtrl', ->
       @scope.startChecklistDialog(2)
       @http.flush()
 
-    it 'creates a checklist', ->
+    it 'creates a checklist and redirects to it', ->
       @http.expectPOST('/checklists.json').respond(201, { id:1, public:true, user_id:1, started:"2014-01-23T15:03:59.170-08:00", finished:null, name:"New Checklist", template_name:"Second template","ticket_number":1234})
       @http.expectPUT('/templates/2.json').respond(204, '')
       @scope.startChecklist(2, { name: 'New Checklist', public: true, ticket_number: 1234})
       @http.flush()
+      expect(@location.$$url).toEqual('/checklists/1')
 
   describe 'error variable', ->
     it 'clears the error', ->
