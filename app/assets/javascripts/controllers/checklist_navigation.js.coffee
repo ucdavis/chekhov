@@ -1,34 +1,12 @@
-Chekhov.controller "ChecklistNavigationCtrl", @ChecklistNavigationCtrl = ($scope, $location, Templates, Checklists, User, navDisplayService) ->
+Chekhov.controller "ChecklistNavigationCtrl", @ChecklistNavigationCtrl = ($scope, $location, Templates, Checklists, User, $rootScope) ->
   $scope.loaded = false
   $scope.error = null
-  
-  # Templates
-  $scope.templates = Templates.query {},
-    (data) ->
-      # Success
-      $scope.loaded = true
-      navDisplayService.updateTotalTemplate $scope.templates.length
-  , (data) ->
-      # Error
-      $scope.error = "Error retrieving information from server"
 
+  # Templates
+  $rootScope.template_count = window.template_count
+  
   # Checklists
-  $scope.checklists = Checklists.query {},
-    (data) ->
-      # Success
-      $scope.loaded = true
-      $scope.user = User
-      navDisplayService.updateTotalActive $scope.checklists.length
-  , (data) ->
-      # Error
-      $scope.error = "Error retrieving information from server"     
-      
+  $rootScope.active_count = window.active_count
+  
   # Archived    
-  $scope.archived = Checklists.archived {},
-    (data) ->
-      # Success
-      $scope.loaded = true
-      navDisplayService.updateTotalArchived $scope.archived.length
-  , (data) ->
-      # Error
-      $scope.error = "Error retrieving information from server"
+  $rootScope.archived_count = window.archived_count

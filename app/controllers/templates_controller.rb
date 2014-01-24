@@ -8,6 +8,9 @@ class TemplatesController < ApplicationController
   
   def index
     @templates = Template.order(checklist_count: :desc)
+    @template_count = Template.count
+    @archived_count = Checklist.where("finished is not null").count
+    @active_count = Checklist.where("finished is null").count
     
     respond_with(@templates) do |format|
       format.json

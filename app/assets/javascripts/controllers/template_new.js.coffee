@@ -1,4 +1,4 @@
-Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, $location) ->
+Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, $location, $rootScope) ->
   $scope.newTemplate = {}
   $scope.newTemplate.entries_attributes = []
   $scope.newContent = null
@@ -23,6 +23,7 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, $lo
         (data) ->
           # Success
           $location.path("/")
+          $rootScope.template_count++
       , (data) ->
           # Error
           $scope.error = "Could not save changes"

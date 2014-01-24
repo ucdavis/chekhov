@@ -39,7 +39,7 @@
       <tbody>
         <tr ng-repeat="entry in checklist.entries_attributes" ng-click="check(entry)">
           <td><input type="checkbox" ng-model="entry.checked" style="pointer-events: none;"></input>
-          <input type="text" class="form-control" placeholder="Time Spent" stop-event="click" ng-hide="entry.checked" ng-model="entry.time_spent">
+          <input type="text" class="time-spent" placeholder="Time Spent" stop-event="click" ng-hide="entry.checked" ng-model="entry.time_spent">
           </td>
           <td><span class="pull-right" style="padding-top: 1.5em; color: #999; padding-right: 3em;">{{entry.user_name}}<br />{{entry.finished | date:'short'}}</span><h3>{{$index+1}}. {{ entry.content }}</h3></td>
         </tr>

@@ -1,11 +1,11 @@
-Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, $location, Templates, Checklists, User, navDisplayService) ->
+Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, $location, Templates, Checklists, User, $rootScope) ->
   $scope.loaded = false
   $scope.error = null
   $scope.templates = Templates.query {},
     (data) ->
       # Success
       $scope.loaded = true
-      navDisplayService.updateTotalTemplate $scope.templates.length
+      $rootScope.template_active = $scope.templates.length
   , (data) ->
       # Error
       $scope.error = "Error retrieving information from server"
@@ -40,7 +40,7 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
         # Increment the checklict count of the selected template
         Templates.update {id: template_id, checklist_count: template.checklist_count + 1}
         $location.path("/checklists/#{data.id}")
-        navDisplayService.incrementActiveTotal "inc"
+        $rootScope.active_count++
     , (data) ->
         # Error
         $scope.error = "Error creating a new checklist"
@@ -62,7 +62,7 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
         # Success
         index = $scope.templates.indexOf(template)
         $scope.templates.splice(index,1)
-        navDisplayService.updateTotalTemplate $scope.templates.length
+        $rootScope.template_count = $scope.templates.length
     , (data) ->
         # Error
         $scope.error = "Error deleting template '#{template.name}'"

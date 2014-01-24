@@ -1,11 +1,11 @@
-Chekhov.controller "TemplatesArchivedIndexCtrl", @TemplatesArchivedIndexCtrl = ($scope, $location, Checklists, navDisplayService) ->
+Chekhov.controller "TemplatesArchivedIndexCtrl", @TemplatesArchivedIndexCtrl = ($scope, $location, Checklists, $rootScope) ->
   $scope.loaded = false
   $scope.error = null
   $scope.checklists = Checklists.archived {},
     (data) ->
       # Success
       $scope.loaded = true
-      navDisplayService.updateTotalArchived $scope.checklists.length
+      $rootScope.archived_count = $scope.checklists.length
   , (data) ->
       # Error
       $scope.error = "Error retrieving information from server"
