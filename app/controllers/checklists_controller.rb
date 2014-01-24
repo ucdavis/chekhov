@@ -103,6 +103,17 @@ class ChecklistsController < ApplicationController
             unless activity.save
               raise SysAidError, "Failed to save new activity to SysAid"
             end
+            existing = Checklist.where(name: params[:checklist][:name])
+            if existing.first.name == params[:checklist][:name]
+              if existing.ticket_number != params[:checklist][:ticket_number]
+                # attach checklist link to ticket
+                ticket = SysAid::Ticket.find_by_id params[:checklist][:ticket_number]
+                ticket.add_note currentuser.name, "link to ticket here"
+                unless ticket.save
+                  raise SysAidError, "Failed to save new comment to SysAid"
+                end
+              end
+            end
           end
         elsif not e[:checked]
           e[:completed_by]
