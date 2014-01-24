@@ -44,6 +44,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
 
         if checkedEntries is entryCount
           $scope.saved = "Saved and archived"
+          
           unless previouslyFinished
             $rootScope.active_count--
             $rootScope.archived_count++
@@ -60,6 +61,8 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
     , (data) ->
         # Error
         $scope.error = "Could not save changes"
+        $scope.saved = null
+        
         # Display errors
         _.each(data.data.errors , (e,i) ->
             $scope.error = $scope.error + "<li>#{i}: #{e}</li>"
