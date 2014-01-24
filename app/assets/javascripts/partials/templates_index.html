@@ -16,14 +16,14 @@
     <div class="row text-center" ng-hide="loaded" id="loading"><img src="assets/ajax-loader.gif"></div>
     <table class="table table-hover" id="templates">
       <tbody>
-        <tr ng-repeat="template in templates" ng-click="startChecklist(template.id)" ng-show="loaded">
+        <tr ng-repeat="template in templates" ng-click="startChecklistDialog(template.id)" ng-show="loaded">
           <td>
             <span class="pull-right hint-text">
               Start this checklist
               <span class="template-actions" ng-show="user.is_admin">
                 <a class="icon-edit" tooltip="Edit this checklist" stop-event="click" href="#/templates/edit/{{template.id}}"></a>
                 <a class="icon-repeat" tooltip="Duplicate this checklist" stop-event="click" href="#/templates/duplicate/{{template.id}}"></a>
-                <a class="icon-trash" tooltip="Delete this checklist" ng-click="deleteTemplate(template)" stop-event="click"></a>
+                <a class="icon-trash" tooltip="Delete this checklist" ng-click="confirmDeleteTemplate(template)" stop-event="click"></a>
               </span>
             </span>
             <h3>{{ template.name }}</h3></td>
