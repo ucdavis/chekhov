@@ -31,6 +31,10 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development, :test do
+  gem 'jasmine-rails'
+end
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
