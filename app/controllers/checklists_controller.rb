@@ -90,6 +90,20 @@ class ChecklistsController < ApplicationController
         if e[:checked] and e[:completed_by].nil?
           e[:completed_by] = User.find(Authorization.current_user[:id]).name
           e[:finished] = Time.now
+          # log checking as activity on sysaid
+          unless params[:checklist][:ticket_number].blank?
+            activity = SysAid::Activity.new
+            activity.description = e[:content]
+            activity.sr_id = params[:checklist][:ticket_number].to_i
+            activity.to_time = DateTime.now
+            time_spent = e[:time_spent].to_i
+            e[:time_spent] = nil
+            activity.from_time = DateTime.now - time_spent.minutes
+            activity.user = current_user.loginid
+            unless activity.save
+              raise SysAidError, "Failed to save new activity to SysAid"
+            end
+          end
         elsif not e[:checked]
           e[:completed_by]
           e[:finished] = nil
@@ -118,7 +132,7 @@ class ChecklistsController < ApplicationController
         end
       end if params[:checklist][:comments_attributes]
 
-      params.require(:checklist).permit(:template_name, :name, :public, :user_id, :started, :finished, :ticket_number, entries_attributes: [:id, :content, :position, :checked, :finished, :completed_by], comments_attributes: [:id, :content, :author])
+      params.require(:checklist).permit(:template_name, :name, :public, :user_id, :started, :finished, :ticket_number, entries_attributes: [:id, :content, :position, :checked, :finished, :completed_by, :time_spent], comments_attributes: [:id, :content, :author])
     end
 
     def load_checklists
