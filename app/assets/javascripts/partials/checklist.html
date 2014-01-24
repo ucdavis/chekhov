@@ -15,8 +15,8 @@
   <div class="span5 offset1">
     <div class="input-prepend">
       <span class="add-on">SysAid Ticket #</span>
-      <input type="number" ng-model="checklist.ticket_number" placeholder="SysAid Ticket #"
-        on-blur="saveChanges()" on-enter="saveChanges()"></input>
+      <input type="number" class="span6" ng-model="checklist.ticket_number" placeholder="SysAid Ticket #"
+        on-blur="setTicketNumber()" on-enter="saveChanges()"></input>
     </div>
   </div>
   <div class="span5">
@@ -38,10 +38,10 @@
     <table class="table table-hover" id="entries" ng-show="loaded">
       <tbody>
         <tr ng-repeat="entry in checklist.entries_attributes" ng-click="check(entry)">
-          <td><input type="checkbox" ng-model="entry.checked" style="pointer-events: none;"></input>
+          <td><input type="checkbox" ng-model="entry.checked" style="pointer-events: none;" popover-placement="right" popover="I done got checked!"></input>
           <input type="text" class="time-spent" placeholder="Time Spent" stop-event="click" ng-hide="entry.checked" ng-model="entry.time_spent">
           </td>
-          <td><span class="pull-right" style="padding-top: 1.5em; color: #999; padding-right: 3em;">{{entry.user_name}}<br />{{entry.finished | date:'short'}}</span><h3>{{$index+1}}. {{ entry.content }}</h3></td>
+          <td><span class="pull-right" style="padding-top: 1.5em; color: #aaa; font-size: 0.8em; padding-right: 3em;">{{entry.user_name}}<br />{{entry.finished | date:'short'}}</span><h3>{{$index+1}}. {{ entry.content }}</h3></td>
         </tr>
         <tr class="info" ng-show="checklist.comments_attributes">
           <td colspan="2">
@@ -75,5 +75,14 @@
         </tr>
       </tbody>
     </table>
+    
+    <button popover-placement="right" popover="On the Right!" class="btn btn-default">Right</button>
+    
+    <input type="checkbox" class="popover-with-html" style="" popover-placement="right" data-content="Time spent: <input type='input' ></input>"></input>
+    
+    <script type="text/javascript">
+      $('.popover-with-html').popover({ html : true });
+    </script>
+    
   </div>
 </div>
