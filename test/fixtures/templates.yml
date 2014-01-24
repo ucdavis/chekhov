@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   owner_id: 1
-  name: MyString
+  name: "best template"
 
 two:
-  owner_id: 1
-  name: MyString
+  id: 2
+  owner_id: 2
+  name: "decent template"
