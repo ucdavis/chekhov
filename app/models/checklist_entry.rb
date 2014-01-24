@@ -11,6 +11,7 @@ class ChecklistEntry < ActiveRecord::Base
   def clear_completed_by_if_unchecking
     if self.checked == false
       self.completed_by = nil
+      self.finished = nil
     end
   end
 end
