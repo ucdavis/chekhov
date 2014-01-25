@@ -52,6 +52,9 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
     modalInstance = $modal.open
       templateUrl: "/assets/partials/template_delete.html"
       controller: TemplateDeleteCtrl
+      resolve:
+        template: ->
+          template
 
     modalInstance.result.then () ->
       $scope.deleteTemplate(template)

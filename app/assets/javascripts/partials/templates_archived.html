@@ -1,8 +1,10 @@
-<div class="row-fluid" style="margin-top: 2em;">
-  <div class="span4 offset4" style="margin-bottom: 1em;">
-    <input type="search" placeholder="Search Archived Checklists" class="span12" ng-model="search" autofocus />
+<div class="row" style="margin-top: 2em;">
+  <div class="col-md-4 col-md-offset-4">
+    <input type="search" placeholder="Search Archived Checklists" class="col-md-12" ng-model="search" autofocus />
   </div>
-  <div class="span10 offset1">
+</div>
+<div class="row" style="margin-top: 2em;">
+  <div class="col-md-10 col-md-offset-1">
     <div class="alert alert-error" ng-show="error">
       <button type="button" class="close" ng-click="clearError()">&times;</button>{{error}}
     </div>

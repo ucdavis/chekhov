@@ -33,24 +33,16 @@
     <div class="container" ng-app="ChekhovApp">
 
       <div class="masthead">
-        <h3 class="muted"><%= link_to 'Chekhov', root_url %></h3>
-        <div class="navbar">
-          <div class="navbar-inner">
-            <div class="container">
-              <ul class="nav" ng-controller="ChecklistNavigationCtrl">
-                <li id="checklists_all"><a href="#/">All Checklists <span class='badge badge-info'>{{template_count}}</span></a>
-                </li>
-                <li id="checklists_active"><a href="#/active">Active Checklists <span class='badge badge-success'>{{active_count}}</span></a></li>
-                <li id="checklists_archived"><a href="#/archived">Archived Checklists <span class='badge'>{{archived_count}}</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div><!-- /.navbar -->
+        <h3 class="text-muted"><%= link_to 'Chekhov', root_url %></h3>
+        <ul class="nav nav-justified" ng-controller="ChecklistNavigationCtrl">
+          <li id="checklists_all"><a href="#/">All Checklists <span class='label label-primary'>{{template_count}}</span></a>
+          </li>
+          <li id="checklists_active"><a href="#/active">Active Checklists <span class='label label-success'>{{active_count}}</span></a></li>
+          <li id="checklists_archived"><a href="#/archived">Archived Checklists <span class='label label-default'>{{archived_count}}</span></a></li>
+        </ul>
       </div>
       
       <%= yield %>
-
-      <hr>
 
       <div class="footer">
         <p>&copy; <%= Time.now.year %> UC Davis Division of Social Science IT</p>
