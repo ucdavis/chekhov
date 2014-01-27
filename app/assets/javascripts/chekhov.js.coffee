@@ -5,3 +5,8 @@ includeCSRF = ($httpProvider) ->
 window.Chekhov = angular.module("ChekhovApp", ["ngRoute", "ngSanitize","chekhovServices","ui.bootstrap","ui.sortable"])
 Chekhov.config chekhovRouter
 Chekhov.config includeCSRF
+Chekhov.config ["$tooltipProvider", ($tooltipProvider) ->
+  $tooltipProvider.setTriggers
+    click: "click"
+    never: "click" # <- This ensures the tooltip will go away on click
+]
