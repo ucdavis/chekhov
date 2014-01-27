@@ -15,6 +15,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
     
   $scope.check = (entry) ->
     entry.checked = (if entry.checked then false else true)
+    $scope.saveChanges() unless entry.checked #Save iff it is unchecked
 
   $scope.displayTimeSpent= (entry) ->
     !entry.checked and $scope.checklist.ticket_number
