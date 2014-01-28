@@ -15,10 +15,11 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
     
   $scope.check = (entry) ->
     entry.checked = (if entry.checked then false else true)
-    $scope.saveChanges() unless entry.checked #Save iff it is unchecked
+    #Save iff it is unchecked or no ticket associated
+    $scope.saveChanges() if (!entry.checked || $scope.checklist.ticket_number == null)
 
   $scope.displayTimeSpent= (entry) ->
-    !entry.checked and $scope.checklist.ticket_number
+    !entry.checked and ($scope.checklist.ticket_number != null)
 
   # Saves changes iff SysAid number changed
   $scope.setTicketNumber = () ->
