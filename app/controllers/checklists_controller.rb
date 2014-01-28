@@ -112,8 +112,12 @@ class ChecklistsController < ApplicationController
       # A permalink to the checklist should be added to SysAid's 'Notes' section whenever the ticket_number is set or changed.
       if (@checklist.ticket_number != params[:checklist][:ticket_number]) and params[:checklist][:ticket_number]
         ticket = SysAid::Ticket.find_by_id params[:checklist][:ticket_number]
-        ticket.add_note current_user.name, "The checklist for this ticket can be found at #{root_url}templates#/checklists/#{@checklist.id}"
-        raise SysAidError, "Failed to save new note to SysAid" unless ticket.save
+        if ticket
+          ticket.add_note current_user.name, "The checklist for this ticket can be found at #{root_url}templates#/checklists/#{@checklist.id}"
+          raise SysAidError, "Failed to save new note to SysAid" unless ticket.save
+        else
+          raise SysAidError, "No ticket matches the provided ticket number"
+        end
       end
     end
     
