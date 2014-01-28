@@ -136,14 +136,16 @@ class ChecklistsController < ApplicationController
           
           # Log this 'checking' in SysAid
           unless params[:checklist][:ticket_number].blank?
-            activity = SysAid::Activity.new
-            activity.description = e[:content]
-            activity.sr_id = ticket_id
-            activity.to_time = DateTime.now
-            activity.from_time = DateTime.now - (e[:time_spent].to_i).minutes
-            activity.user = current_user.loginid
+            unless e[:time_spent].blank?
+              activity = SysAid::Activity.new
+              activity.description = e[:content]
+              activity.sr_id = ticket_id
+              activity.to_time = DateTime.now
+              activity.from_time = DateTime.now - (e[:time_spent].to_i).minutes
+              activity.user = current_user.loginid
             
-            raise SysAidError, "Failed to save new activity to SysAid" unless activity.save
+              raise SysAidError, "Failed to save new activity to SysAid" unless activity.save
+            end
           end
         end
       end if params[:checklist][:entries_attributes]
