@@ -66,6 +66,7 @@ describe 'TemplatesIndexCtrl', ->
       @http.expectDELETE('/templates/2.json').respond(204, '')
       @scope.deleteTemplate({ id: 2 })
       @http.flush()
+      expect(@scope.templates.length).toEqual(1)
 
   describe 'create a checklist from template', ->
     it 'displays create new checklist dialog', ->
@@ -91,3 +92,4 @@ describe 'TemplatesIndexCtrl', ->
       @scope.search = 'second'
       @scope.$apply()
       expect(@scope.templates.length).toEqual(1)
+      expect(@scope.templates[0].id).toEqual(2)

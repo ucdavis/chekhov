@@ -22,7 +22,7 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
   $scope.openChecklist = (checklist_id) ->
     $location.path("/checklists/#{checklist_id}")
     
-  $scope.deleteChecklist = (checklist) ->
+  $scope.confirmDeleteChecklist = (checklist) ->
     modalInstance = $modal.open
       templateUrl: "/assets/partials/checklist_delete.html"
       controller: ChecklistDeleteCtrl
@@ -31,18 +31,21 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
           checklist
 
     modalInstance.result.then () ->
-      Checklists.delete {id: checklist.id},
-        (data) ->
-          # Success
-          index = $scope.checklists.indexOf(checklist)
-          $scope.checklists.splice(index,1)
-          $rootScope.active_count = $scope.checklists.length
-      , (data) ->
-          # Error
-          $scope.error = "Error deleting checklist '#{checklist.name}'"
-          _.each(data.data.errors , (e,i) ->
-              $scope.error = $scope.error + "<li>#{i} #{e}</li>"
-            )
+      $scope.deleteChecklist(checklist)
+
+  $scope.deleteChecklist = (checklist) ->
+    Checklists.delete {id: checklist.id},
+      (data) ->
+        # Success
+        index = $scope.checklists.indexOf(checklist)
+        $scope.checklists.splice(index,1)
+        $rootScope.active_count = $scope.checklists.length
+    , (data) ->
+        # Error
+        $scope.error = "Error deleting checklist '#{checklist.name}'"
+        _.each(data.data.errors , (e,i) ->
+            $scope.error = $scope.error + "<li>#{i} #{e}</li>"
+          )
 
   $scope.clearError = ->
     $scope.error = null
