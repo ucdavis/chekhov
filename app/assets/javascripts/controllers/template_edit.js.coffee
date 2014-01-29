@@ -14,7 +14,8 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $routeParams
       $scope.position++
     $scope.newContent = ""
 
-  $scope.removeFromEntries = (entry) ->
+  $scope.removeFromEntries = (position) ->
+    entry = _.findWhere($scope.template.entries_attributes, {position: position})
     entry._destroy = true
   
   $scope.save = () ->
@@ -29,6 +30,10 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $routeParams
           _.each(data.data.errors , (e,i) ->
               $scope.error = $scope.error + "<li>#{i} #{e}</li>"
             )
+    else if !$scope.template.name
+      $scope.error = "Please provide a name"
+    else if $scope.template.entries_attributes.length == 0
+      $scope.error = "Please provide at least one checklist item"
 
   $scope.clearError = ->
     $scope.error = null
