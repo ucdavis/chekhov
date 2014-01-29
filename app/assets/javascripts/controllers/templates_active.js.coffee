@@ -26,6 +26,9 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
     modalInstance = $modal.open
       templateUrl: "/assets/partials/checklist_delete.html"
       controller: ChecklistDeleteCtrl
+      resolve:
+        checklist: ->
+          checklist
 
     modalInstance.result.then () ->
       Checklists.delete {id: checklist.id},
