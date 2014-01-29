@@ -1,8 +1,12 @@
 <form role="form" ng-submit="saveChanges()">
-  <div class="form-group">
-    <input type="number" class="form-control" id="time-spent" placeholder="Time Spent (Minutes)"
-      ng-model="entry.time_spent" autofocus>
-    <p class="help-block small">Leave blank for no activity.</p>
+  <div class="form-group" style="margin-bottom: 0px;">
+    <div class="input-group">
+      <input type="number" class="form-control input-sm" id="time-spent" placeholder="Time Spent (Mins)"
+        ng-model="entry.time_spent" autofocus>
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+      </span>
+    </div>
+    <p class="help-block small" style="margin-bottom: 0px;">Leave blank for no activity.</p>
   </div>
-  <button type="submit" class="btn btn-primary btn-xs">Submit</button>
 </form>
