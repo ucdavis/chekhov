@@ -13,7 +13,8 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, $lo
       $scope.position++
     $scope.newContent = ""
   
-  $scope.removeFromEntries = (entry) ->
+  $scope.removeFromEntries = (position) ->
+    entry = _.findWhere($scope.newTemplate.entries_attributes, {position: position})
     index = $scope.newTemplate.entries_attributes.indexOf(entry)
     $scope.newTemplate.entries_attributes.splice(index,1)
   

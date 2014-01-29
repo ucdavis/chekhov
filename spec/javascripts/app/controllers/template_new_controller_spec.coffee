@@ -13,10 +13,13 @@ describe 'TemplateNewCtrl', ->
       expect(@scope.newContent).toEqual('')
 
     it "deletes from entries", ->
-      @scope.newContent = "Some Entry"
+      @scope.newContent = "First Entry"
       @scope.addToEntries()
-      @scope.removeFromEntries({content: "Some Entry", position: 0})
-      expect(@scope.newTemplate.entries_attributes.length).toEqual(0)
+      @scope.newContent = "Second Entry"
+      @scope.addToEntries()
+      @scope.removeFromEntries(0)
+      expect(@scope.newTemplate.entries_attributes.length).toEqual(1)
+      expect(@scope.newTemplate.entries_attributes[0].content).toEqual "Second Entry"
 
   describe 'saving', ->
     it "errors out if no name was provided", ->
