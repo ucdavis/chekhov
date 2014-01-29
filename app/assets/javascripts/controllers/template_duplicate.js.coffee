@@ -14,7 +14,8 @@ Chekhov.controller "TemplateDuplicateCtrl", @TemplateDuplicateCtrl = ($scope, $r
       $scope.position++
     $scope.newContent = ""
   
-  $scope.removeFromEntries = (entry) ->
+  $scope.removeFromEntries = (position) ->
+    entry = _.findWhere($scope.newTemplate.entries_attributes, {position: position})
     index = $scope.newTemplate.entries_attributes.indexOf(entry)
     $scope.newTemplate.entries_attributes.splice(index,1)
   
@@ -30,6 +31,10 @@ Chekhov.controller "TemplateDuplicateCtrl", @TemplateDuplicateCtrl = ($scope, $r
           _.each(data.data.errors , (e,i) ->
               $scope.error = $scope.error + "<li>#{i} #{e}</li>"
             )
+    else if !$scope.newTemplate.name
+      $scope.error = "Please provide a name"
+    else if $scope.newTemplate.entries_attributes.length == 0
+      $scope.error = "Please provide at least one checklist item"
 
   $scope.clearError = ->
     $scope.error = null
