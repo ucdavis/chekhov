@@ -2,6 +2,7 @@
 
 describe 'TemplateNewCtrl', ->
   beforeEach ->
+    @rootScope.template_count = 2
     @controller('TemplateNewCtrl', { $scope: @scope })
 
   describe 'entries', ->
@@ -39,6 +40,7 @@ describe 'TemplateNewCtrl', ->
       @scope.save()
       @http.flush()
       expect(@location.$$url).toEqual('/')
+      expect(@rootScope.template_count).toEqual 3
 
   describe 'error variable', ->
     it 'clears the error', ->

@@ -4,6 +4,7 @@
 beforeEach(module('ChekhovApp'))
 
 beforeEach inject (_$httpBackend_, _$compile_, $rootScope, $controller, $location, $injector, $timeout) ->
+  @rootScope = $rootScope
   @scope = $rootScope.$new()
   @http = _$httpBackend_
   @compile = _$compile_

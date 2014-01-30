@@ -2,6 +2,7 @@
 
 describe 'TemplatesArchivedIndexCtrl', ->
   beforeEach ->
+    @rootScope.archived_count = 7
     @controller('TemplatesArchivedIndexCtrl', { $scope: @scope })
     @Checklist = @model('Checklists')
     @checklists = [
@@ -34,6 +35,7 @@ describe 'TemplatesArchivedIndexCtrl', ->
     it 'sets up the list of archived checklists', ->
       expect(@scope.checklists.length).toEqual(2)
       expect(@scope.error).toBeNull()
+      expect(@rootScope.archived_count).toEqual 2
 
   describe 'checklist navigation', ->
     it 'navigates to the selected checklist', ->

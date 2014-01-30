@@ -2,6 +2,7 @@
 
 describe 'TemplateDuplicateCtrl', ->
   beforeEach ->
+    @rootScope.template_count = 2
     @controller('TemplateDuplicateCtrl', { $scope: @scope })
     @Template = @model('Templates')
     @template = new @Template({
@@ -61,6 +62,7 @@ describe 'TemplateDuplicateCtrl', ->
       @scope.save()
       @http.flush()
       expect(@location.$$url).toEqual('/')
+      expect(@rootScope.template_count).toEqual 3
 
   describe 'error variable', ->
     it 'clears the error', ->

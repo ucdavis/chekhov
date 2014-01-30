@@ -2,6 +2,7 @@
 
 describe 'TemplatesIndexCtrl', ->
   beforeEach ->
+    @rootScope.template_count = 2
     @controller('TemplatesIndexCtrl', { $scope: @scope })
     @Template = @model('Templates')
     @templates = [
@@ -67,6 +68,7 @@ describe 'TemplatesIndexCtrl', ->
       @scope.deleteTemplate({ id: 2 })
       @http.flush()
       expect(@scope.templates.length).toEqual(1)
+      expect(@rootScope.template_count).toEqual(1)
 
   describe 'create a checklist from template', ->
     it 'displays create new checklist dialog', ->

@@ -1,4 +1,4 @@
-Chekhov.controller "TemplateDuplicateCtrl", @TemplateDuplicateCtrl = ($scope, $routeParams, Templates, $location) ->
+Chekhov.controller "TemplateDuplicateCtrl", @TemplateDuplicateCtrl = ($scope, $routeParams, Templates, $location, $rootScope) ->
   $scope.loaded = false
   $scope.newTemplate = {}
   $scope.newTemplate.entries_attributes = []
@@ -25,6 +25,7 @@ Chekhov.controller "TemplateDuplicateCtrl", @TemplateDuplicateCtrl = ($scope, $r
         (data) ->
           # Success
           $location.path("/")
+          $rootScope.template_count++
       , (data) ->
           # Error
           $scope.error = "Could not save changes"

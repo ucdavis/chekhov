@@ -32,8 +32,9 @@ describe 'TemplatesActiveIndexCtrl', ->
 
   describe 'load active checklists', ->
     it 'sets up the list of active checklists', ->
-      expect(@scope.checklists.length).toEqual(2)
+      expect(@scope.checklists.length).toEqual 2
       expect(@scope.error).toBeNull()
+      expect(@rootScope.active_count).toEqual 2
 
   describe 'delete a checklist', ->
     it 'displays confirmation before delete', ->
@@ -45,7 +46,8 @@ describe 'TemplatesActiveIndexCtrl', ->
       @http.expectDELETE('/checklists/2.json').respond(204, '')
       @scope.deleteChecklist({ id: 2 })
       @http.flush()
-      expect(@scope.checklists.length).toEqual(1)
+      expect(@scope.checklists.length).toEqual 1
+      expect(@rootScope.active_count).toEqual 1
 
   describe 'checklist navigation', ->
     it 'navigates to the selected checklist', ->
