@@ -34,6 +34,8 @@ end
 
 gem 'capistrano', '< 3.0.0', group: :development
 
+gem 'pg', group: :production
+
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
