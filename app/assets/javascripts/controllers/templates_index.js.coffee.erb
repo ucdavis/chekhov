@@ -22,7 +22,7 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
 
   $scope.startChecklistDialog = (template_id) ->
     modalInstance = $modal.open
-      templateUrl: "/assets/partials/checklist_new.html"
+      templateUrl: '<%= asset_path("/assets/partials/checklist_new.html") %>'
       controller: ChecklistNewCtrl
       resolve:
           template_id: ->
@@ -50,7 +50,7 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
 
   $scope.confirmDeleteTemplate = (template) ->
     modalInstance = $modal.open
-      templateUrl: "/assets/partials/template_delete.html"
+      templateUrl: '<%= asset_path("/assets/partials/template_delete.html") %>'
       controller: TemplateDeleteCtrl
       resolve:
         template: ->

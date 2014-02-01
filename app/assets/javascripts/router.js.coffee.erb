@@ -1,24 +1,24 @@
 window.chekhovRouter = ($routeProvider) ->
   $routeProvider
     .when "/",
-      templateUrl: "/assets/partials/templates_index.html"
+      templateUrl: '<%= asset_path("/assets/partials/templates_index.html") %>'
       controller: "TemplatesIndexCtrl"
     .when "/active",
-      templateUrl: "/assets/partials/templates_active.html"
+      templateUrl: '<%= asset_path("/assets/partials/templates_active.html") %>'
       controller: "TemplatesActiveIndexCtrl"
     .when "/archived",
-      templateUrl: "/assets/partials/templates_archived.html"
+      templateUrl: '<%= asset_path("/assets/partials/templates_archived.html") %>'
       controller: "TemplatesArchivedIndexCtrl"
     .when "/templates/new",
-      templateUrl: "/assets/partials/template_new.html"
+      templateUrl: '<%= asset_path("/assets/partials/template_new.html") %>'
       controller: "TemplateNewCtrl"
     .when "/templates/edit/:id",
-      templateUrl: "/assets/partials/template_edit.html"
+      templateUrl: '<%= asset_path("/assets/partials/template_edit.html") %>'
       controller: "TemplateEditCtrl"
     .when "/templates/duplicate/:id",
-      templateUrl: "/assets/partials/template_new.html"
+      templateUrl: '<%= asset_path("/assets/partials/template_new.html") %>'
       controller: "TemplateDuplicateCtrl"
     .when "/checklists/:id",
-      templateUrl: "/assets/partials/checklist.html"
+      templateUrl: '<%= asset_path("/assets/partials/checklist.html") %>'
       controller: "ChecklistCtrl"
     .otherwise redirectTo: "/"

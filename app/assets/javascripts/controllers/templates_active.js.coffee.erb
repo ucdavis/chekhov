@@ -24,7 +24,7 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
     
   $scope.confirmDeleteChecklist = (checklist) ->
     modalInstance = $modal.open
-      templateUrl: "/assets/partials/checklist_delete.html"
+      templateUrl: '<%= asset_path("/assets/partials/checklist_delete.html") %>'
       controller: ChecklistDeleteCtrl
       resolve:
         checklist: ->

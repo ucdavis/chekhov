@@ -38,7 +38,7 @@
     <table class="table table-hover" id="entries" ng-show="loaded">
       <tbody>
         <tr ng-repeat="entry in checklist.entries_attributes"
-          popover-template="/assets/partials/time_spent.html"
+          popover-template='<%= asset_path("/assets/partials/time_spent.html") %>'
           popover-placement="left"
           popover-trigger="{{{true: 'click', false: 'never'}[displayTimeSpent(entry)]}}"
           ng-click="check(entry)">

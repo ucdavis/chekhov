@@ -16,3 +16,5 @@
 //= require_tree ./controllers
 //= require_tree ./directives
 //= require_tree ./filters
+
+//= depend_on_asset_tree ./partials
