@@ -59,7 +59,7 @@ Chekhov::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets.
-  config.assets.precompile += %w( .svg .eot .woff .ttf )
+  config.assets.precompile += %w( glyphicons-halflings-regular.svg glyphicons-halflings-regular.eot glyphicons-halflings-regular.woff glyphicons-halflings-regular.ttf )
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
   # config.assets.precompile += %w( search.js )
 

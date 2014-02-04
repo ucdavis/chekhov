@@ -10,7 +10,7 @@ set :deploy_via, :remote_cache
 set :use_sudo, false
 
 set :scm, "git"
-set :repository, "git@github.com:cthielen/#{application}.git"
+set :repository, "https://github.com/cthielen/#{application}.git"
 set :branch, "master"
 
 set :test_log, "log/capistrano.test.log"
