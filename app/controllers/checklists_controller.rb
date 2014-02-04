@@ -113,7 +113,7 @@ class ChecklistsController < ApplicationController
       if (@checklist.ticket_number != params[:checklist][:ticket_number]) and params[:checklist][:ticket_number]
         ticket = SysAid::Ticket.find_by_id params[:checklist][:ticket_number]
         if ticket
-          ticket.add_note current_user.name, "The checklist for this ticket can be found at #{root_url}templates#/checklists/#{@checklist.id}"
+          ticket.add_note current_user.name, "The checklist (#{@checklist.name}) for this ticket can be found at #{root_url}templates#/checklists/#{@checklist.id}"
           raise SysAidError, "Failed to save new note to SysAid" unless ticket.save
         else
           raise SysAidError, "No ticket matches the provided ticket number"
