@@ -3,7 +3,7 @@ class Checklist < ActiveRecord::Base
   after_save :notify_complete
   
   belongs_to :user
-  has_many :entries, :class_name => 'ChecklistEntry', :dependent => :destroy
+  has_many :entries, :class_name => 'ChecklistEntry', :dependent => :destroy, :order => "position"
   has_many :comments, :dependent => :destroy, :order => "created_at"
   
   validates_presence_of :user_id, :name, :template_name
