@@ -7,6 +7,12 @@
 # no regular words or you'll be exposed to dictionary attacks.
 # You can use `rake secret` to generate a secure secret key.
 
-# Make sure your secret_key_base is kept private
-# if you're sharing your code publicly.
-Chekhov::Application.config.secret_key_base = '48496399e106e01701b0098cf77e0b061cc4234ee6f02edd7446ef4f55ceec9ada4d2c1f17fb02f2cbbde7f0af6479213480761a2d79a2bfcf68505e292d98c0'
+SECRET_TOKEN_FILE = Rails.root.join( "config", "secret_token.yml")
+
+if File.file?(SECRET_TOKEN_FILE)
+  SECRET_TOKEN_SETTINGS = YAML.load_file(SECRET_TOKEN_FILE)
+  Chekhov::Application.config.secret_key_base = SECRET_TOKEN_SETTINGS["SECRET_TOKEN"]
+else
+  puts "You need to set up config/secret_token.yml before running this application."
+  exit
+end

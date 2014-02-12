@@ -17,6 +17,7 @@
 
 config/dss_rm.yml
 config/sysaid.yml
+config/secret_token.yml
 .DS_Store
 *~
 .powenv

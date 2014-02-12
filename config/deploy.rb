@@ -45,6 +45,7 @@ namespace :deploy do
     put File.read("config/database.example.yml"), "#{shared_path}/config/database.yml"
     put File.read("config/dss_rm.example.yml"), "#{shared_path}/config/dss_rm.yml"
     put File.read("config/sysaid.example.yml"), "#{shared_path}/config/sysaid.yml"
+    put File.read("config/secret_token.example.yml"), "#{shared_path}/config/secret_token.yml"
     puts "Now edit the config files in #{shared_path}."
   end
   after "deploy:setup", "deploy:setup_config"
@@ -54,6 +55,7 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/config/dss_rm.yml #{release_path}/config/dss_rm.yml"
     run "ln -nfs #{shared_path}/config/sysaid.yml #{release_path}/config/sysaid.yml"
+    run "ln -nfs #{shared_path}/config/secret_token.yml #{release_path}/config/secret_token.yml"
   end
   after "deploy:finalize_update", "deploy:symlink_config"
 
