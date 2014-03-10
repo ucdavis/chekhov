@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/rubycas/rubycas-client.git
+  revision: cc35613791d4f6be803ecb0d3bb13363bdd634b0
+  specs:
+    rubycas-client (2.3.10.rc1)
+      activesupport
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -111,8 +118,6 @@ GEM
     rake (10.1.1)
     rdoc (4.1.1)
       json (~> 1.4)
-    rubycas-client (2.3.9)
-      activesupport
     rubyntlm (0.3.4)
     sass (3.2.14)
     sass-rails (4.0.1)
@@ -171,7 +176,7 @@ DEPENDENCIES
   jquery-rails
   pg
   rails (= 4.0.3)
-  rubycas-client
+  rubycas-client!
   sass-rails (~> 4.0.0)
   sdoc
   sqlite3

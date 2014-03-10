@@ -39,7 +39,7 @@ gem 'pg', group: :production
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'rubycas-client'
+gem 'rubycas-client', :git => 'https://github.com/rubycas/rubycas-client.git'
 
 # Provides authorization layer
 gem 'declarative_authorization'
