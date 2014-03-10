@@ -43,3 +43,6 @@ gem 'rubycas-client'
 
 # Provides authorization layer
 gem 'declarative_authorization'
+
+
+gem 'activerecord-session_store'

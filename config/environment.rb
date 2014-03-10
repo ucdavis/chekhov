@@ -7,4 +7,7 @@ require "casclient/frameworks/rails/filter"
 # Initialize the Rails application.
 Chekhov::Application.initialize!
 
-CASClient::Frameworks::Rails::Filter.configure(:cas_base_url => "https://cas.ucdavis.edu/cas/")
+CASClient::Frameworks::Rails::Filter.configure(
+  :cas_base_url => "https://cas.ucdavis.edu/cas/",
+  :enable_single_sign_out => true
+)
