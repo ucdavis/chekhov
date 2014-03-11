@@ -2,7 +2,8 @@ Chekhov::Application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   get '/welcome' => 'site#welcome'
   get '/access_denied' => 'site#access_denied'
-  get '/auth' => 'site#auth'
+
+  match '/auth' => 'site#auth', via: [:get, :post]
   
   resources :checklists
   resources :templates
