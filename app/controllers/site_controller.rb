@@ -12,6 +12,7 @@ class SiteController < ApplicationController
   end
 
   def auth
-    redirect_to params['req']
+    req = params['req'].blank? ? templates_url : params['req']
+    redirect_to req
   end
 end
