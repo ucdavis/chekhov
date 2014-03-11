@@ -56,6 +56,7 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/config/dss_rm.yml #{release_path}/config/dss_rm.yml"
     run "ln -nfs #{shared_path}/config/sysaid.yml #{release_path}/config/sysaid.yml"
     run "ln -nfs #{shared_path}/config/secret_token.yml #{release_path}/config/secret_token.yml"
+    run "mkdir -p #{current_path}/tmp/sessions/"
   end
   after "deploy:finalize_update", "deploy:symlink_config"
 
