@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.5'
+gem 'rails', '~> 4.0.8'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -34,7 +34,9 @@ end
 
 gem 'capistrano', '< 3.0.0', group: :development
 
-gem 'pg', group: :production
+group :production do
+  gem 'pg'
+end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
