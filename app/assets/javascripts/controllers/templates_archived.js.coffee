@@ -33,3 +33,76 @@ Chekhov.controller "TemplatesArchivedIndexCtrl", @TemplatesArchivedIndexCtrl = (
     else
       $scope.checklists = $scope.allArchived
   , true
+
+
+  # typeahead search code below
+
+  $scope.selectedNumber = null
+  
+  # instantiate the bloodhound suggestion engine
+  numbers = new Bloodhound(
+    datumTokenizer: (d) ->
+      Bloodhound.tokenizers.whitespace d.num
+
+    queryTokenizer: Bloodhound.tokenizers.whitespace
+    local: [
+      {
+        num: "one"
+      }
+      {
+        num: "two"
+      }
+      {
+        num: "three"
+      }
+      {
+        num: "four"
+      }
+      {
+        num: "five"
+      }
+      {
+        num: "six"
+      }
+      {
+        num: "seven"
+      }
+      {
+        num: "eight"
+      }
+      {
+        num: "nine"
+      }
+      {
+        num: "ten"
+      }
+    ]
+  )
+  
+  # initialize the bloodhound suggestion engine
+  numbers.initialize()
+  $scope.numbersDataset =
+    displayKey: "num"
+    source: numbers.ttAdapter()
+
+  $scope.addValue = ->
+    numbers.add num: "twenty"
+    return
+
+  $scope.setValue = ->
+    $scope.selectedNumber = num: "seven"
+    return
+
+  $scope.clearValue = ->
+    $scope.selectedNumber = null
+    return
+
+  
+  # Typeahead options object
+  $scope.exampleOptions = highlight: true
+  $scope.exampleOptionsNonEditable =
+    highlight: true
+    editable: false # the new feature
+  
+  $scope.getItems = ->
+    
