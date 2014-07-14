@@ -105,7 +105,7 @@ table {
       }
     }
 
-    &:hover {
+    &.entry:hover {
       cursor: pointer;
       .hint-text {
         display: block;
