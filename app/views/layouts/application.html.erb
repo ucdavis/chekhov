@@ -47,34 +47,65 @@
       </div>
 
       <div class="row">
-        <div class="col-md-3" style="padding-right: 0; border-right: 2px solid rgb(66, 139, 202); border-radius: 0px;">
-          <!-- <button type="button" class="btn btn-success btn-lg" style="width: 90%; margin: 2rem 0;">Start New</button> -->
-
+        <div class="nav-sidebar col-md-3">
           <ul class="nav nav-pills nav-stacked" style="margin-bottom: 2.0em; margin-top: 1.0em;">
-            <li><a href="#" style="color: #444;"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Start New</a></li>
-            <li><a href="#" style="color: #444;"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;In Progress <span class="label label-primary">{{template_count}}</span></a></li>
-            <li style="background-color: rgb(66, 139, 202);"><a href="#" style="color: #fff;"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Completed <span class="label label-default">{{template_count}}</span></a></li>
+            <li id="nav-item-start-new"><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Start New</a></li>
+            <li id="nav-item-in-progress"><a href="#"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;In Progress <span class="label label-primary">{{template_count}}</span></a></li>
+            <li id="nav-item-completed" class="active"><a href="#"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Completed <span class="label label-default">{{template_count}}</span></a></li>
           </ul>
 
-          <h4 style="padding-left: 10px; color: #444;">&nbsp;</h4>
-          <ul class="nav nav-pills nav-stacked">
-            <li><a href="#" style="color: #444;"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Create Template</a></li>
-            <li><a href="#" style="color: #444;"><span class="glyphicon glyphicon-th-large"></span>&nbsp;&nbsp;Manage Templates</a></li>
-          </ul>
+          <span ng-show="true">
+            <h4 style="padding-left: 10px; color: #444;">&nbsp;</h4>
+            <ul class="nav nav-pills nav-stacked">
+              <li id="nav-item-create-template"><a href="#"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Create Template</a></li>
+              <li id="nav-item-manage-templates"><a href="#"><span class="glyphicon glyphicon-th-large"></span>&nbsp;&nbsp;Manage Templates</a></li>
+            </ul>
+          </span>
         </div>
         <div class="col-md-9">
           <%= yield %>
         </div>
-      </div>
+      </div> <!-- .row -->
 
       <div class="footer">
         <p>&copy; 2013-<%= Time.now.year %> UC Davis Division of Social Science IT</p>
       </div>
 
-    </div> <!-- /container -->
+    </div> <!-- .container -->
 
     <script type="text/javascript">
       $(document).ready(function() {
+        var sidebarBorderColor = "rgb(66, 139, 202)";
+        var $currentPageNavbarItem = $(".nav-sidebar li#nav-item-completed");
+
+        $(".nav-sidebar").css("border-right-color", sidebarBorderColor);
+
+        $(".nav-sidebar li>a").hover(
+          function() {
+            // Mouse in
+            $(".nav-sidebar").css("border-right-color", $(this).css("background-color"));
+            $(".nav-sidebar li").each(function() {
+              $(this).removeClass('active');
+            });
+            $(this).parent().addClass('active');
+            $currentPageNavbarItem.removeClass('active');
+          },
+          function() {
+            // Mouse out
+          }
+        );
+
+        $(".nav-sidebar").mouseleave(function() {
+          // Restore default colors
+          $(".nav-sidebar li").each(function() {
+            $(this).removeClass('active');
+          });
+          $currentPageNavbarItem.addClass('active');
+          $(".nav-sidebar").css("border-right-color", sidebarBorderColor);
+        });
+
+
+        //== Adjust the brand
         var PREEVYET_DELAY = 60000;
 
         function preevyet() {

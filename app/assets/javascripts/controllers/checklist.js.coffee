@@ -6,13 +6,13 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
   $scope.user = User
   $scope.error = null
   $scope.saved = null
-  
-  $('ul.nav li').removeClass 'active'
-  
+
+  #$('ul.nav li').removeClass 'active'
+
   $scope.togglePublic = () ->
     $scope.checklist.public = (if $scope.checklist.public then false else true)
     $scope.saveChanges()
-    
+
   $scope.check = (entry) ->
     entry.checked = (if entry.checked then false else true)
     #Save iff it is unchecked or no ticket associated
@@ -28,7 +28,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
 
   $scope.saveChanges = () ->
     $scope.saved = "Saving ..."
-    
+
     previouslyFinished = $scope.checklist.finished
     $scope.checklist.comments_attributes.push {content: $scope.newComment} if $scope.newComment
 
@@ -37,7 +37,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
         # Success
         $scope.clearError()
         $scope.parseJSON(data)
-        
+
         # Clear new comment field
         $scope.newComment = ''
 
@@ -48,16 +48,16 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
 
         if checkedEntries is entryCount
           $scope.saved = "Saved and archived"
-          
+
           unless previouslyFinished
             $rootScope.active_count--
             $rootScope.archived_count++
         else
           $scope.saved = "Saved"
-          if previouslyFinished 
+          if previouslyFinished
             $rootScope.active_count++
             $rootScope.archived_count--
-        
+
         $timeout.cancel(displayStatus)
         displayStatus = $timeout (->
           $scope.saved = null
@@ -66,7 +66,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
         # Error
         $scope.error = "Could not save changes"
         $scope.saved = null
-        
+
         # Display errors
         _.each(data.data.errors , (e,i) ->
             $scope.error = $scope.error + "<li>#{i}: #{e}</li>"
@@ -81,13 +81,13 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
     $scope.error = null
     $scope.SysAidError = null
     $('#newCommentGroup').removeClass('error')
-  
+
   $scope.parseJSON = (data) ->
     $scope.checklist = data
     $scope.current_ticket_id = data.ticket_number
     $scope.checklist.entries_attributes = $scope.checklist.entries
     delete $scope.checklist.entries
-  
+
   Checklists.get({id: $routeParams.id},
     (data) ->
       # Success

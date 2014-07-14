@@ -7,21 +7,21 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
       $scope.loaded = true
       $scope.user = User
       $rootScope.active_count = $scope.checklists.length
-      
+
   , (data) ->
       # Error
       $scope.error = "Error retrieving information from server"
-  
+
   $scope.allActive = $scope.checklists
 
   console.debug 'TemplatesActiveIndexCtrl', 'Initializing...'
 
-  $('ul.nav li').removeClass 'active'
-  $('ul.nav li#checklists_active').addClass 'active'
-  
+  #$('ul.nav li').removeClass 'active'
+  #$('ul.nav li#checklists_active').addClass 'active'
+
   $scope.openChecklist = (checklist_id) ->
     $location.path("/checklists/#{checklist_id}")
-    
+
   $scope.confirmDeleteChecklist = (checklist) ->
     modalInstance = $modal.open
       templateUrl: '<%= asset_path("partials/checklist_delete.html") %>'

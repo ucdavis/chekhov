@@ -11,12 +11,12 @@ Chekhov.controller "TemplatesArchivedIndexCtrl", @TemplatesArchivedIndexCtrl = (
       $scope.error = "Error retrieving information from server"
 
   $scope.allArchived = $scope.checklists
-  
+
   console.debug 'TemplatesArchivedIndexCtrl', 'Initializing...'
 
-  $('ul.nav li').removeClass 'active'
-  $('ul.nav li#checklists_archived').addClass 'active'
-  
+  #$('ul.nav li').removeClass 'active'
+  #$('ul.nav li#checklists_archived').addClass 'active'
+
   $scope.openChecklist = (checklist_id) ->
     $location.path("/checklists/#{checklist_id}")
 
@@ -33,3 +33,76 @@ Chekhov.controller "TemplatesArchivedIndexCtrl", @TemplatesArchivedIndexCtrl = (
     else
       $scope.checklists = $scope.allArchived
   , true
+
+
+  # typeahead search code below
+
+  $scope.selectedNumber = null
+  
+  # instantiate the bloodhound suggestion engine
+  numbers = new Bloodhound(
+    datumTokenizer: (d) ->
+      Bloodhound.tokenizers.whitespace d.num
+
+    queryTokenizer: Bloodhound.tokenizers.whitespace
+    local: [
+      {
+        num: "one"
+      }
+      {
+        num: "two"
+      }
+      {
+        num: "three"
+      }
+      {
+        num: "four"
+      }
+      {
+        num: "five"
+      }
+      {
+        num: "six"
+      }
+      {
+        num: "seven"
+      }
+      {
+        num: "eight"
+      }
+      {
+        num: "nine"
+      }
+      {
+        num: "ten"
+      }
+    ]
+  )
+  
+  # initialize the bloodhound suggestion engine
+  numbers.initialize()
+  $scope.numbersDataset =
+    displayKey: "num"
+    source: numbers.ttAdapter()
+
+  $scope.addValue = ->
+    numbers.add num: "twenty"
+    return
+
+  $scope.setValue = ->
+    $scope.selectedNumber = num: "seven"
+    return
+
+  $scope.clearValue = ->
+    $scope.selectedNumber = null
+    return
+
+  
+  # Typeahead options object
+  $scope.exampleOptions = highlight: true
+  $scope.exampleOptionsNonEditable =
+    highlight: true
+    editable: false # the new feature
+  
+  $scope.getItems = ->
+    

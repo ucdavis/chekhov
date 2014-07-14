@@ -11,14 +11,14 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
       $scope.error = "Error retrieving information from server"
 
   $scope.allTemplates = $scope.templates
-    
+
   $scope.activeTab = 1
   $scope.user = User
-  
+
   console.debug 'TemplatesIndexCtrl', 'Initializing...'
 
-  $('ul.nav li').removeClass 'active'
-  $('ul.nav li#checklists_all').addClass 'active'
+  #$('ul.nav li').removeClass 'active'
+  #$('ul.nav li#checklists_all').addClass 'active'
 
   $scope.startChecklist = (template) ->
     # Increment the checklict count of the selected template
