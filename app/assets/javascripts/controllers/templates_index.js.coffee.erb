@@ -20,25 +20,17 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
   #$('ul.nav li').removeClass 'active'
   #$('ul.nav li#checklists_all').addClass 'active'
 
-  $scope.startChecklistDialog = (template_id) ->
-    modalInstance = $modal.open
-      templateUrl: '<%= asset_path("partials/checklist_new.html") %>'
-      controller: ChecklistNewCtrl
-      resolve:
-          template_id: ->
-            template_id
+  $scope.startChecklist = (template) ->
+    # Increment the checklict count of the selected template
+    count = template.checklist_count + 1
+    checklist = {public: true, name: template.name + ' ' + count.toString() }
 
-    modalInstance.result.then (checklist) ->
-      $scope.startChecklist(template_id, checklist)
-
-  $scope.startChecklist = (template_id, checklist) ->
     # Create and redirect to the new checklist
-    Checklists.save {template_id: template_id, name: checklist.name, public: checklist.public, ticket_number: checklist.ticket_number},
+    Checklists.save {template_id: template.id, name: checklist.name, public: checklist.public},
       (data) ->
         # Success
-        template = _.findWhere($scope.templates, id: template_id)
-        # Increment the checklict count of the selected template
-        Templates.update {id: template_id, checklist_count: template.checklist_count + 1}
+        # Increment the checklist count of the selected template
+        Templates.update {id: template.id, checklist_count: template.checklist_count + 1}
         $location.path("/checklists/#{data.id}")
         $rootScope.active_count++
     , (data) ->
