@@ -41,6 +41,8 @@ Chekhov.controller "TemplateDuplicateCtrl", @TemplateDuplicateCtrl = ($scope, $r
     $scope.error = null
 
   $scope.sortableOptions =
+    handle: '.handle'
+    axis: 'y'
     update: (e, ui, a, b) ->
       $scope.newTemplate.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex
       $scope.newTemplate.entries_attributes[ui.item.sortable.dropindex].position = ui.item.sortable.index
