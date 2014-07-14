@@ -95,9 +95,14 @@ table {
       padding-right: 3em;
       white-space: nowrap;
 
-        .template-actions {
-          margin: 0 0.7em;
-        }
+      span {
+        float: right !important;
+        margin-left: 1em;
+      }
+
+      .template-actions a {
+        margin: 0 0.2em;
+      }
     }
 
     &:hover {
@@ -123,6 +128,32 @@ li.sortable-item {
     &.handle {
       cursor: move;
     }
+  }
+
+  &:hover {
+    .item-actions {
+      display: inline;
+    }
+  }
+
+  .item-actions {
+    display: none;
+    padding-right: 2rem;
+    white-space: nowrap;
+
+    i {
+      color: #999;
+      margin: 0 0.5em;
+      float: right !important;
+
+      &:hover {
+        color: #333;
+      }
+    }
+  }
+
+  input.item-edit {
+    border: 0;
   }
 }
 

@@ -16,8 +16,18 @@
     <ul class="nav nav-pills nav-stacked" ng-model="newTemplate.entries_attributes" ui-sortable="sortableOptions">
       <li class="sortable-item" ng-repeat="entry in newTemplate.entries_attributes">
           <span class="handle glyphicon glyphicon-move" />
-          <span>{{$index+1}}. {{ entry.content }}</span>
-          <i class="glyphicon glyphicon-trash close" ng-click="removeFromEntries(entry.position)"></i>
+          <span ng-hide="editingEntry == $index">{{$index+1}}. {{ entry.content }}</span>
+          <span ng-show="editingEntry == $index">
+            {{$index+1}}.
+            <input class="item-edit" type="text" ng-model="entry.content"
+              on-enter="unsetEditingEntry()" autofocus />
+          </span>
+          <span class="item-actions" ng-hide="editingEntry == $index">
+            <i class="glyphicon glyphicon-trash icon-right" ng-click="removeFromEntries(entry.position)"
+               tooltip="Delete this entry"></i>
+            <i class="glyphicon glyphicon-edit icon-right" ng-click="setEditingEntry(entry.position)"
+               tooltip="Edit this entry"></i>
+          </span>
       </li>
     </ul>
     <ul class="nav nav-pills nav-stacked">

@@ -18,6 +18,12 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, $lo
     index = $scope.newTemplate.entries_attributes.indexOf(entry)
     $scope.newTemplate.entries_attributes.splice(index,1)
   
+  $scope.setEditingEntry = (position) ->
+    $scope.editingEntry = position
+
+  $scope.unsetEditingEntry = () ->
+    $scope.editingEntry = null
+
   $scope.save = () ->
     if $scope.newTemplate.entries_attributes.length and $scope.newTemplate.name
       Templates.save $scope.newTemplate,
