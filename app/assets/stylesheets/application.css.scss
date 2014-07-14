@@ -19,8 +19,9 @@ body {
 }
 
 /* Keep the site title pretty and un-link-like */
-.masthead h3 a {
-  color: #999999;
+.masthead h2 a {
+  color: #888;
+
   &:hover {
     text-decoration: none;
   }
@@ -106,19 +107,19 @@ table {
       margin-top: 16px;
       pointer-events: none; /* because why would you want to click a checkbox? */
     }
-    
+
     .hint-text {
       display: none;
       padding-top: 1.5em;
       color: #999;
       padding-right: 3em;
       white-space: nowrap;
-      
+
         .template-actions {
           margin: 0 0.7em;
         }
     }
-    
+
     &:hover {
       cursor: pointer;
       .hint-text {
@@ -136,7 +137,7 @@ li.sortable-item {
   margin: 3px 0px;
   background: #eee;
   cursor: move;
-  
+
     span {
       border-left: 1px dotted #888;
       margin-left: 3px;
