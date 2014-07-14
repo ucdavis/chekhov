@@ -1,10 +1,12 @@
 //= require jquery
 //= require jquery-ui
 //= require underscore
+//= require typeahead
 //= require angular
 //= require angular-route
 //= require angular-resource
 //= require angular-sanitize
+//= require angular-typeahead
 //= require bootstrap
 //= require ui-bootstrap
 //= require sortable
