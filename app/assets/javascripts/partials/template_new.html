@@ -20,7 +20,7 @@
           <span ng-show="editingEntry == $index">
             {{$index+1}}.
             <input class="item-edit" type="text" ng-model="entry.content"
-              on-enter="unsetEditingEntry()" autofocus />
+              on-enter="unsetEditingEntry()" on-blur="unsetEditingEntry()" />
           </span>
           <span class="item-actions" ng-hide="editingEntry == $index">
             <i class="glyphicon glyphicon-trash icon-right" ng-click="removeFromEntries(entry.position)"
