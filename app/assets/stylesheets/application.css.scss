@@ -128,8 +128,10 @@ li.sortable-item {
 
 
 .footer {
-  color: #999;
-  font-size: 0.8em;
+  color: #aaa;
+  font-size: 0.7em;
+  text-align: center;
+
   p {
     margin: 0;
     padding: 0;
@@ -140,13 +142,69 @@ li.sortable-item {
   margin-top: 12px;
 }
 
-.nav {
-    li {
-      a {
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        font-size: 18px;
-        font-weight: 500;
-        line-height: 19px;
+.nav-sidebar {
+  padding-right: 0;
+  border-right: 2px solid #888;
+  border-radius: 0px;
+
+  li {
+    margin: 0;
+
+    &.active a {
+      border-radius: 0;
+    }
+
+    a {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 17px;
+      color: #444;
+
+      &:hover {
+        border-radius: 0;
       }
     }
+
+    &#nav-item-start-new {
+      a {
+        &:hover {
+          color: #fff;
+          background-color: rgb(92, 184, 92);
+        }
+      }
+
+      &.active a {
+        background-color: rgb(92, 184, 92);
+      }
+    }
+
+    &#nav-item-in-progress a {
+      &:hover {
+        color: #fff;
+        background-color: rgb(236, 151, 31);
+      }
+    }
+
+    &#nav-item-completed a {
+      &:hover {
+        color: #fff;
+        background-color: rgb(66, 139, 202);
+      }
+    }
+
+    &#nav-item-create-template a {
+      &:hover {
+        color: #fff;
+        background-color: #888;
+      }
+    }
+
+    &#nav-item-manage-templates a {
+      &:hover {
+        color: #fff;
+        background-color: #888;
+      }
+    }
+  }
 }
