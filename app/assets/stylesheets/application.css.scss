@@ -20,7 +20,16 @@ body {
 
 /* Keep the site title pretty and un-link-like */
 .masthead h2 a {
-  color: #888;
+  color: #333;
+  font-size: 3.25rem;
+
+  &.comrade {
+    font-variant: small-caps;
+
+    &::after {
+      content: "!";
+    }
+  }
 
   &:hover {
     text-decoration: none;
@@ -53,35 +62,6 @@ body {
   margin-top: 28px;
 }
 
-
-/* Customize the navbar links to be fill the entire space of the .navbar */
-.navbar .navbar-inner {
-  padding: 0;
-}
-.navbar .nav {
-  margin: 0;
-  display: table;
-  width: 100%;
-}
-.navbar .nav li {
-  display: table-cell;
-  width: 1%;
-  float: none;
-}
-.navbar .nav li a {
-  font-weight: bold;
-  text-align: center;
-  border-left: 1px solid rgba(255,255,255,.75);
-  border-right: 1px solid rgba(0,0,0,.1);
-}
-.navbar .nav li:first-child a {
-  border-left: 0;
-  border-radius: 3px 0 0 3px;
-}
-.navbar .nav li:last-child a {
-  border-right: 0;
-  border-radius: 0 3px 3px 0;
-}
 
 .input-large {
   width: 210px;
@@ -157,4 +137,15 @@ li.sortable-item {
 
 #completed-badge {
   margin-top: 12px;
+}
+
+.nav {
+    li {
+      a {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 19px;
+      }
+    }
 }

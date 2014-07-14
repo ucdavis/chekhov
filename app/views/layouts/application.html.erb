@@ -34,7 +34,10 @@
     <div class="container" ng-app="ChekhovApp">
 
       <div class="masthead">
-        <h2 class="text-muted"><%= link_to 'Chekhov', root_url %></h2>
+        <span style="float: right; color: #bbb; font-size: 1.0rem;">
+          <p>Logged in as <%= Authorization.current_user.name %> (<%= Authorization.current_user.role_symbols.include?(:admin) ? "Administrator" : "Regular User" %>)</p>
+        </span>
+        <h2><%= link_to 'Chekhov', root_url %></h2>
         <!--<ul class="nav nav-justified" ng-controller="ChecklistNavigationCtrl">
           <li id="checklists_all"><a href="#/">All Checklists <span class='label label-primary'>{{template_count}}</span></a>
           </li>
@@ -45,17 +48,18 @@
 
       <div class="row">
         <div class="col-md-3" style="padding-right: 0; border-right: 2px solid rgb(66, 139, 202); border-radius: 0px;">
-          <button type="button" class="btn btn-success btn-lg" style="width: 90%; margin: 2rem 0;">Start New</button>
+          <!-- <button type="button" class="btn btn-success btn-lg" style="width: 90%; margin: 2rem 0;">Start New</button> -->
 
-          <ul class="nav nav-pills nav-stacked">
-            <li style="background-color: rgb(66, 139, 202);"><a href="#" style="color: #fff;">In Progress <span class="label label-primary">{{template_count}}</span></a></li>
-            <li><a href="#" style="color: #777;">Completed <span class="label label-default">{{template_count}}</span></a></li>
+          <ul class="nav nav-pills nav-stacked" style="margin-bottom: 2.0em; margin-top: 1.0em;">
+            <li><a href="#" style="color: #444;"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Start New</a></li>
+            <li><a href="#" style="color: #444;"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;In Progress <span class="label label-primary">{{template_count}}</span></a></li>
+            <li style="background-color: rgb(66, 139, 202);"><a href="#" style="color: #fff;"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Completed <span class="label label-default">{{template_count}}</span></a></li>
           </ul>
 
-          <h4 style="margin-top: 2.5rem; padding-left: 10px; color: #444;">Manage</h4>
+          <h4 style="padding-left: 10px; color: #444;">&nbsp;</h4>
           <ul class="nav nav-pills nav-stacked">
-            <li><a href="#" style="color: #777;">Create Template</a></li>
-            <li><a href="#" style="color: #777;">Manage Templates</a></li>
+            <li><a href="#" style="color: #444;"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Create Template</a></li>
+            <li><a href="#" style="color: #444;"><span class="glyphicon glyphicon-th-large"></span>&nbsp;&nbsp;Manage Templates</a></li>
           </ul>
         </div>
         <div class="col-md-9">
@@ -65,10 +69,33 @@
 
       <div class="footer">
         <p>&copy; 2013-<%= Time.now.year %> UC Davis Division of Social Science IT</p>
-        <p>Logged in as <%= Authorization.current_user.name %> (<%= Authorization.current_user.role_symbols.include?(:admin) ? "Administrator" : "Regular User" %>)</p>
       </div>
 
     </div> <!-- /container -->
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var PREEVYET_DELAY = 60000;
+
+        function preevyet() {
+          $("h2>a").addClass("comrade");
+
+          setTimeout(
+            function() {
+              $("h2>a").removeClass("comrade");
+            },
+          250);
+
+          setTimeout(preevyet, PREEVYET_DELAY);
+        }
+
+        setTimeout(
+          function() {
+            preevyet();
+          },
+        PREEVYET_DELAY);
+      });
+    </script>
 
   </body>
 </html>
