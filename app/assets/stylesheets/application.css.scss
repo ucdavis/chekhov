@@ -81,11 +81,20 @@ body {
 
 table {
   tr {
+    p.item-text{
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
     input[type=checkbox] {
-      width: 30px;
-      height: 30px;
-      margin-top: 16px;
       pointer-events: none; /* because why would you want to click a checkbox? */
+    }
+
+    .checked-user {
+      color: #aaa;
+      font-size: 0.7em;
+      padding-right: 3em;
+      line-height: 1.1em;
     }
 
     .hint-text {
