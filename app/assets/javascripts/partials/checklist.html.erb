@@ -37,7 +37,7 @@
     <div class="row text-center" ng-hide="loaded" id="loading"><img src="<%= asset_path "ajax-loader.gif" %>"></div>
     <table class="table table-hover" id="entries" ng-show="loaded">
       <tbody>
-        <tr ng-repeat="entry in checklist.entries_attributes"
+        <tr ng-repeat="entry in checklist.entries_attributes" class="entry"
           popover-template='<%= asset_path("partials/time_spent.html") %>'
           popover-placement="left"
           popover-trigger="{{{true: 'click', false: 'never'}[displayTimeSpent(entry)]}}"
@@ -45,14 +45,19 @@
           <td class="col-xs-1">
             <input type="checkbox" ng-model="entry.checked"  ></input>
           </td>
-          <td><span class="pull-right" style="padding-top: 1.5em; color: #aaa; font-size: 0.8em; padding-right: 3em;">{{entry.user_name}}<br />{{entry.finished | date:'short'}}</span><h3>{{$index+1}}. {{ entry.content }}</h3></td>
+          <td>
+            <span class="pull-right checked-user">
+              {{entry.user_name}}<br />{{entry.finished | date:'short'}}
+            </span>
+            <p class="item-text">{{$index+1}}. {{ entry.content }}</p>
+          </td>
         </tr>
-        <tr class="active" ng-show="checklist.comments_attributes">
+        <tr class="active comment" ng-show="checklist.comments_attributes">
           <td colspan="2">
             <h3>Comments:</h3>
           </td>
         </tr>
-        <tr ng-repeat="comment in checklist.comments_attributes" class="active">
+        <tr ng-repeat="comment in checklist.comments_attributes" class="active comment">
           <td colspan="2">
             <blockquote>
               <p ng-bind-html="comment.content | newlines"></p>

@@ -1,6 +1,6 @@
 <div class="row" style="margin-top: 2em;">
   <div class="col-md-4 col-md-offset-4">
-    <input type="search" placeholder="Search Templates" class="col-md-12" ng-model="search" autofocus />
+    <input class="typeahead col-md-12" type="text" placeholder="Search" autofocus />
   </div>
   <div class="col-md-12" ng-show="user.is_admin">
     <!--<a class="btn btn-primary pull-right" href="#/templates/new">New Checklist</a>-->
@@ -19,12 +19,12 @@
         <tr ng-repeat="template in templates" ng-click="startChecklist(template)" ng-show="loaded">
           <td>
             <span class="pull-right hint-text">
-              Start this checklist
               <span class="template-actions" ng-show="user.is_admin">
                 <a class="glyphicon glyphicon-edit" tooltip="Edit this checklist" stop-event="click" href="#/templates/edit/{{template.id}}"></a>
                 <a class="glyphicon glyphicon-refresh" tooltip="Duplicate this checklist" stop-event="click" href="#/templates/duplicate/{{template.id}}"></a>
                 <a class="glyphicon glyphicon-trash" tooltip="Delete this checklist" ng-click="confirmDeleteTemplate(template)" stop-event="click"></a>
               </span>
+              <span>Start this checklist</span>
             </span>
             <h3>{{ template.name }}</h3></td>
         </tr>

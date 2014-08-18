@@ -18,6 +18,12 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $routeParams
     entry = _.findWhere($scope.template.entries_attributes, {position: position})
     entry._destroy = true
   
+  $scope.setEditingEntry = (position) ->
+    $scope.editingEntry = position
+
+  $scope.unsetEditingEntry = () ->
+    $scope.editingEntry = null
+
   $scope.save = () ->
     if $scope.template.entries_attributes.length and $scope.template.name
       Templates.update $scope.template,

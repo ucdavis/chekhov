@@ -81,11 +81,20 @@ body {
 
 table {
   tr {
+    p.item-text{
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
     input[type=checkbox] {
-      width: 30px;
-      height: 30px;
-      margin-top: 16px;
       pointer-events: none; /* because why would you want to click a checkbox? */
+    }
+
+    .checked-user {
+      color: #aaa;
+      font-size: 0.7em;
+      padding-right: 3em;
+      line-height: 1.1em;
     }
 
     .hint-text {
@@ -95,12 +104,17 @@ table {
       padding-right: 3em;
       white-space: nowrap;
 
-        .template-actions {
-          margin: 0 0.7em;
-        }
+      span {
+        float: right !important;
+        margin-left: 1em;
+      }
+
+      .template-actions a {
+        margin: 0 0.2em;
+      }
     }
 
-    &:hover {
+    &.entry:hover {
       cursor: pointer;
       .hint-text {
         display: block;
@@ -123,6 +137,32 @@ li.sortable-item {
     &.handle {
       cursor: move;
     }
+  }
+
+  &:hover {
+    .item-actions {
+      display: inline;
+    }
+  }
+
+  .item-actions {
+    display: none;
+    padding-right: 2rem;
+    white-space: nowrap;
+
+    i {
+      color: #999;
+      margin: 0 0.5em;
+      float: right !important;
+
+      &:hover {
+        color: #333;
+      }
+    }
+  }
+
+  input.item-edit {
+    border: 0;
   }
 }
 
@@ -207,4 +247,74 @@ li.sortable-item {
       }
     }
   }
+}
+
+
+.typeahead {
+    -webkit-appearance: none;
+    -webkit-rtl-ordering: logical;
+    -webkit-user-select: text;
+    -webkit-writing-mode: horizontal-tb;
+    border-bottom-color: rgb(204, 204, 204);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-left-color: rgb(204, 204, 204);
+    border-left-style: solid;
+    border-left-width: 2px;
+    border-right-color: rgb(204, 204, 204);
+    border-right-style: solid;
+    border-right-width: 2px;
+    border-top-color: rgb(204, 204, 204);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-top-style: solid;
+    border-top-width: 2px;
+    display: inline-block;
+    font-size: 24px;
+    height: 30px;
+    outline-style: none;
+    padding-bottom: 16px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 16px;
+    position: relative;
+    width: 100%;
+}
+
+.tt-dropdown-menu {
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px 0px;
+    background-color: rgb(255, 255, 255);
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color: rgba(0, 0, 0, 0.2);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-color: rgba(0, 0, 0, 0.2);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-color: rgba(0, 0, 0, 0.2);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px 0px;
+    color: rgb(51, 51, 51);
+    display: block;
+    font-size: 18px;
+    left: 0px;
+    line-height: 21px;
+    margin-top: 12px;
+    padding-bottom: 8px;
+    padding-left: 12px;
+    padding-top: 16px;
+    position: absolute;
+    right: auto;
+    text-align: left;
+    width: 100%;
+    z-index: 100;
 }

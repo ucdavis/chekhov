@@ -1,6 +1,6 @@
 <div class="row" style="margin-top: 2em;">
   <div class="col-md-4 col-md-offset-4">
-    <input type="search" placeholder="Search Active Checklists" class="col-md-12" ng-model="search" autofocus />
+    <input class="typeahead col-md-12" type="text" placeholder="Search" autofocus />
   </div>
 </div>
 <div class="row" style="margin-top: 2em;">
@@ -16,10 +16,10 @@
         <tr ng-repeat="checklist in checklists" ng-click="openChecklist(checklist.id)" ng-show="loaded">
           <td>
             <span class="pull-right hint-text">
-              Continue this checklist
               <span class="template-actions" ng-show="user.is_admin || user.id == checklist.user_id">
                 <a class="glyphicon glyphicon-trash" tooltip="Delete this checklist" ng-click="confirmDeleteChecklist(checklist)" stop-event="click"></a>
               </span>
+              <span>Continue this checklist</span>
             </span>
             <h3>{{ checklist.name }}</h3>
           </td>
