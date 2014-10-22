@@ -18,8 +18,9 @@ class SiteController < ApplicationController
   
   def status
       @number_of_checklists = Checklist.all.count
+      
       respond_to do |format|
-          format.json { render :json => @number_of_checklists}
+          format.json { render :json => {NumberOfChecklists: @number_of_checklists, Status: "OK"}}
       end
   end
 
