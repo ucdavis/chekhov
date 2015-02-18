@@ -5,16 +5,12 @@ module Authentication
       return Authorization.current_user
     else
       case session[:auth_via]
-      # when :whitelisted_ip
-      #   return ApiWhitelistedIpUser.find_by_address(session[:user_id])
-      # when :api_key
-      #   return ApiKeyUser.find_by_name(session[:user_id])
       when :cas
         return Authorization.current_user
       end
     end
   end
-  
+
   # Returns the 'actual' user - usually this matches current_user but when
   # impersonating, it will return the human doing the impersonating, not the
   # account they are pretending to be. Useful for determining if actions like
@@ -28,10 +24,6 @@ module Authentication
   def authenticate
     if session[:auth_via]
       case session[:auth_via]
-      # when :whitelisted_ip
-      #   Authorization.current_user = ApiWhitelistedIpUser.find_by_address(session[:user_id])
-      # when :api_key
-      #   Authorization.current_user = ApiKeyUser.find_by_name(session[:user_id])
       when :cas
         if impersonating?
           Authorization.current_user = User.find_by_id(session[:impersonation_id])
@@ -43,50 +35,6 @@ module Authentication
       return
     end
 
-    # @whitelisted_user = ApiWhitelistedIpUser.find_by_address(request.remote_ip)
-    # # Check if the IP is whitelisted for API access (used with Sympa)
-    # if @whitelisted_user
-    #   logger.info "API authenticated via whitelist IP: #{request.remote_ip}"
-    #   session[:user_id] = request.remote_ip
-    #   session[:auth_via] = :whitelisted_ip
-    #   Authorization.current_user = @whitelisted_user
-    #   
-    #   Authorization.ignore_access_control(true)
-    #   @whitelisted_user.logged_in_at = DateTime.now()
-    #   @whitelisted_user.save
-    #   Authorization.ignore_access_control(false)
-    #   return
-    # else
-    #   logger.debug "authenticate: Not on the API whitelist."
-    # end
-
-    # # Check if HTTP Auth is being attempted.
-    # authenticate_with_http_basic { |name, secret|
-    #   @api_user = ApiKeyUser.find_by_name_and_secret(name, secret)
-    # 
-    #   if @api_user
-    #     logger.info "API authenticated via application key"
-    #     session[:user_id] = name
-    #     session[:auth_via] = :api_key
-    #     Authorization.current_user = @api_user
-    #     Authorization.ignore_access_control(true)
-    #     @api_user.logged_in_at = DateTime.now()
-    #     @api_user.save
-    #     Authorization.ignore_access_control(false)
-    #     return
-    #   end
-    # 
-    #   logger.info "API authentication failed. Application key is wrong."
-    #   # Note that they will only get 'access denied' if they supplied a name and
-    #   # failed. If they supplied nothing for HTTP Auth, this block will get passed
-    #   # over.
-    #   render :text => "Invalid API key.", :status => 401
-    # 
-    #   return
-    # }
-
-    # logger.debug "Passed over HTTP Auth."
-
     # It's important we do this before checking session[:cas_user] as it
     # sets that variable. Note that the way before_filters work, this call
     # will render or redirect but this function will still finish before
@@ -95,18 +43,29 @@ module Authentication
 
     if session[:cas_user]
       @user = User.find_or_initialize_by_loginid(session[:cas_user])
-      
+
       if @user.new_record?
         rm_json = RolesManagement.fetch_json_by_loginid(@user.loginid)
-        @user.rm_id = rm_json["id"]
-        @user.name = rm_json["name"]
-        @user.email = rm_json["email"]
+        if rm_json
+          @user.rm_id = rm_json["id"]
+          @user.name = rm_json["name"]
+          @user.email = rm_json["email"]
 
-        Authorization.ignore_access_control(true)
-      
-        @user.save!
+          Authorization.ignore_access_control(true)
 
-        Authorization.ignore_access_control(false)
+          @user.save!
+
+          Authorization.ignore_access_control(false)
+        else
+          session[:user_id] = nil
+          session[:auth_via] = nil
+          Authorization.current_user = nil
+
+          logger.warn "CAS user is valid but could not be found in Roles Management."
+
+          redirect_to access_denied_path
+          return
+        end
       end
 
       # Valid user found through CAS.

@@ -1,6 +1,6 @@
 class SiteController < ApplicationController
-  skip_before_filter :authenticate, :only => [:welcome, :access_denied]
-  skip_before_filter :require_login, :only => [:welcome, :access_denied, :auth]
+  skip_before_filter :authenticate, :only => [:welcome, :access_denied, :status]
+  skip_before_filter :require_login, :only => [:welcome, :access_denied, :auth, :status]
   
   def welcome
     respond_to do |format|
@@ -15,4 +15,13 @@ class SiteController < ApplicationController
     req = params['req'].blank? ? templates_url : params['req']
     redirect_to req
   end
+  
+  def status
+      @number_of_checklists = Checklist.all.count
+      
+      respond_to do |format|
+          format.json { render :json => {NumberOfChecklists: @number_of_checklists, Status: "OK"}}
+      end
+  end
+
 end
