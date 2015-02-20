@@ -6,12 +6,15 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
       # Success
       $scope.loaded = true
       $rootScope.template_active = $scope.templates.length
+
   , (data) ->
       # Error
       $scope.error = "Error retrieving information from server"
 
   $scope.allTemplates = $scope.templates
 
+  $scope.canManage = User.is_admin and $location.path() is "/templates/manage" 
+ 
   $scope.activeTab = 1
   $scope.user = User
 
@@ -19,9 +22,16 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
 
   #$('ul.nav li').removeClass 'active'
   #$('ul.nav li#checklists_all').addClass 'active'
+  
+  # Starts a new checklist or edits the template, depending on which page
+  # is being displayed. 
+  $scope.actOn = (template) ->
+    if $scope.canManage
+        $scope.editChecklist template
+    else $scope.startChecklist template
 
   $scope.startChecklist = (template) ->
-    # Increment the checklict count of the selected template
+    # Increment the checklist count of the selected template
     count = template.checklist_count + 1
     checklist = {public: true, name: template.name + ' ' + count.toString() }
 
@@ -65,6 +75,9 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
   $scope.clearError = ->
     $scope.error = null
 
+  $scope.editChecklist = (template) ->
+    $location.path("/templates/edit/#{template.id}")
+
   $scope.$watch "search", (value) ->
     if value
       $scope.templates = _.filter($scope.allTemplates, (t) ->
@@ -73,3 +86,5 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
     else
       $scope.templates = $scope.allTemplates
   , true
+
+

@@ -46,19 +46,24 @@
         </ul>-->
       </div>
 
-      <div class="row">
+      <div class="row" ng-controller='NavigationCtrl'>
         <div class="nav-sidebar col-md-3">
           <ul class="nav nav-pills nav-stacked" style="margin-bottom: 2.0em; margin-top: 1.0em;">
-            <li id="nav-item-start-new"><a href="#"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Start New</a></li>
-            <li id="nav-item-in-progress"><a href="#"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;In Progress <span class="label label-primary">{{template_count}}</span></a></li>
-            <li id="nav-item-completed" class="active"><a href="#"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Completed <span class="label label-default">{{template_count}}</span></a></li>
+              <li id="nav-item-start-new" ng-class="{active: isActive('/')}"><a href="#"><span class="glyphicon glyphicon-pencil"></span>Start New</a></li>
+              <li id="nav-item-in-progress" ng-class="{active: isActive('/active')}"><a href="#/active"><span class="glyphicon glyphicon-time"></span>In Progress <span class="label label-primary">{{active_count || <%= @active_count %>}}</span></a></li>
+              <li id="nav-item-completed" ng-class="{active: isActive('/archived')}"><a href="#/archived"><span class="glyphicon glyphicon-ok"></span>Completed <span class="label label-default">{{archived_count || <%= @archived_count %>}}</span></a></li>
           </ul>
 
           <span ng-show="true">
             <h4 style="padding-left: 10px; color: #444;">&nbsp;</h4>
             <ul class="nav nav-pills nav-stacked">
-              <li id="nav-item-create-template"><a href="#"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Create Template</a></li>
-              <li id="nav-item-manage-templates"><a href="#"><span class="glyphicon glyphicon-th-large"></span>&nbsp;&nbsp;Manage Templates</a></li>
+                <li id="nav-item-create-template" ng-class="{active: isActive('/templates/new')}"><a href="#/templates/new">
+                    <span class="glyphicon glyphicon-plus" style="margin-right: 5px;"></span>Create Template
+                </a></li>
+                <li id="nav-item-manage-templates" ng-class="{active: isActive('/templates/manage')}"><a href="#/templates/manage">
+                    <span class="glyphicon glyphicon-th-large"></span>Manage Templates
+                    <span class="label label-info">{{template_count || <%= @template_count %>}}</span>
+                </a></li>
             </ul>
           </span>
         </div>
@@ -79,7 +84,7 @@
         var $currentPageNavbarItem = $(".nav-sidebar li#nav-item-completed");
 
         $(".nav-sidebar").css("border-right-color", sidebarBorderColor);
-
+/*
         $(".nav-sidebar li>a").hover(
           function() {
             // Mouse in
@@ -103,7 +108,7 @@
           $currentPageNavbarItem.addClass('active');
           $(".nav-sidebar").css("border-right-color", sidebarBorderColor);
         });
-
+*/
 
         //== Adjust the brand
         var PREEVYET_DELAY = 60000;

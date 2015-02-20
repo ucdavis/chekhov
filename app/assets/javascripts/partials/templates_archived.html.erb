@@ -12,7 +12,7 @@
     <div class="row text-center" ng-hide="loaded" id="loading"><img src="<%= asset_path "ajax-loader.gif" %>"></div>
     <table class="table table-hover" id="templates">
       <tbody>
-        <tr ng-repeat="checklist in checklists" ng-click="openChecklist(checklist.id)" ng-show="loaded">
+        <tr class="entry" ng-repeat="checklist in checklists" ng-click="openChecklist(checklist.id)" ng-show="loaded">
           <td>
             <span class="pull-right" ng-show="checklist.finished" style="padding-top: 0.8em; color: #999; padding-right: 2em;">Completed<br />{{ checklist.finished | date:'short' }}</span>
             <span class="pull-right hint-text" style="padding-top: 1.5em; color: #999; padding-right: 3em;">Re-open this checklist</span>

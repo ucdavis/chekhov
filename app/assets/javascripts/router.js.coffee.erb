@@ -12,6 +12,9 @@ window.chekhovRouter = ($routeProvider) ->
     .when "/templates/new",
       templateUrl: '<%= asset_path("partials/template_new.html") %>'
       controller: "TemplateNewCtrl"
+    .when "/templates/manage",
+      templateUrl: '<%= asset_path("partials/templates_index.html") %>'
+      controller: "TemplatesIndexCtrl"
     .when "/templates/edit/:id",
       templateUrl: '<%= asset_path("partials/template_edit.html") %>'
       controller: "TemplateEditCtrl"
