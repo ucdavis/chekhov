@@ -1,3 +1,9 @@
+<save-notification show="notifySave"></save-notification>
+<!--
+<div class="alert alert-success affix notification-alert" style="bottom: 0; right: 15px; z-index: 1;" ng-show="saved">
+  <strong>{{saved}}</strong>
+</div>
+-->
 <h3 class="text-center">Edit Checklist</h3>
 
 <div class="row" style="margin-top: 2em;">
@@ -5,6 +11,8 @@
     <input class="form-control input-lg" type="text" placeholder="Name this checklist" ng-model="template.name" style="text-align: center;" autofocus />
   </div>
 </div>
+
+<div class="row text-center" ng-hide="loaded" id="loading"><img src="<%= asset_path "ajax-loader.gif" %>"></div>
 
 <div class="row" style="margin-top: 2em;">
   <div class="col-md-10 col-md-offset-1">

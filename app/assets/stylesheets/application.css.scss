@@ -263,12 +263,14 @@ li.sortable-item {
       float: right !important;
 
       &:hover {
+        cursor: pointer;
         color: #333;
       }
     }
   }
 
   input.item-edit {
+    width: 450px;
     border: 0;
   }
 }

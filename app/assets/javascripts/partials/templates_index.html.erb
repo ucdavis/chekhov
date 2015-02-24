@@ -40,9 +40,9 @@
             </div>
             <div class="col-xs-3 hint-text">
                <span class="template-actions" ng-show="canManage">
-                <a class="glyphicon glyphicon-edit first" tooltip="Edit this template" stop-event="mouseup" href="#/templates/edit/{{template.id}}"></a>
+                <a class="glyphicon glyphicon-trash first" tooltip="Delete this template" ng-click="confirmDeleteTemplate(template)" stop-event="mouseup"></a>
                 <a class="glyphicon glyphicon-refresh" tooltip="Duplicate this template" stop-event="mouseup" href="#/templates/duplicate/{{template.id}}"></a>
-                <a class="glyphicon glyphicon-trash" tooltip="Delete this template" ng-click="confirmDeleteTemplate(template)" stop-event="mouseup"></a>
+                <a class="glyphicon glyphicon-edit" tooltip="Edit this template" stop-event="mouseup" href="#/templates/edit/{{template.id}}"></a>
               </span>
               <span class="start-hint" ng-show="!canManage">Use this template</span>
             </div>

@@ -1,10 +1,11 @@
-Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $routeParams, Templates, $location) ->
+Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $routeParams, Templates, $location) ->
   $scope.loaded = false
   $scope.template = {}
   $scope.template.entries_attributes = []
   $scope.newContent = null
   $scope.position = 0
   $scope.error = null
+  $scope.saved = null
 
   console.debug 'TemplateEditCtrl', 'Initializing...'
   
@@ -28,10 +29,15 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $routeParams
     if $scope.template.entries_attributes.length and $scope.template.name
       Templates.update $scope.template,
         (data) ->
+          $scope.notifySave("Saved")
           # Success
-          $location.path("/")
+          # $timeout.cancel(displayStatus)
+          # displayStatus = $timeout (->
+          #   $scope.saved = null
+          # ), 3000
       , (data) ->
           # Error
+          $scope.notifySave("Could not save changes")
           $scope.error = "Could not save changes"
           _.each(data.data.errors , (e,i) ->
               $scope.error = $scope.error + "<li>#{i} #{e}</li>"
