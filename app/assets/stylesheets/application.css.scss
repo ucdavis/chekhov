@@ -79,6 +79,99 @@ body {
     width: 400px;
 }
 
+.entry {
+    border-bottom: 1px solid #aaa;
+    padding: 1em 0 0.5em 0;
+
+    .item-text {
+        // font-weight: bold;
+        font-size: 14px;
+        margin: 0 0 5px;
+
+        &.finished {
+            color: #aaa;
+            // font-weight: normal;
+            text-decoration: line-through;
+        }
+    }
+
+    .checked-user {
+        text-align: right;
+        font-size: 10px;
+        color: #999;
+        min-height: 35px;
+        visibility: hidden;
+    }
+
+    .finished {
+        visibility: visible;
+    }
+
+    .name {
+        font-size: 24px;
+    }
+
+    .glyphicon-trash {
+        cursor: pointer;
+    }
+
+    &:hover {
+        background-color: #eee;
+        cursor: pointer; 
+
+        span, .name {
+            cursor: auto;
+        }
+    }
+}
+
+/* Modify label for comments box. Have to specify .form-horizontal to *
+ * override settings from bootstrap.css                               */
+.comments {
+    .form-horizontal .control-label {
+        padding: 0 0;
+        color: #333;
+    }
+
+    .entry {
+        margin-left: 13%;
+        border: none;
+        padding: 0 15px;
+
+        &:hover {
+            cursor: auto;
+        }
+    }
+}
+
+#templates {
+    .entry {
+        padding: 0.5em 0;
+    
+        .hint-text {
+            visibility: hidden;
+            color: #999;
+            text-align: right;
+
+            a {
+                float: right;
+                margin-left: 0.75em;
+            }
+        }
+
+        &:hover {
+           cursor: pointer;
+           .hint-text {
+                visibility: visible;
+
+                .start-hint {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
 table {
   tr {
     p.item-text{
@@ -97,15 +190,20 @@ table {
       line-height: 1.1em;
     }
 
+    .name {
+        line-height: 40px;
+    }
+
     .hint-text {
-      display: none;
-      padding-top: 1.5em;
+      visibility: hidden;
       color: #999;
       padding-right: 3em;
       white-space: nowrap;
 
       span {
         float: right !important;
+        line-height: 40px;
+        vertical-align: middle;
         margin-left: 1em;
       }
 
@@ -117,7 +215,7 @@ table {
     &.entry:hover {
       cursor: pointer;
       .hint-text {
-        display: block;
+        visibility: visible;
       }
     }
   }

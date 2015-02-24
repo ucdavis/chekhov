@@ -15,6 +15,9 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
 
   $scope.check = (entry) ->
     entry.checked = (if entry.checked then false else true)
+    # See application.html.erb and services.js.coffee for where user.user_name is set
+    entry.completed_by = $scope.user.user_name
+    entry.finished = new Date()
     #Save iff it is unchecked or no ticket associated
     $scope.saveChanges() if (!entry.checked || $scope.checklist.ticket_number == null)
 
@@ -87,6 +90,12 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
     $scope.current_ticket_id = data.ticket_number
     $scope.checklist.entries_attributes = $scope.checklist.entries
     delete $scope.checklist.entries
+
+  $scope.completed = (entry) ->
+    if entry.finished
+        return "finished"
+    else
+        return ""
 
   Checklists.get({id: $routeParams.id},
     (data) ->

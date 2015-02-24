@@ -21,4 +21,8 @@ angular.module("chekhovServices", ["ngResource"])
         isArray:true
         url: '/checklists.json?archived=true'
   .factory "User", () ->
-    user = { is_admin: window.is_admin, id: window.user_id }
+    user = {
+        is_admin: window.is_admin,
+        id: window.user_id,
+        user_name: window.user_name
+    }
