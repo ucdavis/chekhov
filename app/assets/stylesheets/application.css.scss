@@ -155,7 +155,11 @@ body {
 
             a {
                 float: right;
-                margin-left: 0.75em;
+                margin: 0.2em 0 0 0.75em;
+
+                &.first {
+                    margin-right: 0.75em;
+                }
             }
         }
 
@@ -230,10 +234,15 @@ li.sortable-item {
   background: #eee;
 
   span {
-    padding-left: 0.1rem;
+    float: left;
 
     &.handle {
       cursor: move;
+      padding: 0 0.5rem 0 0.1rem;
+    }
+
+    &.item-actions {
+        float: none;
     }
   }
 
