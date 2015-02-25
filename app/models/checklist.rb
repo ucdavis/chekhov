@@ -13,7 +13,17 @@ class Checklist < ActiveRecord::Base
   
   accepts_nested_attributes_for :entries
   accepts_nested_attributes_for :comments
-  
+
+  def finished_by
+    self.entries.order(finished: :desc).first.completed_by
+  end
+
+
+  def attributes
+#    super.merge({'finished_by' => finished_by})
+    super.merge({'finished_by' => 'test'})
+  end
+
   private
   
   def set_start_time
@@ -27,5 +37,9 @@ class Checklist < ActiveRecord::Base
       subject = "Checklist completed"
       ChecklistMailer.send_email(message, recipient, subject).deliver
     end
+  end
+
+  def find_finished_by(ckl)
+    ckl.entries.order(finished :desc).first
   end
 end

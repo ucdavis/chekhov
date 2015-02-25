@@ -25,6 +25,7 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, $lo
     $scope.editingEntry = null
 
   $scope.save = () ->
+    $scope.notify("Saving...")
     if $scope.newTemplate.entries_attributes.length and $scope.newTemplate.name
       Templates.save $scope.newTemplate,
         (data) ->

@@ -2,16 +2,19 @@
   <strong>{{saved}}</strong>
 </div>
 
-<div class="row" ng-show="loaded" style="margin-top: 2em;">
-  <p class="text-info col-md-10">Using checklist '{{ checklist.template_name }}'</h4>
+<div class="row" ng-show="loaded">
   <h1 class="col-md-12">
     {{ checklist.name }}
     <span class="pull-right badge" id="completed-badge" ng-show="checklist.finished">
-      Completed: {{ checklist.finished | date:'short' }}</span>
+      Completed: {{ checklist.finished | date:'short' }} by {{ checklist.finished_by }}</span>
   </h1>
+  <div class="col-md-10" style="margin-bottom: 2em">
+    Created: <span class="text-muted">{{ checklist.started | date:'short' }} by {{ checklist.user.name || checklist.user.loginid }}</span><br>
+    Template: <span class="text-muted">{{ checklist.template_name }}</span>
+  </div>
 </div>
 
-<div class="row" ng-show="loaded" style="margin-top: 25px;">
+<div class="row" ng-show="loaded">
   <div class="col-md-offset-1 col-md-5">
     <div class="input-group">
       <span class="input-group-addon">SysAid Ticket #</span>
