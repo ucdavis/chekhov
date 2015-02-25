@@ -25,16 +25,16 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, $lo
     $scope.editingEntry = null
 
   $scope.save = () ->
-    $scope.notify("Saving...")
+    $scope.notifySave = "Saving..."
     if $scope.newTemplate.entries_attributes.length and $scope.newTemplate.name
       Templates.save $scope.newTemplate,
         (data) ->
           # Success
-          $scope.notify("Saved")
+          $scope.notifySave = "Saved"
           $rootScope.template_count++
       , (data) ->
           # Error
-          $scope.notify("Could not save changes")
+          $scope.notifySave = "Could not save changes"
           $scope.error = "Could not save changes"
           _.each(data.data.errors , (e,i) ->
               $scope.error = $scope.error + "<li>#{i} #{e}</li>"

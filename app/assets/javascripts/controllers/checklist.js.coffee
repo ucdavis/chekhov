@@ -6,6 +6,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
   $scope.user = User
   $scope.error = null
   $scope.saved = null
+  $scope.progbar = { style: {width: "0%" }, text: "None completed" }
 
   #$('ul.nav li').removeClass 'active'
 
@@ -29,6 +30,19 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
     if $scope.current_ticket_id != $scope.checklist.ticket_number
       $scope.saveChanges()
 
+  # Returns the numbers of checked entries and total entries, respectively.
+  checkedEntries = -> _.filter($scope.checklist.entries_attributes, (e) -> e.checked).length
+  entryCount = -> $scope.checklist.entries_attributes.length
+
+  # Updates the progress bar with the appropriate width and text saying how many
+  # items have been completed compared to the total.
+  updateProgressBar = ->
+    $scope.progbar = {
+        style:
+            width: Math.round((checkedEntries() / entryCount()) * 100) + "%"
+        text: checkedEntries() + " of " + entryCount() + " completed"
+    }
+
   $scope.saveChanges = () ->
     $scope.saved = "Saving ..."
 
@@ -44,17 +58,19 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
         # Clear new comment field
         $scope.newComment = ''
 
-        # Check if all entries are checked
-        checkedEntries = _.filter($scope.checklist.entries_attributes, (e) -> e.checked).length
+        # Update progress bar
+        updateProgressBar()
 
-        entryCount = $scope.checklist.entries_attributes.length
-
-        if checkedEntries is entryCount
+        # Archive the checklist when all of entries are checked
+        if checkedEntries() is entryCount()
           $scope.saved = "Saved and archived"
 
           unless previouslyFinished
             $rootScope.active_count--
             $rootScope.archived_count++
+          else
+            $rootScope.active_count++
+            $rootScope.archived_count--
         else
           $scope.saved = "Saved"
           if previouslyFinished
@@ -89,6 +105,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
     $scope.checklist = data
     $scope.current_ticket_id = data.ticket_number
     $scope.checklist.entries_attributes = $scope.checklist.entries
+    updateProgressBar()
     delete $scope.checklist.entries
 
   $scope.completed = (entry) ->

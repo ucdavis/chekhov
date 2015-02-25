@@ -5,13 +5,15 @@
 <div class="row" ng-show="loaded">
   <h1 class="col-md-12">
     {{ checklist.name }}
-    <span class="pull-right badge" id="completed-badge" ng-show="checklist.finished">
-      Completed: {{ checklist.finished | date:'short' }} by {{ checklist.finished_by }}</span>
   </h1>
-  <div class="col-md-10" style="margin-bottom: 2em">
-    Created: <span class="text-muted">{{ checklist.started | date:'short' }} by {{ checklist.user.name || checklist.user.loginid }}</span><br>
-    Template: <span class="text-muted">{{ checklist.template_name }}</span>
-  </div>
+      <div class="col-md-10">
+        Created: <span class="text-muted">{{ checklist.started | date:'short' }} by {{ checklist.user.name || checklist.user.loginid }}</span><br>
+        Template: <span class="text-muted">{{ checklist.template_name }}</span>
+      </div>
+      <div class="col-md-offset-8 col-md-4" style="margin-bottom: 2em">
+        <span class="pull-right badge" id="completed-badge" ng-show="checklist.finished">
+          Completed: {{ checklist.finished | date:'short' }} by {{ checklist.finished_by }}</span>
+      </div>
 </div>
 
 <div class="row" ng-show="loaded">
@@ -29,6 +31,21 @@
     </div>
   </div>
 </div>
+
+<div class="col-md-offset-1 col-md-11" style="margin-top:2em;">
+    <div class="progress">
+        <div class="progress-bar progress-bar-success" role="progressbar" ng-style="progbar.style">
+            {{progbar.text}}
+        </div>
+    </div>
+</div>
+<!--
+     Things marked not public should not be editable by other users. Perhaps
+     should hide such things from in progress and completed from everyone
+     besides creators and admins. Not sure what to do about public lists, i.e.,
+     if other people should be able to edit them. Might need some server-side
+     stuff to prevent access to inaccessible lists.
+-->
 
 <div class="row" style="margin-top: 2em; margin-bottom: 2em;">
   <div class="col-md-11 col-md-offset-1">

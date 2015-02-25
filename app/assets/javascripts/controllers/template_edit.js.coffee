@@ -6,6 +6,7 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
   $scope.position = 0
   $scope.error = null
   $scope.saved = null
+  $scope.notifySave = null
 
   console.debug 'TemplateEditCtrl', 'Initializing...'
   
@@ -26,19 +27,14 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
     $scope.editingEntry = null
 
   $scope.save = () ->
-    $scope.notifySave("Saving...")
+    $scope.notifySave = "Saving..."
     if $scope.template.entries_attributes.length and $scope.template.name
       Templates.update $scope.template,
         (data) ->
-          $scope.notifySave("Saved")
-          # Success
-          # $timeout.cancel(displayStatus)
-          # displayStatus = $timeout (->
-          #   $scope.saved = null
-          # ), 3000
+          $scope.notifySave = "Saved"
       , (data) ->
           # Error
-          $scope.notifySave("Could not save changes")
+          $scope.notifySave = "Could not save changes"
           $scope.error = "Could not save changes"
           _.each(data.data.errors , (e,i) ->
               $scope.error = $scope.error + "<li>#{i} #{e}</li>"

@@ -9,7 +9,7 @@
 #   directive):
 #       <save-notification show="showNote"></save-notification>
 #   In a controller:
-#       $scope.showNote()
+#       showNote = "Your message here"
 #
 
 Chekhov.directive "saveNotification", @ckvClick = () ->
@@ -19,12 +19,10 @@ Chekhov.directive "saveNotification", @ckvClick = () ->
         show: '='
     controller: ["$scope", "$timeout",
         ($scope, $timeout) ->
-           $scope.notify = (mesg) ->
-               $scope.saved = mesg
-               $timeout.cancel(displayStatus)
-               displayStatus = $timeout (->
-                   $scope.saved = null
-               ), 3000
-        ]
-    link: (scope) ->
-       scope.show = scope.notify
+            $scope.saved = $scope.$watch 'show', (mesg) ->
+                $scope.saved = mesg
+                $timeout.cancel(displayStatus)
+                displayStatus = $timeout (->
+                    $scope.saved = null
+                ), 3000
+            ]
