@@ -34,18 +34,11 @@
 
 <div class="col-md-offset-1 col-md-11 progbar" ng-show="loaded">
     <div class="progress">
-        <div class="progress-bar progress-bar-success" role="progressbar" ng-style="progbar.style">
+        <div class="progress-bar progress-bar-success" role="progressbar" style="min-width: 2em;" ng-style="progbar.style">
             {{progbar.text}}
         </div>
     </div>
 </div>
-<!--
-     Things marked not public should not be editable by other users. Perhaps
-     should hide such things from in progress and completed from everyone
-     besides creators and admins. Not sure what to do about public lists, i.e.,
-     if other people should be able to edit them. Might need some server-side
-     stuff to prevent access to inaccessible lists.
--->
 
 <div class="row" style="margin-top: 2em; margin-bottom: 2em;">
   <div class="col-md-11 col-md-offset-1">

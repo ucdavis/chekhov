@@ -171,10 +171,12 @@ body {
            cursor: pointer;
            .hint-text {
                 visibility: visible;
+            }
 
-                .start-hint {
-                    cursor: pointer;
-                }
+            // .no-copy doesn't prevent copying, but shows the user that
+            // something's not meant to be copied.
+            .no-copy {
+                cursor: pointer;
             }
         }
     }
@@ -410,13 +412,9 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
     border-top-style: solid;
     border-top-width: 2px;
     display: inline-block;
-    font-size: 24px;
-    height: 30px;
+    font-size: 2rem;
     outline-style: none;
-    padding-bottom: 16px;
-    padding-left: 12px;
-    padding-right: 12px;
-    padding-top: 16px;
+    padding: 0.35rem 0.7rem;
     position: relative;
     width: 100%;
 }
