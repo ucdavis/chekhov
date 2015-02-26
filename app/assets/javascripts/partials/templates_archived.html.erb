@@ -14,8 +14,7 @@
       <tbody>
         <tr class="entry" ng-repeat="checklist in checklists" ng-click="openChecklist(checklist.id)" ng-show="loaded">
           <td>
-            <span class="pull-right" ng-show="checklist.finished" style="padding-top: 0.8em; color: #999; padding-right: 2em;">Completed<br />{{ checklist.finished | date:'short' }}</span>
-            <span class="pull-right hint-text" style="padding-top: 1.5em; color: #999; padding-right: 3em;">Re-open this checklist</span>
+            <span class="pull-right" ng-show="checklist.finished" style="padding-top: 0.8em; color: #777; padding-right: 2em;">Completed<br />{{ checklist.finished | date:'short' }}<br><span class="hint-text">Re-open this checklist</span></span>
             <h3 class="muted">{{ checklist.name }}</h3>
           </td>
         </tr>
