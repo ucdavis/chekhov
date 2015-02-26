@@ -32,7 +32,7 @@
   </div>
 </div>
 
-<div class="col-md-offset-1 col-md-11" style="margin-top:2em;">
+<div class="col-md-offset-1 col-md-11 progbar">
     <div class="progress">
         <div class="progress-bar progress-bar-success" role="progressbar" ng-style="progbar.style">
             {{progbar.text}}
@@ -57,16 +57,11 @@
     <!-- Loading Bar -->
     <div class="row text-center" ng-hide="loaded" id="loading"><img src="<%= asset_path "ajax-loader.gif" %>"></div>
 
-    <!-- TODO: Should really be a ul rather than a bunch of divs -->
-    <!-- Maybe add a thing for maintaining constant height even if something
-         becomes bold (or not) -->
     <div ng-repeat="entry in checklist.entries_attributes" class="entry"
       popover-template='<%= asset_path("partials/time_spent.html") %>'
       popover-placement="left"
       popover-trigger="{{{true: 'click', false: 'never'}[displayTimeSpent(entry)]}}"
       ckv-click="check(entry)">
-<!--      ng-mousedown="monitorTextSelect($event)" ng-mousemove="monitorTextSelect($event)"
-      ng-mouseup="triggerAction($event, check, entry)" -->
       <div class="col-xs-1">
         <input type="checkbox" ng-checked="entry.checked"></input>
       </div>

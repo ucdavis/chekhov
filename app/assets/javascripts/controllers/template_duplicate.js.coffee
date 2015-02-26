@@ -1,4 +1,4 @@
-Chekhov.controller "TemplateDuplicateCtrl", @TemplateDuplicateCtrl = ($scope, $routeParams, Templates, $location, $rootScope) ->
+Chekhov.controller "TemplateDuplicateCtrl", @TemplateDuplicateCtrl = ($scope, $routeParams, Templates, User, $location, $rootScope) ->
   $scope.loaded = false
   $scope.newTemplate = {}
   $scope.newTemplate.entries_attributes = []
@@ -20,15 +20,23 @@ Chekhov.controller "TemplateDuplicateCtrl", @TemplateDuplicateCtrl = ($scope, $r
     $scope.newTemplate.entries_attributes.splice(index,1)
   
   $scope.save = () ->
+    $scope.notifySave = "Saving..."
+
+    if not User.is_admin
+        $scope.notifySave = "Permission Denied"
+        $scope.error = "Permission denied. You must be an Administrator to create or edit a template."
+        return
+
     if $scope.newTemplate.entries_attributes.length and $scope.newTemplate.name
       Templates.save $scope.newTemplate,
         (data) ->
           # Success
-          $location.path("/")
           $rootScope.template_count++
+          $scope.notifySave = "Saved"
       , (data) ->
           # Error
-          $scope.error = "Could not save changes"
+          $scope.notifySave = "Could not save changes."
+          $scope.error = "Could not save changes. Please correct the following errors:"
           _.each(data.data.errors , (e,i) ->
               $scope.error = $scope.error + "<li>#{i} #{e}</li>"
             )

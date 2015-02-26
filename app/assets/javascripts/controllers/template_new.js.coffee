@@ -1,4 +1,4 @@
-Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, $location, $rootScope) ->
+Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, User, $location, $rootScope) ->
   $scope.newTemplate = {}
   $scope.newTemplate.entries_attributes = []
   $scope.newContent = null
@@ -26,6 +26,11 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, $lo
 
   $scope.save = () ->
     $scope.notifySave = "Saving..."
+    if not User.is_admin
+        $scope.notifySave = "Permission Denied"
+        $scope.error = "Permission denied. You must be an Administrator to create a template."
+        return
+
     if $scope.newTemplate.entries_attributes.length and $scope.newTemplate.name
       Templates.save $scope.newTemplate,
         (data) ->

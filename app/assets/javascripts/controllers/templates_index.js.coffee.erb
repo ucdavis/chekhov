@@ -51,6 +51,10 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
           )
 
   $scope.confirmDeleteTemplate = (template) ->
+    if not $scope.canManage
+        $scope.notifySave = "Permission Denied"
+        return
+
     modalInstance = $modal.open
       templateUrl: '<%= asset_path("partials/template_delete.html") %>'
       controller: TemplateDeleteCtrl

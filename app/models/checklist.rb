@@ -1,5 +1,5 @@
 class Checklist < ActiveRecord::Base
-  using_access_control
+  using_access_control :include_read => true
   after_save :notify_complete
   
   belongs_to :user
@@ -16,12 +16,6 @@ class Checklist < ActiveRecord::Base
 
   def finished_by
     self.entries.order(finished: :desc).first.completed_by
-  end
-
-
-  def attributes
-#    super.merge({'finished_by' => finished_by})
-    super.merge({'finished_by' => 'test'})
   end
 
   private
