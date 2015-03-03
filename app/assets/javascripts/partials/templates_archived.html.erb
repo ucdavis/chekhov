@@ -10,7 +10,7 @@
     </div>
 
     <div class="row text-center" ng-hide="loaded" id="loading"><img src="<%= asset_path "ajax-loader.gif" %>"></div>
-    <div id="templates">
+    <div id="templates" class="entries">
         <div class="entry" ng-repeat="checklist in checklists | filter: {name: searchText}" ng-click="openChecklist(checklist.id)" ng-show="loaded">
             <div class="col-xs-9">
                 <span class="name">{{ checklist.name }}</span>

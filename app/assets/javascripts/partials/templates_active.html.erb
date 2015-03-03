@@ -12,16 +12,18 @@
 
     <div class="row text-center" ng-hide="loaded" id="loading"><img src="<%= asset_path "ajax-loader.gif" %>"></div>
 
-    <div id="templates">
+    <div id="templates" class="entries">
         <div class="entry" ng-repeat="checklist in checklists | filter: {name: searchtext}" ckv-click="openChecklist(checklist.id)" ng-show="loaded">
             <div class="col-xs-9">
                 <span class="name">{{ checklist.name }}</span>
             </div>
-            <div class="col-xs-3 hint-text">
-                <span class="template-actions" ng-show="user.is_admin || user.id == checklist.user_id">
-                    <a class="glyphicon glyphicon-trash first" tooltip="Delete this checklist" ng-click="confirmDeleteChecklist(checklist)" stop-event="mouseup"></a>
-                    <a class="glyphicon glyphicon-edit" tooltip="Edit this checklist" stop-event="mouseup" href="#/checklists/{{checklist.id}}"></a>
-                </span><br>
+            <div class="col-xs-3">
+                <span class="hint-text">
+                    <span class="template-actions" ng-show="user.is_admin || user.id == checklist.user_id">
+                        <a class="glyphicon glyphicon-trash first" tooltip="Delete this checklist" ng-click="confirmDeleteChecklist(checklist)" stop-event="mouseup"></a>
+                        <a class="glyphicon glyphicon-edit" tooltip="Edit this checklist" stop-event="mouseup" href="#/checklists/{{checklist.id}}"></a>
+                    </span>
+                </span>
             </div>
             <br style="clear: both;">
         </div>

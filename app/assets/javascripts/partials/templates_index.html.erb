@@ -15,18 +15,20 @@
     </div>
 
     <div class="row text-center" ng-hide="loaded" id="loading"><img src="<%= asset_path "ajax-loader.gif" %>"></div>
-    <div id="templates">
+    <div id="templates" class="entries">
         <div class="entry" ng-repeat="template in templates | filter: {name: searchText}" ckv-click="actOn(template)" ng-show="loaded">
             <div class="col-xs-9">
                <span class="name">{{ template.name }}</span>
             </div>
-            <div class="col-xs-3 hint-text">
-               <span class="template-actions" ng-show="canManage">
-                <a class="glyphicon glyphicon-trash first" tooltip="Delete this template" ng-click="confirmDeleteTemplate(template)" stop-event="mouseup"></a>
-                <a class="glyphicon glyphicon-refresh" tooltip="Duplicate this template" stop-event="mouseup" href="#/templates/duplicate/{{template.id}}"></a>
-                <a class="glyphicon glyphicon-edit" tooltip="Edit this template" stop-event="mouseup" href="#/templates/edit/{{template.id}}"></a>
+            <div class="col-xs-3">
+               <span class="hint-text">
+                   <span class="template-actions" ng-show="canManage">
+                    <a class="glyphicon glyphicon-trash first" tooltip="Delete this template" ng-click="confirmDeleteTemplate(template)" stop-event="mouseup"></a>
+                    <a class="glyphicon glyphicon-refresh" tooltip="Duplicate this template" stop-event="mouseup" href="#/templates/duplicate/{{template.id}}"></a>
+                    <a class="glyphicon glyphicon-edit" tooltip="Edit this template" stop-event="mouseup" href="#/templates/edit/{{template.id}}"></a>
+                  </span>
+                  <span class="no-copy" ng-show="!canManage">Use this template</span>
               </span>
-              <span class="no-copy" ng-show="!canManage">Use this template</span>
             </div>
             <br style="clear: both;">
         </div>

@@ -41,7 +41,7 @@
 </div>
 
 <div class="row" style="margin-top: 2em; margin-bottom: 2em;">
-  <div class="col-md-11 col-md-offset-1">
+  <div class="col-md-11 col-md-offset-1 entries">
     <div class="alert alert-danger" ng-show="error">
       <button type="button" class="close" ng-click="clearError()">&times;</button>
       <div ng-bind-html="error"></div>
@@ -63,15 +63,17 @@
       Wrapped with div so the textbar only displays for the length of the
       text, and not for the length of col-xs-8.
       -->
-      <div class="col-xs-8"><span class="item-text" ng-class="{'finished': completed(entry)}">{{$index+1}}. {{ entry.content }}</span></div>
-        <span class="checked-user col-xs-3" ng-class="{'finished': completed(entry)}">
-            {{entry.completed_by}}<br />
-            {{entry.finished | date:'short'}}  <!-- date:'h:mm a on EEE, MMM dd, yyyy'}} -->
-        </span>     
-        <br style="clear: both;">
+      <div class="col-xs-8">
+        <span class="item-text" ng-class="{'finished': completed(entry)}">{{$index+1}}. {{ entry.content }}</span>
       </div>
+      <div class="checked-user col-xs-3" ng-class="{'finished': completed(entry)}">
+          {{entry.completed_by}}<br />
+          {{entry.finished | date:'short'}}  <!-- date:'h:mm a on EEE, MMM dd, yyyy'}} -->
+      </div>     
+      <br style="clear: both;">
     </div>
- </div>
+  </div>
+</div>
 </div>
 
 <!--
