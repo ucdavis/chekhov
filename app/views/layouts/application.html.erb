@@ -42,7 +42,7 @@
       </div>
 
       <div class="row">
-        <div class="nav-sidebar col-md-3" ng-controller='NavigationCtrl'>
+        <div class="nav-sidebar col-md-3" tsveta="location()" data-spy="affix" data-offset-top="95" ng-controller='NavigationCtrl'>
           <ul class="nav nav-pills nav-stacked" style="margin-bottom: 2.0em; margin-top: 1.0em;">
               <li id="nav-item-start-new" ng-class="{active: isActive('/')}"><a href="#"><span class="glyphicon glyphicon-pencil"></span>Start New</a></li>
               <!-- Need to use the number filter so a *_count value of 0 can be displayed instead of @????_count -->
@@ -62,48 +62,30 @@
             </ul>
           </span>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 col-md-offset-3">
           <%= yield %>
         </div>
       </div> <!-- .row -->
 
-      <div class="footer">
+      <div class="col-md-9 col-md-offset-3 footer">
         <p>&copy; 2013-<%= Time.now.year %> UC Davis Division of Social Science IT</p>
       </div>
 
     </div> <!-- .container -->
 
     <script type="text/javascript">
+      // Set border colors when hovering
       $(document).ready(function() {
-        var sidebarBorderColor = "rgb(66, 139, 202)";
-        var $currentPageNavbarItem = $(".nav-sidebar li#nav-item-completed");
-
-        $(".nav-sidebar").css("border-right-color", sidebarBorderColor);
-/*
         $(".nav-sidebar li>a").hover(
           function() {
             // Mouse in
             $(".nav-sidebar").css("border-right-color", $(this).css("background-color"));
-            $(".nav-sidebar li").each(function() {
-              $(this).removeClass('active');
-            });
-            $(this).parent().addClass('active');
-            $currentPageNavbarItem.removeClass('active');
           },
           function() {
             // Mouse out
+            $(".nav-sidebar").css("border-right-color", "");
           }
         );
-
-        $(".nav-sidebar").mouseleave(function() {
-          // Restore default colors
-          $(".nav-sidebar li").each(function() {
-            $(this).removeClass('active');
-          });
-          $currentPageNavbarItem.addClass('active');
-          $(".nav-sidebar").css("border-right-color", sidebarBorderColor);
-        });
-*/
 
         //== Adjust the brand
         var PREEVYET_DELAY = 60000;

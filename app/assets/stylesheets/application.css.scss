@@ -286,6 +286,7 @@ li.sortable-item {
   color: #aaa;
   font-size: 0.7em;
   text-align: center;
+  border-top: 0;
 
   p {
     margin: 0;
@@ -298,9 +299,18 @@ li.sortable-item {
 }
 
 .nav-sidebar {
+  position: absolute;
+  height: 100%;
   padding-right: 0;
   border-right: 2px solid #888;
   border-radius: 0px;
+  width: 250px;
+
+  /* From bootstrap. See http://getbootstrap.com/javascript/#affix */
+  &.affix { 
+    top: 0;
+    position: fixed;
+  }
 
   /* Make the sidebar look a little nicer on small screens */
   @media (max-width: 770px) {
@@ -311,7 +321,44 @@ li.sortable-item {
    * everything's displayed in one column                             */
   @media (max-width: 991px) {
       border-right: none;
+
+      /* Make sure everything is actually displayed in one column. Don't want
+       * navigation bars overlapping with content.  */
+      &, &.affix {
+        position: static;
+        width: auto;
+      }
   }
+
+  // Define colors:
+  $green: rgb(92, 184, 92);
+  $orange: rgb(236, 151, 31);
+  $blue: rgb(66, 139, 202);
+  $gray: #888;
+
+  // Make a mixin for classes and ids to which colors are applied:
+  @mixin show-colors($item-name, $color) {
+    // Styles for the border
+    &.#{$item-name} {
+      border-right-color: $color;
+    }
+
+    // Styles for the navigation buttons. The second octothorpe, like the #{}
+    // above, is for variable interpolation. The first one is just the regular
+    // ol' id selector.
+    li##{$item-name} {
+      &.active > a, a:hover {
+        color: #fff;
+        background-color: $color;
+      }
+    }
+  }
+
+  @include show-colors("nav-item-start-new", $green);
+  @include show-colors("nav-item-in-progress", $orange);
+  @include show-colors("nav-item-completed", $blue);
+  @include show-colors("nav-item-create-template", $gray);
+  @include show-colors("nav-item-manage-templates", $gray);
 
   li {
     margin: 0;
@@ -338,47 +385,6 @@ li.sortable-item {
 
       &:hover {
         border-radius: 0;
-      }
-    }
-
-    &#nav-item-start-new {
-      a {
-        &:hover {
-          color: #fff;
-          background-color: rgb(92, 184, 92);
-        }
-      }
-
-      &.active a {
-        background-color: rgb(92, 184, 92);
-      }
-    }
-
-    &#nav-item-in-progress a {
-      &:hover {
-        color: #fff;
-        background-color: rgb(236, 151, 31);
-      }
-    }
-
-    &#nav-item-completed a {
-      &:hover {
-        color: #fff;
-        background-color: rgb(66, 139, 202);
-      }
-    }
-
-    &#nav-item-create-template a {
-      &:hover {
-        color: #fff;
-        background-color: #888;
-      }
-    }
-
-    &#nav-item-manage-templates a {
-      &:hover {
-        color: #fff;
-        background-color: #888;
       }
     }
   }
