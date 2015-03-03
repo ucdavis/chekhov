@@ -35,7 +35,7 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, Use
       Templates.save $scope.newTemplate,
         (data) ->
           # Success
-          $scope.notifySave = "Saved"
+          $location.path("/templates/manage")
           $rootScope.template_count++
       , (data) ->
           # Error
