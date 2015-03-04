@@ -28,6 +28,7 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
 
   $scope.save = () ->
     $scope.notifySave = "Saving..."
+    $scope.noTimeout = true
     if not User.is_admin
         $scope.notifySave = "Permission Denied"
         $scope.error = "Permission denied. You must be an Administrator to edit a template."
@@ -36,9 +37,11 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
     if $scope.template.entries_attributes.length and $scope.template.name
       Templates.update $scope.template,
         (data) ->
+          $scope.noTimeout = false
           $scope.notifySave = "Saved"
       , (data) ->
           # Error
+          $scope.noTimeout = false
           $scope.notifySave = "Could not save changes"
           $scope.error = "Could not save changes"
           _.each(data.data.errors , (e,i) ->

@@ -21,6 +21,7 @@ Chekhov.controller "TemplateDuplicateCtrl", @TemplateDuplicateCtrl = ($scope, $r
   
   $scope.save = () ->
     $scope.notifySave = "Saving..."
+    $scope.noTimeout = true
 
     if not User.is_admin
         $scope.notifySave = "Permission Denied"
@@ -33,9 +34,11 @@ Chekhov.controller "TemplateDuplicateCtrl", @TemplateDuplicateCtrl = ($scope, $r
           # Success
           $rootScope.template_count++
           $scope.notifySave = "Saved"
+          $scope.noTimeout = false
       , (data) ->
           # Error
           $scope.notifySave = "Could not save changes."
+          $scope.noTimeout = false
           $scope.error = "Could not save changes. Please correct the following errors:"
           _.each(data.data.errors , (e,i) ->
               $scope.error = $scope.error + "<li>#{i} #{e}</li>"

@@ -26,6 +26,7 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, Use
 
   $scope.save = () ->
     $scope.notifySave = "Saving..."
+    $scope.noTimeout = true
     if not User.is_admin
         $scope.notifySave = "Permission Denied"
         $scope.error = "Permission denied. You must be an Administrator to create a template."
@@ -39,6 +40,7 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, Use
           $rootScope.template_count++
       , (data) ->
           # Error
+          $scope.noTimeout = false
           $scope.notifySave = "Could not save changes"
           $scope.error = "Could not save changes"
           _.each(data.data.errors , (e,i) ->
