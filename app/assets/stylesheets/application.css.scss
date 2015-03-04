@@ -81,8 +81,8 @@ body {
 
 .progbar {
     margin-top: 2em;
-}
-
+}  
+   
 @mixin row-padding($topbottom, $sides) {
     padding: $topbottom 0;
 
@@ -104,19 +104,12 @@ body {
 
     /* For browsers that support this selector. That is, everyone but IE < 9 */
     &:last-of-type div {
-            border-bottom: 0;
+        border-bottom: 0;
     }
 
     display: table-row;
 
-//    &:before {
-//        content: '';
-//        display: inline-block;
-//        height: 100%;
-//        vertical-align: middle;
-//    }
-
-    div {
+    &>div {
         float: none;
         display: table-cell;
         vertical-align: middle;
@@ -142,7 +135,6 @@ body {
         font-size: 10px;
         color: #999;
         min-height: 35px;
-        visibility: hidden;
     }
 
     .finished {
@@ -205,7 +197,7 @@ body {
             }
         }
 
-        div {
+        &>div {
             @include row-padding(1.5em, 0.5em);
         }
 
@@ -224,85 +216,62 @@ body {
     }
 }
 
-table {
-  tr {
-    p.item-text{
-      font-size: 1.2em;
-      font-weight: bold;
-    }
-
-    input[type=checkbox] {
-      pointer-events: none; /* because why would you want to click a checkbox? */
-    }
-
-    .checked-user {
-      color: #aaa;
-      font-size: 0.7em;
-      padding-right: 3em;
-      line-height: 1.1em;
-    }
-
-    .name {
-        line-height: 40px;
-    }
-
-    .hint-text {
-      visibility: hidden;
-      color: #999;
-      padding-right: 3em;
-      white-space: nowrap;
-
-      span {
-        float: right !important;
-        line-height: 40px;
-        vertical-align: middle;
-        margin-left: 1em;
-      }
-
-      .template-actions a {
-        margin: 0 0.2em;
-      }
-    }
-
-    &.entry:hover {
-      cursor: pointer;
-      .hint-text {
-        visibility: visible;
-      }
-    }
-  }
+ul.sortable-list {
+  margin-bottom: 0;
+  padding-left: 0;
 }
 
 /* Sortable List */
 li.sortable-item {
-  border: 1px dotted #ccc;
-  border-radius: 3px;
-  padding: 5px;
-  margin: 3px 0px;
-  background: #eee;
+  cursor: move;
+  display: table;
+  width: 100%;
+  margin-bottom: 7px;
 
-  span {
-    float: left;
-
-    &.handle {
-      cursor: move;
-      padding: 0 0.5rem 0 0.1rem;
-    }
-
-    &.item-actions {
-        float: none;
-    }
+  .item-wrapper {
+    display: table-row;
   }
 
   &:hover {
     .item-actions {
-      display: inline;
+        visibility: visible;
     }
   }
 
+ &.ui-sortable-helper:before {
+ }
+
+ span {
+    display: table-cell;
+    float: none;
+    vertical-align: middle;
+    background: #eee;
+    border: 1px dotted #ccc;
+    border-width: 1px 0;
+    
+    margin: 3px 0;
+    padding: 5px 0;
+
+    &.first {
+        background: #eee url('move-handle.gif') no-repeat left center;
+        border-left-width: 1px;
+        border-radius: 3px 0 0 3px;
+        padding-left: 1.5em;
+    } 
+
+    &.last {
+        border-right-width: 1px;
+        border-radius: 0 3px 3px 0;
+        padding-right: 0.5em;
+    }
+ }
+
   .item-actions {
-    display: none;
-    padding-right: 2rem;
+    border: none;
+    margin: 0;
+    padding: 0;
+    float: right;
+    visibility: hidden;
     white-space: nowrap;
 
     i {
@@ -318,7 +287,7 @@ li.sortable-item {
   }
 
   input.item-edit {
-    width: 450px;
+    width: 98%;
     border: 0;
   }
 }

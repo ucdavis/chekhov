@@ -53,7 +53,6 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, Use
     $scope.error = null
 
   $scope.sortableOptions =
-    handle: '.handle'
     axis: 'y'
     update: (e, ui, a, b) ->
       $scope.newTemplate.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex

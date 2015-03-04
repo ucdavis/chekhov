@@ -53,7 +53,6 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
     $scope.error = null
   
   $scope.sortableOptions =
-    handle: '.handle'
     axis: 'y'
     update: (e, ui, a, b) ->
       $scope.template.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex

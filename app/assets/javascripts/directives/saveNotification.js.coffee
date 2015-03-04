@@ -19,6 +19,9 @@ Chekhov.directive "saveNotification", @ckvClick = () ->
         show: '='
     controller: ["$scope", "$timeout",
         ($scope, $timeout) ->
+            # Shouldn't disappear in three seconds when the message is
+            # "Saving..." Seems confusing when saving disappears while something
+            # is still saving.
             $scope.saved = $scope.$watch 'show', (mesg) ->
                 $scope.saved = mesg
                 $timeout.cancel(displayStatus)

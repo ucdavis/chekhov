@@ -3,7 +3,7 @@
 <h3 class="text-center">New Template</h3>
 
 <div class="row" style="margin-top: 2em;">
-  <div class="col-md-4 col-md-offset-4">
+  <div class="col-md-10 col-md-offset-1">
     <input class="form-control input-lg" type="text" placeholder="Name this checklist" ng-model="newTemplate.name" style="text-align: center;" autofocus />
   </div>
 </div>
@@ -15,22 +15,24 @@
       <div ng-bind-html="error"></div>
     </div>
 
-    <ul class="nav nav-pills nav-stacked" ng-model="newTemplate.entries_attributes" ui-sortable="sortableOptions">
+    <ul class="sortable-list" ng-model="newTemplate.entries_attributes" ui-sortable="sortableOptions">
       <li class="sortable-item" ng-repeat="entry in newTemplate.entries_attributes">
-          <span class="handle glyphicon glyphicon-move" />
-          <span ng-hide="editingEntry == $index">{{$index+1}}. {{ entry.content }}</span>
-          <span ng-show="editingEntry == $index">
-            {{$index+1}}.
+        <div class="item-wrapper">
+          <span class="col-xs-1 first">{{$index+1}}.</span>
+          <span class="col-xs-9" ng-hide="editingEntry == $index">{{ entry.content }}</span>
+          <span class="col-xs-9" ng-show="editingEntry == $index">
             <input class="item-edit" type="text" ng-model="entry.content"
               on-enter="unsetEditingEntry()" on-blur="unsetEditingEntry()" />
           </span>
-          <span class="item-actions" ng-hide="editingEntry == $index">
+          <span class="col-xs-2 last">
+            <span class="item-actions" ng-hide="editingEntry == $index">
             <i class="glyphicon glyphicon-trash icon-right" ng-click="removeFromEntries(entry.position)"
                tooltip="Delete this entry"></i>
             <i class="glyphicon glyphicon-edit icon-right" ng-click="setEditingEntry(entry.position)"
                tooltip="Edit this entry"></i>
+            </span>
           </span>
-          <br style="clear: both;">
+        </div>
       </li>
     </ul>
     <ul class="nav nav-pills nav-stacked">

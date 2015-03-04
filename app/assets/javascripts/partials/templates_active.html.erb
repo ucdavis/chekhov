@@ -20,8 +20,8 @@
             <div class="col-xs-3">
                 <span class="hint-text">
                     <span class="template-actions" ng-show="user.is_admin || user.id == checklist.user_id">
-                        <a class="glyphicon glyphicon-trash first" tooltip="Delete this checklist" ng-click="confirmDeleteChecklist(checklist)" stop-event="mouseup"></a>
-                        <a class="glyphicon glyphicon-edit" tooltip="Edit this checklist" stop-event="mouseup" href="#/checklists/{{checklist.id}}"></a>
+                        <a class="glyphicon glyphicon-trash first" tooltip-append-to-body="true" tooltip="Delete this checklist" ng-click="confirmDeleteChecklist(checklist)" stop-event="mouseup"></a>
+                        <a class="glyphicon glyphicon-edit" tooltip-append-to-body="true" tooltip="Edit this checklist" stop-event="mouseup" href="#/checklists/{{checklist.id}}"></a>
                     </span>
                 </span>
             </div>
