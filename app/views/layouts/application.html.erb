@@ -35,9 +35,7 @@
     <div class="container" ng-app="ChekhovApp">
 
       <div class="masthead">
-        <span style="float: right; color: #bbb; font-size: 1.0rem;">
-          <p>Logged in as <%= Authorization.current_user.name %> (<%= Authorization.current_user.role_symbols.include?(:admin) ? "Administrator" : "Regular User" %>)</p>
-        </span>
+        <input class="typeahead" type="text" placeholder="Search" ng-model="searchText" ng-controller='SearchCtrl' autofocus />
         <h2><%= link_to 'Chekhov', root_url %></h2>
       </div>
 
@@ -62,13 +60,16 @@
             </ul>
           </span>
         </div>
-        <div class="col-md-9 col-md-offset-3">
+        <div class="col-md-9 col-md-offset-3 content">
           <%= yield %>
         </div>
       </div> <!-- .row -->
 
       <div class="col-md-9 col-md-offset-3 footer">
-        <p>&copy; 2013-<%= Time.now.year %> UC Davis Division of Social Science IT</p>
+        <p style="float: left; margin-left: 1em">&copy; 2013-<%= Time.now.year %> UC Davis Division of Social Science IT</p>
+        <span style="float: right; color: #bbb; font-size: 1.0rem;">
+          <p>Logged in as <%= Authorization.current_user.name %> (<%= Authorization.current_user.role_symbols.include?(:admin) ? "Administrator" : "Regular User" %>)</p>
+        </span>
       </div>
 
     </div> <!-- .container -->

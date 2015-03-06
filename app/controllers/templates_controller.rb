@@ -12,6 +12,11 @@ class TemplatesController < ApplicationController
     @archived_count = Checklist.where("finished is not null").count
     @active_count = Checklist.where("finished is null").count
     
+    if params[:query]
+      @is_search = true
+      @templates = Template.with_permissions_to(:read).where("name like ?", "%#{params[:query]}%").reorder(name: :asc)
+    end
+
     respond_with(@templates) do |format|
       format.json
       format.html

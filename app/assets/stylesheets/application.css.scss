@@ -9,6 +9,12 @@ body {
   padding-bottom: 60px;
 }
 
+// Define colors for color coding things:
+$green: rgb(92, 184, 92);
+$orange: rgb(236, 151, 31);
+$blue: rgb(66, 139, 202);
+$gray: #888;
+
 /* Custom container */
 .container {
   margin: 0 auto;
@@ -292,12 +298,16 @@ li.sortable-item {
   }
 }
 
+.content {
+  padding-left: 25px;
+}
 
 .footer {
   color: #aaa;
   font-size: 0.7em;
   text-align: center;
   border-top: 0;
+  padding-left: 15px;
 
   p {
     margin: 0;
@@ -341,11 +351,7 @@ li.sortable-item {
       }
   }
 
-  // Define colors:
-  $green: rgb(92, 184, 92);
-  $orange: rgb(236, 151, 31);
-  $blue: rgb(66, 139, 202);
-  $gray: #888;
+
 
   // Make a mixin for classes and ids to which colors are applied:
   @mixin show-colors($item-name, $color) {
@@ -429,45 +435,100 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
     border-top-style: solid;
     border-top-width: 2px;
     display: inline-block;
-    font-size: 2rem;
+    font-size: 1.4rem;
     outline-style: none;
     padding: 0.35rem 0.7rem;
     position: relative;
     width: 100%;
 }
 
+.twitter-typeahead {
+    float: right;
+    width: 25%;
+}
+
 .tt-dropdown-menu {
     -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px 0px;
-    background-color: rgb(255, 255, 255);
-    border-bottom-color: rgba(0, 0, 0, 0.2);
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-left-color: rgba(0, 0, 0, 0.2);
-    border-left-style: solid;
-    border-left-width: 1px;
-    border-right-color: rgba(0, 0, 0, 0.2);
-    border-right-style: solid;
-    border-right-width: 1px;
-    border-top-color: rgba(0, 0, 0, 0.2);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    border-top-style: solid;
-    border-top-width: 1px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px 0px;
+    background-color: rgb(255, 255, 255);
+    border: rgba(0, 0, 0, 0.2) solid 1px;
+    border-radius: 5px;
     color: rgb(51, 51, 51);
-    display: block;
-    font-size: 18px;
-    left: 0px;
-    line-height: 21px;
-    margin-top: 12px;
-    padding-bottom: 8px;
-    padding-left: 12px;
-    padding-top: 16px;
-    position: absolute;
-    right: auto;
-    text-align: left;
-    width: 100%;
-    z-index: 100;
+    font-size: 1.4rem;
+    margin-top: 1rem;
+
+    p {
+        padding: 0;
+        margin: 0;
+    }
+
+    .no-results {
+        color: #aaa;
+        text-align: center;
+    }
+
+    div:last-of-type {
+        .border {
+            border-top: none;
+        }
+    }
+
+    @mixin header-color($color, $no-separator) {
+        .tt-header {
+            color: $color;
+//            font-variant: small-caps;
+            font-weight: bold;
+            padding: 0.5rem 1rem 0.1rem 1rem;
+            font-size: 1.6rem;
+        }
+//        border-bottom: 1px dashed #aaa;
+    }
+
+    .border {
+        margin-top: 0.5rem;
+        border-top: 1px dashed #aaa;
+        height: 1px;
+    }
+
+    .tt-dataset-archived {
+        @include header-color($blue, true); 
+    }
+
+    .tt-dataset-open {
+        @include header-color($orange, false);
+    }
+
+    .tt-dataset-templates {
+        @include header-color($green, false);
+
+        .tt-suggestion {
+            display: table;
+            width: 100%;
+        }
+
+        a {
+            display: table-cell;
+            vertical-align: middle;
+            font-size: 1.2rem;
+            text-align: right;
+            width: 14px;
+        }
+
+        p {
+            display: table-cell;
+            vertical-align: middle;
+            width: 90%;
+        }
+    }
+
+    .tt-suggestion {
+        padding: 0.5rem 1rem 0.5rem 2rem;
+        color: #555;
+    }
+
+    .tt-cursor {
+        cursor: pointer;
+        background-color: #eee;
+        color: #000;
+    }
 }
