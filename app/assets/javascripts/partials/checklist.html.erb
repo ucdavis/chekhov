@@ -3,9 +3,10 @@
 </div>
 
 <div class="row" ng-show="loaded">
-  <h1 class="col-md-12">
+  <h1 class="col-md-12" ng-hide="edit" ng-click="editTitle()" style="cursor: pointer;">
     {{ checklist.name }}
   </h1>
+  <input id="checklist-title" ng-show="edit" ng-model="checklist.name" type="text" class="form-control" on-blur="saveChanges(true)" style="margin: 20px 0 10px 10px; font-size: 30px; height: 40px;"></input>
       <div class="col-md-10">
         Created: <span class="text-muted">{{ checklist.started | date:'short' }} by {{ checklist.user.name || checklist.user.loginid }}</span><br>
         Template: <span class="text-muted">{{ checklist.template_name }}</span>

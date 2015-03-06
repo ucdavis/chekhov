@@ -1,4 +1,4 @@
-Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeout, $routeParams, Checklists, User) ->
+Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeout, $location, $routeParams, Checklists, User) ->
   $scope.loaded = false
   $scope.checklist = {}
   $scope.checklist.entries_attributes = []
@@ -7,6 +7,8 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
   $scope.error = null
   $scope.saved = null
   $scope.progbar = { style: {width: "0%" }, text: "None completed" }
+
+  $scope.edit = if $location.search().new then true else false
 
   #$('ul.nav li').removeClass 'active'
 
@@ -44,7 +46,10 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
         text: (if checkedEntries() isnt 0 then checkedEntries() + " of " + entryCount() + " completed" else "0%")
     }
 
-  $scope.saveChanges = () ->
+  $scope.editTitle = () ->
+    $scope.edit = true
+
+  $scope.saveChanges = (closeTitle = false) ->
     $scope.saved = "Saving ..."
 
     previouslyFinished = $scope.checklist.finished
@@ -55,6 +60,8 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
         # Success
         $scope.clearError()
         $scope.parseJSON(data)
+
+        $scope.edit = false  if closeTitle
 
         # Clear new comment field
         $scope.newComment = ''
@@ -123,4 +130,14 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
   , (data) ->
       # Error
       $('div#loading').html("<b>You don't have permission to view this checklist.</b>")
+  )
+
+  $scope.editTitle()  if $scope.edit
+
+  $scope.$watch('edit', (edit) ->
+      if edit
+        $('#checklist-title').focus()
+        $timeout (->
+            $('#checklist-title').focus()
+        ), 0
   )
