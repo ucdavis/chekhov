@@ -6,18 +6,18 @@
   <h1 class="col-md-12" ng-hide="edit" ng-click="editTitle()" style="cursor: pointer;">
     {{ checklist.name }}
   </h1>
-  <input id="checklist-title" ng-show="edit" ng-model="checklist.name" type="text" class="form-control" on-blur="saveChanges(true)" style="margin: 20px 0 10px 10px; font-size: 30px; height: 40px;"></input>
-      <div class="col-md-10">
-        Created: <span class="text-muted">{{ checklist.started | date:'short' }} by {{ checklist.user.name || checklist.user.loginid }}</span><br>
-        Template: <span class="text-muted">{{ checklist.template_name }}</span>
-      </div>
-      <div class="col-md-offset-8 col-md-4" style="margin-bottom: 2em">
-        <span class="pull-right badge" id="completed-badge" ng-show="checklist.finished">
-          Completed: {{ checklist.finished | date:'short' }} by {{ checklist.finished_by }}</span>
-      </div>
+  <input id="checklist-title" ng-show="edit" ng-model="checklist.name" type="text" class="form-control" on-blur="saveChanges(true)"></input>
+  <div class="col-md-offset-1 col-md-11 checklist-info">
+    <span style="float: left;">
+    Created: <span class="text-muted">{{ checklist.started | date:'short' }} by {{ checklist.user.name || checklist.user.loginid }}</span><br>
+    Template: <span class="text-muted">{{ checklist.template_name }}</span>
+    </span>
+    <span class="pull-right badge" id="completed-badge" ng-show="checklist.finished">
+      Completed: {{ checklist.finished | date:'short' }} by {{ checklist.finished_by }}</span>
+  </div>
 </div>
 
-<div class="row" ng-show="loaded">
+<div class="row checklist-info" ng-show="loaded">
   <div class="col-md-offset-1 col-md-5">
     <div class="input-group">
       <span class="input-group-addon">SysAid Ticket #</span>

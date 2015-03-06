@@ -315,8 +315,39 @@ li.sortable-item {
   }
 }
 
-#completed-badge {
-  margin-top: 12px;
+#checklist-title {
+    margin: 20px 0 10px 10px;
+    font-size: 30px;
+    height: 40px;
+}
+
+.checklist-info {
+    font-size: 13px;
+
+    span, input, button {
+        font-size: 13px;
+    }
+
+    .form-control {
+        height: inherit;
+        padding: 4px 6px;
+    }
+
+    .btn {
+        padding: 4px 6px;
+    }
+
+    .input-group-addon {
+        padding: 4px 6px;
+    }
+
+    #completed-badge {
+      font-size: 12px;
+    }
+
+    &.col-md-11 {
+        margin-bottom: 6px;
+    }
 }
 
 .nav-sidebar {
