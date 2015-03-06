@@ -57,6 +57,11 @@
                     <span class="glyphicon glyphicon-th-large"></span>Manage Templates
                     <span class="label label-info">{{(template_count | number) || <%= @template_count %>}}</span>
                 </a></li>
+                <li id="nav-item-analytics" ng-class="{active: isActive('/analytics')}">
+                    <a href="#/analytics">
+                        <span class="glyphicon glyphicon-tasks" style="margin-right: 5px;"></span>View Analytics
+                    </a>
+                </li>
             </ul>
           </span>
         </div>

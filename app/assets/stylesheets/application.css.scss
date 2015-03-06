@@ -407,6 +407,7 @@ li.sortable-item {
   @include show-colors("nav-item-completed", $blue);
   @include show-colors("nav-item-create-template", $gray);
   @include show-colors("nav-item-manage-templates", $gray);
+  @include show-colors("nav-item-analytics", $gray);
 
   li {
     margin: 0;
