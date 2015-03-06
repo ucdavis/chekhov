@@ -9,6 +9,9 @@ window.chekhovRouter = ($routeProvider) ->
     .when "/archived",
       templateUrl: '<%= asset_path("partials/templates_archived.html") %>'
       controller: "TemplatesArchivedIndexCtrl"
+    .when "/analytics",
+      templateUrl: '<%= asset_path("partials/analytics.html") %>'
+      controller: "AnalyticsCtrl"
     .when "/templates/new",
       templateUrl: '<%= asset_path("partials/template_new.html") %>'
       controller: "TemplateNewCtrl"
