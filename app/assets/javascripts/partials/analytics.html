@@ -1,1 +1,51 @@
-<h2>Checklists</h2>
+<h2>In Soviet Russia, Chekhov Analyze You!</h2>
+<div id="analytics">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li role="presentation" ng-class="{active: general}"><a ng-click="generalStats()" stop-event='mouseup'>General Statistics</a></li>
+                <li role="presentation" ng-class="{active: !general}"><a ng-click="allTimeStats()" stop-event='mouseup'>All Time Statistics</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="stats-wrapper">
+        <div class="row" ng-show="general">
+            <div class="col-md-offset-2 col-md-4">
+                  <label for="start-date">Start Date:</label>
+                <span class="input-group">
+                  <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="startDate" is-open="startOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" id="start-date" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open('startOpened', $event)" stop-event="click"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </span>
+            </div>
+            <div class="col-md-4">
+                  <label for="end-date">End Date:</label>
+                <span class="input-group">
+                  <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="endDate" is-open="endOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" id="end-date" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open('endOpened', $event)" stop-event="click"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Number of Checklists Created</h3>
+                    Total: {{created(checklists).length}}
+                    <h4>By user:</h4>
+                    <ul>
+                    <li ng-repeat="(loginid, count) in countByUsers(created(checklists))">
+                        {{ loginid }}: {{count}}
+                    </li>
+                    </ul>
+                <h3>Number of Checklists Finished</h3>
+                    Total: {{finished(checklists).length}}
+                <h3>How Long Checklists are Open</h3>
+                    Average: {{calcOpen(checklists)}}
+                <h3>How Many Checklists have a Sysaid Number</h3>
+                    Total: {{haveSysaidNumber(checklists).length}} out of {{checklists.length}}
+            </div>
+        </div>
+    </div>
+</div>

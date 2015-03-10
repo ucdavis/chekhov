@@ -26,6 +26,8 @@ angular.module("chekhovServices", ["ngResource"])
         id: window.user_id,
         user_name: window.user_name
     }
+  .factory "Analytics", ($resource) ->
+    $resource "/analytics.json"
   .factory "ChecklistStarter", (Checklists, Templates, $location, $rootScope) ->
     start: (template) ->
         # Increment the checklist count of the selected template

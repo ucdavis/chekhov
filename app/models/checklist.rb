@@ -33,6 +33,19 @@ class Checklist < ActiveRecord::Base
     end
   end
 
+
+  #
+  # time_elapsed
+  # 
+  #   Gives time it took to finish a checklist in minutes.
+  #
+  
+  def time_elapsed
+    if !self.finished.blank?
+        ((self.finished - self.started) / 60).to_i
+    end
+  end
+
   def find_finished_by(ckl)
     ckl.entries.order(finished :desc).first
   end

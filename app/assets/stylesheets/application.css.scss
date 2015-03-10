@@ -564,3 +564,20 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
         color: #000;
     }
 }
+
+#analytics {
+    .btn {
+        height: 34px;
+    }
+
+    li a {
+        cursor: pointer;
+    }
+
+    .stats-wrapper {
+        border: 1px solid #ddd;
+        border-radius: 0 0 5px 5px;
+        border-top: none;
+        padding: 10px;
+    }
+}
