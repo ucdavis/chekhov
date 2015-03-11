@@ -76,9 +76,6 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
           unless previouslyFinished
             $rootScope.active_count--
             $rootScope.archived_count++
-          else
-            $rootScope.active_count++
-            $rootScope.archived_count--
         else
           $scope.saved = "Saved"
           if previouslyFinished

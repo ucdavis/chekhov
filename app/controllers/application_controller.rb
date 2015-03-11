@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include Authentication
   before_filter :require_login
   before_action :authenticate
+  after_action  :track_visits
   
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -22,6 +23,24 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def track_visits
+    user = User.find(Authorization.current_user[:id]).id
+
+    # For reference, reverse operation of IPAddr to_i is:
+    # IPAddr.new(167772687, Socket::AF_INET).to_s
+    ip = IPAddr.new request.remote_ip
+
+    date = Date.today
+    previous_visit = Visit.where(user_id: user, created_at: (Time.now.midnight..(Time.now.midnight + 1.day))).exists?
+
+    if ! previous_visit
+        visit = Visit.create :user_id => user,
+                             :session_id => request.session_options[:id],
+                             :ip_address => ip.to_i,
+                             :user_agent => request.env["HTTP_USER_AGENT"]
+    end
+  end
 
   def require_login
     unless logged_in?

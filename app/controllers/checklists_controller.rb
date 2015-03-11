@@ -160,7 +160,7 @@ class ChecklistsController < ApplicationController
       @checklists = Checklist.with_permissions_to(:read).joins(:entries).where("checklists.finished is null").order(updated_at: :desc).uniq
       # Archived checklists are the inverse of the above line, so:
       # ([-1, @checklists.pluck(:id)].flatten] is dirty but ActiveRecord translates an empty array into NULL which results in there being no results if there are no open checklists)
-      @checklists = Checklist.with_permissions_to(:read).where("checklists.finished is not null") if params[:archived] == 'true'
+      @checklists = Checklist.with_permissions_to(:read).where("checklists.finished is not null").order(updated_at: :desc).uniq if params[:archived] == 'true'
 
       if params[:query]
         @checklists = @checklists.where("name like ?", "%#{params[:query]}%").reorder(name: :asc)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140310203207) do
+ActiveRecord::Schema.define(version: 20150310224716) do
 
   create_table "checklist_entries", force: true do |t|
     t.integer  "checklist_id"
@@ -78,5 +78,16 @@ ActiveRecord::Schema.define(version: 20140310203207) do
     t.string   "name"
     t.string   "email"
   end
+
+  create_table "visits", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "session_id"
+    t.integer  "ip_address"
+    t.text     "user_agent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "visits", ["user_id"], name: "index_visits_on_user_id"
 
 end
