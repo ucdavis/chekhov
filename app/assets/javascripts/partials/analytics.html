@@ -31,22 +31,60 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h3>Number of Checklists Created</h3>
-                    Total: {{created(checklists).length}}
-                    <h4>By user:</h4>
-                    <ul>
-                    <li ng-repeat="(loginid, count) in countByUsers(created(checklists))">
-                        {{ loginid }}: {{count}}
-                    </li>
-                    </ul>
-                <h3>Number of Checklists Finished</h3>
-                    Total: {{finished(checklists).length}}
-                <h3>How Long Checklists are Open</h3>
-                    Average: {{calcOpen(checklists)}}
-                <h3>How Many Checklists have a Sysaid Number</h3>
-                    Total: {{haveSysaidNumber(checklists).length}} out of {{checklists.length}}
-                <h3>Unique Users per Day</h3>
-                    Mean: {{meanOf(visits)}}
+                <h3>Checklist Statistics</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th colspan=2>Variable (<em>Statistic</em>)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Created (<em>Total</em>)</td>
+                            <td>{{created(checklists).length}}</td>
+                        </tr>
+                        <tr>
+                            <td>Finished (<em>Total</em>)</td>
+                            <td>{{finished(checklists).length}}</td>
+                        </tr>
+                        <tr>
+                            <td>Sysaid Number (<em>Total</em>)</td>
+                            <td>{{haveSysaidNumber(checklists).length}} out of {{checklists.length}}</td>
+                        </tr>
+                        <tr>
+                            <td>Duration (<em>Mean</em>)</td>
+                            <td>{{calcOpen(checklists)}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3>User Statistics</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th colspan=2>Variable (<em>Statistic</em>)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="width: 30%;">Users (<em>per day</em>)</td>
+                            <td>{{meanOf(visits)}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Number of Checklists</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="(loginid, count) in countByUsers(created(checklists))">
+                            <td>{{ loginid }}</td>
+                            <td>{{ count }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -5,6 +5,7 @@ authorization do
     has_permission_on :checklists, :to => :manage
     has_permission_on :checklist_entries, :to => :manage
     has_permission_on :comments, :to => :manage
+    has_permission_on :analytics, :to => :manage
   end
   role :access do
     has_permission_on :templates, :to => :read

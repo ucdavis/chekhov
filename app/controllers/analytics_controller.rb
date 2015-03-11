@@ -1,6 +1,6 @@
 class AnalyticsController < ApplicationController
   respond_to :json
-#  filter_access_to :all, :attribute_check => true
+  filter_resource_access
 
   def index
     if params[:start] and params[:end]
