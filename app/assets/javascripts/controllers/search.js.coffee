@@ -24,6 +24,7 @@ Chekhov.controller "SearchCtrl", @SearchCtrl = ($scope, $timeout, $location, Use
     getCache = (method, callback) ->
         method {},
             (data) ->
+                $('.typeahead').removeClass('loading')
                 callback _.sortBy data, (item) -> item.name
           , (data) ->
                 console.log "Error retrieving information from server"
@@ -44,6 +45,7 @@ Chekhov.controller "SearchCtrl", @SearchCtrl = ($scope, $timeout, $location, Use
             # same data multiple times before getting a single copy of it)
             if cache is null and fetching is false
                 fetching = true
+                $('.typeahead').addClass('loading')
                 getCache method, (data) ->
                     fetching = false
                     cache = data

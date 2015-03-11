@@ -472,6 +472,10 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
     padding: 0.35rem 0.7rem;
     position: relative;
     width: 100%;
+
+    &.loading {
+        background: transparent url('ajax-loader-circle.gif') no-repeat 98% center;
+    }
 }
 
 .twitter-typeahead {
