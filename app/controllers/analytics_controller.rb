@@ -4,8 +4,9 @@ class AnalyticsController < ApplicationController
 
   def index
     if params[:start] and params[:end]
-        start_date = Date.parse(params[:start])
-        end_date = Date.parse(params[:end])
+        start_date = Date.parse(params[:start]).in_time_zone
+        # Using .next_day to include all of end date (i.e., up to 23:59:59)
+        end_date = Date.parse(params[:end]).next_day.in_time_zone
         @checklists = Checklist.where("
             (started >= :start_date AND started <= :end_date)
             OR (finished >= :start_date AND finished <= :end_date)",

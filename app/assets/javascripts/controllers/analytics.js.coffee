@@ -117,12 +117,31 @@ Chekhov.controller "AnalyticsCtrl", @AnalyticsCtrl = ($scope, User, Checklists, 
         if not list
             return "0"
 
+        diff = totalDays()
+
         total = _.foldl list, (total, item) ->
                    total + item.number
                   ,
                    0
 
-        total / list.length
+        (total / diff).toFixed(3)
+
+
+    #
+    # totalDays
+    #
+    #    Helper method for $scope.meanOf. Calculates number of days as days
+    #    between given period (for general statistics) or as days since the
+    #    first-ever visit was recorded (for all time statistics)
+    #
+    
+    totalDays = ->
+        if not $scope.general
+            start = _.min _.map (_.pluck $scope.visits, 'date'), (date) -> new Date(date)
+            end = new Date()
+            (end - start) / (1000 * 60 * 60 * 24)
+        else
+            ($scope.endDate - $scope.startDate) / (1000 * 60 * 60 * 24)
 
 
     #

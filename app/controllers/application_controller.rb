@@ -25,20 +25,22 @@ class ApplicationController < ActionController::Base
   private
 
   def track_visits
-    user = User.find(Authorization.current_user[:id]).id
+    if logged_in? && defined? Authorization.current_user[]
+        user = User.find(Authorization.current_user[:id]).id
 
-    # For reference, reverse operation of IPAddr to_i is:
-    # IPAddr.new(167772687, Socket::AF_INET).to_s
-    ip = IPAddr.new request.remote_ip
+        # For reference, reverse operation of IPAddr to_i is:
+        # IPAddr.new(167772687, Socket::AF_INET).to_s
+        ip = IPAddr.new request.remote_ip
 
-    date = Date.today
-    previous_visit = Visit.where(user_id: user, created_at: (Time.now.midnight..(Time.now.midnight + 1.day))).exists?
+        date = Date.today
+        previous_visit = Visit.where(user_id: user, created_at: (Time.now.midnight..(Time.now.midnight + 1.day))).exists?
 
-    if ! previous_visit
-        visit = Visit.create :user_id => user,
-                             :session_id => request.session_options[:id],
-                             :ip_address => ip.to_i,
-                             :user_agent => request.env["HTTP_USER_AGENT"]
+        if ! previous_visit
+            visit = Visit.create :user_id => user,
+                                 :session_id => request.session_options[:id],
+                                 :ip_address => ip.to_i,
+                                 :user_agent => request.env["HTTP_USER_AGENT"]
+        end
     end
   end
 
