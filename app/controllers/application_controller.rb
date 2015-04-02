@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
         if ! previous_visit
             visit = Visit.create :user_id => user,
                                  :session_id => request.session_options[:id],
-                                 :ip_address => ip.to_i,
+                                 :ip_address => ip.to_s,
                                  :user_agent => request.env["HTTP_USER_AGENT"]
         end
     end

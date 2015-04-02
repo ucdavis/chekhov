@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310224716) do
+ActiveRecord::Schema.define(version: 20150402221859) do
 
   create_table "checklist_entries", force: true do |t|
     t.integer  "checklist_id"
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 20150310224716) do
   create_table "visits", force: true do |t|
     t.integer  "user_id"
     t.integer  "session_id"
-    t.integer  "ip_address"
+    t.text     "ip_address"
     t.text     "user_agent"
     t.datetime "created_at"
     t.datetime "updated_at"
