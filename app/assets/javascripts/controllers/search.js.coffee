@@ -55,6 +55,7 @@ Chekhov.controller "SearchCtrl", @SearchCtrl = ($scope, $timeout, $location, Use
 
             # Do server search to update results in case user wants something
             # not in the cache
+            query = query.toLowerCase()
             waiter = $timeout (-> method {query},
                 (data) ->
                     for i of data
