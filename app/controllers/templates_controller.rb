@@ -14,7 +14,7 @@ class TemplatesController < ApplicationController
     
     if params[:query]
       @is_search = true
-      @templates = Template.with_permissions_to(:read).where("name like ?", "%#{params[:query]}%").reorder(name: :asc)
+      @templates = Template.with_permissions_to(:read).where("lower(name) like ?", "%#{params[:query]}%").reorder(name: :asc)
     end
 
     respond_with(@templates) do |format|

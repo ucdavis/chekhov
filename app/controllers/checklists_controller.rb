@@ -163,7 +163,7 @@ class ChecklistsController < ApplicationController
       @checklists = Checklist.with_permissions_to(:read).where("checklists.finished is not null").order(updated_at: :desc).uniq if params[:archived] == 'true'
 
       if params[:query]
-        @checklists = @checklists.where("name like ?", "%#{params[:query]}%").reorder(name: :asc)
+        @checklists = @checklists.where("lower(name) like ?", "%#{params[:query]}%").reorder(name: :asc)
         @is_search = true
       end
     end
