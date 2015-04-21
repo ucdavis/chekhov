@@ -40,7 +40,7 @@ angular.module("chekhovServices", ["ngResource"])
             # Success
             # Increment the checklist count of the selected template
             Templates.update {id: template.id, checklist_count: template.checklist_count + 1}
-            $location.path("/checklists/#{data.id}?new=1")
+            $location.path("/checklists/#{data.id}").search("new", 1)
             $rootScope.active_count++
         , (data) ->
             # Error

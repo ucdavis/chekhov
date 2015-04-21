@@ -39,6 +39,8 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
         (data) ->
           $scope.noTimeout = false
           $scope.notifySave = "Saved"
+          refreshIds()
+          
       , (data) ->
           # Error
           $scope.noTimeout = false
@@ -60,15 +62,18 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
     update: (e, ui, a, b) ->
       $scope.template.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex
       $scope.template.entries_attributes[ui.item.sortable.dropindex].position = ui.item.sortable.index
+  
+  refreshIds = ->
+    Templates.get {id: $routeParams.id},
+      (data) ->
+        # Success
+        $scope.template = data
+        $scope.template.entries_attributes = $scope.template.entries
+        delete $scope.template.entries
+        $scope.position = _.max(_.pluck($scope.template.entries_attributes, "position")) + 1
+        $scope.loaded = true
+    , (data) ->
+        # Error
+        $scope.error = "Error retrieving information from server"
 
-  Templates.get {id: $routeParams.id},
-    (data) ->
-      # Success
-      $scope.template = data
-      $scope.template.entries_attributes = $scope.template.entries
-      delete $scope.template.entries
-      $scope.position = _.max(_.pluck($scope.template.entries_attributes, "position")) + 1
-      $scope.loaded = true
-  , (data) ->
-      # Error
-      $scope.error = "Error retrieving information from server"
+  refreshIds()
