@@ -29,6 +29,14 @@ class Checklist < ActiveRecord::Base
     end
   end
 
+  def entry_count
+    self.entries.count
+  end
+
+  def finished_count
+    self.entries.where(checked: true).count()
+  end
+
   private
   
   def set_start_time
@@ -42,9 +50,5 @@ class Checklist < ActiveRecord::Base
       subject = "Checklist completed"
       ChecklistMailer.send_email(message, recipient, subject).deliver
     end
-  end
-
-  def find_finished_by(ckl)
-    ckl.entries.order(finished :desc).first
   end
 end

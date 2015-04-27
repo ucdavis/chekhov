@@ -9,8 +9,16 @@
 
     <div id="templates" class="entries">
         <div class="entry" ng-repeat="checklist in checklists | filter: {name: searchText}" ckv-click="openChecklist(checklist.id)" ng-show="loaded">
+<!--    <div id="templates">
+        <div class="checklist entry" ng-repeat="checklist in checklists | filter: {name: searchtext}" ckv-click="openChecklist(checklist.id)" ng-show="loaded"> -->
             <div class="col-xs-9">
                 <span class="name">{{ checklist.name }}</span>
+                <div class="progbar">
+                    <div ng-style="checklist.progbar" ng-class="{'no-progress': !checklist.progbar}">
+                        <span ng-show="checklist.progbar">{{ checklist.finished_count }} of {{ checklist.entry_count }} completed</span>
+                        <span ng-hide="checklist.progbar">0 %</span>
+                    </div>
+                </div>
             </div>
             <div class="col-xs-3">
                 <span class="hint-text">
@@ -21,6 +29,9 @@
                 </span>
             </div>
             <br style="clear: both;">
+            <!-- # See checklists.js.coffee for updateProgressBar code. Turn it into
+            # a directive, where you just do a watch and pass it
+            # checkedEntries() and entryCount(). -->
         </div>
     </div>
   </div>

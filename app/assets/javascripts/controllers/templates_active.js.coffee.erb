@@ -1,12 +1,15 @@
 Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($scope, $modal, $location, Checklists, User, $rootScope) ->
   $scope.loaded = false
   $scope.error = null
-  $scope.checklists = Checklists.query {},
+  Checklists.query {},
     (data) ->
       # Success
-      $scope.loaded = true
       $scope.user = User
+      $scope.checklists = _.map data, (checklist) ->
+        checklist.progbar = progbar(checklist)
+        checklist
       $rootScope.active_count = $scope.checklists.length
+      $scope.loaded = true
 
   , (data) ->
       # Error
@@ -18,6 +21,12 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
 
   #$('ul.nav li').removeClass 'active'
   #$('ul.nav li#checklists_active').addClass 'active'
+
+  progbar = (checklist) ->
+    return false if checklist.finished_count == 0
+    {
+      width: "calc(" + Math.round((checklist.finished_count / checklist.entry_count) * 133) + "% + 0.75em)"
+    }
 
   $scope.openChecklist = (checklist_id) ->
     $location.path("/checklists/#{checklist_id}")
