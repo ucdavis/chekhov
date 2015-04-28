@@ -17,19 +17,19 @@
     </span>
     <div style="clear: both;">
       <span style="float: left;">Description:</span>
-      <div style="float: left; width: 80%; margin-left: 0.75ch;" class="text-muted" ng-hide="editDesc" ng-click="editDescription()">
+      <div style="float: left; width: 80%; margin-left: 0.75ch; cursor: pointer;" class="text-muted" ng-hide="editDesc" ng-click="editDescription()">
          {{ checklist.desc || 'No Description' }}
       </div>
       <textarea style="float: left; width: 80%; margin-left: 0.75ch;" id="desc" class="form-control" ng-show="editDesc" ng-model="checklist.desc" on-blur="saveChanges('desc')"></textarea>
     </div>
+    <div class="ticket-public">
+        Sysaid Ticket #: <span class="text-muted">{{ checklist.ticket_number || '(none)' }}</span><br />
+        Status: <span class="text-muted">{{checklist.public ? 'Public' : 'Not Public' }}</span>
+    </div>
   </div>
 </div>
 
-<div class="row" ng-show="loaded">
-
-</div>
-
-<div class="row checklist-info" ng-show="loaded">
+<div class="row checklist-info ticket-public" ng-show="loaded">
   <div class="col-md-offset-1 col-md-5">
     <div class="input-group">
       <span class="input-group-addon">SysAid Ticket #</span>
@@ -53,7 +53,7 @@
     </div>
 </div>
 
-<div class="row" style="margin-top: 2em; margin-bottom: 2em;">
+<div class="row entry-wrapper">
   <div class="col-md-11 col-md-offset-1 entries">
     <div class="alert alert-danger" ng-show="error">
       <button type="button" class="close" ng-click="clearError()">&times;</button>
@@ -62,6 +62,16 @@
 
     <!-- Loading Bar -->
     <div class="row text-center" ng-hide="loaded" id="loading"><img src="<%= asset_path "ajax-loader.gif" %>"></div>
+
+    <div class="entry print-only">
+        <div class="col-xs-1">
+        </div>
+        <div class="col-xs-8">
+        </div>
+        <div class="col-xs-3">
+            <b>Completed By</b>
+        </div>
+    </div>
 
     <div ng-repeat="entry in checklist.entries_attributes" class="entry"
       popover-template='<%= asset_path("partials/time_spent.html") %>'

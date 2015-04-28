@@ -1,7 +1,7 @@
 /*
  *= require bootstrap
  *= require justified-nav
- *= require_tree .
+ *# require_tree .
  */
 
 body {
@@ -101,6 +101,10 @@ $gray: #888;
     }
 }
 
+.entry-wrapper {
+    margin: 2em 0;
+}
+
 .entries {
     display: table;
 }
@@ -168,9 +172,11 @@ $gray: #888;
 /* Modify label for comments box. Have to specify .form-horizontal to *
  * override settings from bootstrap.css                               */
 .comments {
-    .form-horizontal .control-label {
-        padding: 0 0;
-        color: #333;
+    .form-horizontal {
+        .control-label {
+            padding: 0 0;
+            color: #333;
+        }
     }
 
     .entry {
@@ -387,6 +393,10 @@ li.sortable-item {
 
     &.col-md-11 {
         margin-bottom: 6px;
+    }
+
+    .ticket-public {
+        display: none;
     }
 }
 
@@ -624,4 +634,8 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
         border-top: none;
         padding: 10px;
     }
+}
+
+.print-only {
+    display: none;
 }

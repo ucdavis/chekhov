@@ -1,0 +1,108 @@
+/*
+*/
+
+body {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 11pt;
+    font-family: Helvetica, Arial;
+
+    h1 {
+        font-size: 16pt;
+    }
+}
+
+.masthead {
+    display: none;
+}
+
+.progbar {
+    display: none;
+}
+
+.comments .form-horizontal {
+    display: none;
+}
+
+.content {
+    padding: 0;
+    margin: 0;
+
+    h1 {
+        margin: 0 0 1ex 0;
+    }
+}
+
+.checklist-info {
+    font-size: 11pt;
+
+    span, input, button {
+        font-size: 11pt;
+    }
+
+    font-weight: bold;
+
+    .text-muted {
+        font-weight: normal;
+    }
+
+    &.ticket-public {
+        display: none;
+    }
+
+    .ticket-public {
+        display: block;
+        clear: both;
+    }
+}
+
+.nav-sidebar {
+    display: none;
+}
+
+.print-only {
+    display: block;
+}
+
+.entries {
+  margin-top: 0.25in;
+  display: table;
+  border-collapse: collapse;
+  width: 100%;
+
+  .entry {
+    text-indent: -0.2in;
+    display: table-row;
+
+    & > div {
+      display: table-cell;
+      height: 4ex;
+      vertical-align: middle;
+      padding: 2pt 4pt;
+      border: 1px solid #000;
+    }
+
+    /* Don't display checkboxes */
+    .col-xs-1 {
+      display: none;
+    }
+
+    .col-xs-8 {
+      width: 80%;
+      padding-left: calc(0.2in + 4pt);
+    }
+
+    .col-xs-3 {
+      width: 19%;
+      text-indent: 0;
+    }
+
+    .checked-user {
+      font-size: 10pt;
+    }
+  }
+}
+
+.footer {
+  display: none;
+}
