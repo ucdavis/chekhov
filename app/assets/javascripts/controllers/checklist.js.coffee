@@ -49,7 +49,10 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
   $scope.editTitle = () ->
     $scope.edit = true
 
-  $scope.saveChanges = (closeTitle = false) ->
+  $scope.editDescription = () ->
+    $scope.editDesc = true
+
+  $scope.saveChanges = (close = "none") ->
     $scope.saved = "Saving ..."
 
     previouslyFinished = $scope.checklist.finished
@@ -61,7 +64,8 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
         $scope.clearError()
         $scope.parseJSON(data)
 
-        $scope.edit = false  if closeTitle
+        $scope.edit = false  if close == "title"
+        $scope.editDesc = false  if close == "desc"
 
         # Clear new comment field
         $scope.newComment = ''
@@ -136,5 +140,13 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
         $('#checklist-title').focus()
         $timeout (->
             $('#checklist-title').focus()
+        ), 0
+  )
+
+  $scope.$watch('editDesc', (edit) ->
+      if edit
+        $('#desc').focus()
+        $timeout (->
+            $('#desc').focus()
         ), 0
   )

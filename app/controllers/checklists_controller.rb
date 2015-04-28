@@ -4,7 +4,7 @@ class ChecklistsController < ApplicationController
   filter_access_to :all, :attribute_check => true
   filter_access_to :create, :attribute_check => false
   filter_access_to :index, :attribute_check => true, :load_method => :load_checklists
-  wrap_parameters :checklist, include: [:template_name, :name, :public, :entries_attributes, :ticket_number, :finished, :comments_attributes]
+  wrap_parameters :checklist, include: [:template_name, :name, :desc, :public, :started, :finished, :entries_attributes, :ticket_number, :comments_attributes]
 
   def index
   end
@@ -28,6 +28,7 @@ class ChecklistsController < ApplicationController
   
     if @template
       @checklist.template_name = @template.name
+      @checklist.desc = @template.desc
     end
     
     if @checklist.save
@@ -153,7 +154,7 @@ class ChecklistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def checklist_params
-      params.require(:checklist).permit(:template_name, :name, :public, :user_id, :started, :finished, :ticket_number, entries_attributes: [:id, :content, :position, :checked, :finished, :completed_by], comments_attributes: [:id, :content, :author])
+      params.require(:checklist).permit(:template_name, :name, :desc, :public, :user_id, :started, :finished, :ticket_number, entries_attributes: [:id, :content, :position, :checked, :finished, :completed_by], comments_attributes: [:id, :content, :author])
     end
 
     def load_checklists

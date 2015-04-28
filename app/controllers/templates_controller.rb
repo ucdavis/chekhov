@@ -4,7 +4,7 @@ class TemplatesController < ApplicationController
   filter_access_to :all, :attribute_check => true
   filter_access_to :create, :attribute_check => false
   filter_access_to :index, :attribute_check => true, :load_method => :load_templates
-  wrap_parameters :template, include: [:owner_id, :name, :checklist_count, :entries_attributes]
+  wrap_parameters :template, include: [:owner_id, :name, :checklist_count, :entries_attributes, :desc]
   
   def index
     @templates = Template.order(checklist_count: :desc)
@@ -63,7 +63,7 @@ class TemplatesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def template_params
       params[:template][:owner_id] = Authorization.current_user[:id]
-      params.require(:template).permit(:owner_id, :name, :checklist_count, entries_attributes: [:id, :content, :position, :_destroy])
+      params.require(:template).permit(:owner_id, :name, :desc, :checklist_count, entries_attributes: [:id, :content, :position, :_destroy])
     end
 
     def load_templates
