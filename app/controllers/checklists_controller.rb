@@ -164,11 +164,30 @@ class ChecklistsController < ApplicationController
     end
 
     def load_checklists
-      @checklists = Checklist.with_permissions_to(:read).joins(:entries).where("checklists.finished is null").order(updated_at: :desc).uniq
+      if params[:start] and params[:end]
+        start_date = Date.parse(params[:start]).in_time_zone
+        end_date = Date.parse(params[:end]).next_day.in_time_zone
+
+        checklists = Checklist.with_permissions_to(:read).where("
+            started >= :start_date AND started <= :end_date",
+          {
+            start_date: start_date,
+            end_date: end_date
+          }
+        )
+      else
+        checklists = Checklist.with_permissions_to(:read)
+      end
+
+      if params[:categories] && params[:categories].count > 0
+        checklists = checklists.where("checklist_category_id in (?)", params[:categories])
+      end
+
+      @checklists = checklists.joins(:entries).where("checklists.finished is null").order(updated_at: :desc).uniq
       # Archived checklists are the inverse of the above line, so:
       # ([-1, @checklists.pluck(:id)].flatten] is dirty but ActiveRecord translates an empty array into NULL which results in there being no results if there are no open checklists)
-      @checklists = Checklist.with_permissions_to(:read).where("checklists.finished is not null").order(updated_at: :desc).uniq if params[:archived] == 'true'
-      @checklists = Checklist.with_permissions_to(:read).order(updated_at: :desc).uniq if params[:all_lists] == 'true'
+      @checklists = checklists.where("checklists.finished is not null").order(updated_at: :desc).uniq if params[:archived] == 'true'
+      @checklists = checklists.order(updated_at: :desc).uniq if params[:all_lists] == 'true'
 
       if params[:query]
         @checklists = @checklists.where("lower(name) like ?", "%#{params[:query]}%").reorder(name: :asc)

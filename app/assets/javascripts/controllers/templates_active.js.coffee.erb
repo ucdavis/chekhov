@@ -11,19 +11,7 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
     inProgress: true
     archived: false
 
-  Checklists.query {},
-    (data) ->
-      # Success
-      $scope.user = User
-      $scope.checklists = _.map data, (checklist) ->
-        checklist.progbar = progbar(checklist)
-        checklist
-      $rootScope.active_count = $scope.checklists.length
-      $scope.loaded = true
-
-  , (data) ->
-      # Error
-      $scope.error = "Error retrieving information from server"
+  $scope.categoriesSelected = false
 
   success = (data) ->
       # Success
@@ -31,6 +19,10 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
       $scope.checklists = _.map data, (checklist) ->
         checklist.progbar = progbar(checklist)
         checklist
+      $scope.categoriesSelected = _.map(
+        _.filter($scope.categories, (category) -> category.selected)
+        , (category) -> category.name || "(no name)")
+       .join(", ") || false
       $rootScope.active_count = $scope.checklists.length
       $scope.loaded = true
 
@@ -38,24 +30,23 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
     $scope.error = "Error retrieving information from server"
 
   $scope.getChecklists = ->
+    data =
+      'categories[]': _.pluck(_.filter($scope.categories, (category) -> category.selected), "id")
+      start: $scope.startDate
+      end: $scope.endDate
+
     if $scope.display.inProgress && $scope.display.archived
-      Checklists.all_lists {}, success, nope
+      Checklists.all_lists data, success, nope
+      $scope.statusOfChecklists = "in progress and archived"
     else if $scope.display.inProgress
-      Checklists.query {}, success, nope
+      Checklists.query data, success, nope
+      $scope.statusOfChecklists = "in progress"
     else if $scope.display.archived
-      Checklists.archived {}, success, nope
+      Checklists.archived data, success, nope
+      $scope.statusOfChecklists = "archived"
     else
       $scope.loaded = false
-
-  $scope.categories = ChecklistCategories.query {}
-
-  $scope.categoriesSelected = "all categories"
-
-  $scope.categorySelected = (index) ->
-    $scope.categoriesSelected = _.map(
-      _.filter($scope.categories, (category) -> category.selected)
-      , (category) -> category.name || "(no name)")
-     .join(", ") || "all categories"
+      $scope.statusOfChecklists = "non-existent"
 
   $scope.allActive = $scope.checklists
 
@@ -111,3 +102,6 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
     else
       $scope.checklists = $scope.allActive
   , true
+
+  $scope.getChecklists()
+  $scope.categories = ChecklistCategories.query {}
