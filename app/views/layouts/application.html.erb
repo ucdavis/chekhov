@@ -45,8 +45,8 @@
           <ul class="nav nav-pills nav-stacked" style="margin-bottom: 2.0em; margin-top: 1.0em;">
               <li id="nav-item-start-new" ng-class="{active: isActive('/')}"><a href="#"><span class="glyphicon glyphicon-pencil"></span>Start New</a></li>
               <!-- Need to use the number filter so a *_count value of 0 can be displayed instead of @????_count -->
-              <li id="nav-item-in-progress" ng-class="{active: isActive('/active')}"><a href="#/active"><span class="glyphicon glyphicon-time"></span>In Progress <span class="label label-primary">{{(active_count | number) || <%= @active_count %>}}</span></a></li>
-              <li id="nav-item-completed" ng-class="{active: isActive('/archived')}"><a href="#/archived"><span class="glyphicon glyphicon-ok"></span>Completed <span class="label label-default">{{(archived_count | number) || <%= @archived_count %>}}</span></a></li>
+              <li id="nav-item-in-progress" ng-class="{active: isActive('/active')}"><a href="#/active"><span class="glyphicon glyphicon-time"></span>Checklists <span class="label label-primary">{{(active_count | number) || <%= @active_count %>}}</span></a></li>
+              <!-- <li id="nav-item-completed" ng-class="{active: isActive('/archived')}"><a href="#/archived"><span class="glyphicon glyphicon-ok"></span>Completed <span class="label label-default">{{(archived_count | number) || <%= @archived_count %>}}</span></a></li> -->
           </ul>
           <span ng-show="user.is_admin">
             <h4 style="padding-left: 10px; color: #444;">&nbsp;</h4>

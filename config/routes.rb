@@ -8,6 +8,8 @@ Chekhov::Application.routes.draw do
   
   resources :checklists
   resources :templates
+  resources :checklist_categories
+  resources :template_categories
   resources :analytics
   
   root 'site#welcome'

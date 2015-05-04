@@ -362,9 +362,14 @@ li.sortable-item {
 }
 
 #checklist-title {
-    margin: 20px 0 10px 10px;
+    margin: 10px 0 10px 10px;
     font-size: 30px;
     height: 40px;
+    /* So margins don't collapse */
+    float: left;
+}
+
+#checklist-category {
 }
 
 .checklist-info {
@@ -398,6 +403,35 @@ li.sortable-item {
     .ticket-public {
         display: none;
     }
+}
+
+.date-range {
+    display: none;
+    position: absolute;
+    left: -100%;
+    top: 100%;
+    padding: 10px 20px 0 20px;
+    .open > & {
+        display: block;
+    }
+}
+
+.dropdown-menu .checkbox {
+  margin: 0;
+
+  label {
+    display: block;
+    clear: both;
+    color: #333;
+    font-weight: normal;
+    line-height: 1.42857;
+    padding: 3px 30px;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: #eee;
+    }
+  }
 }
 
 .nav-sidebar {

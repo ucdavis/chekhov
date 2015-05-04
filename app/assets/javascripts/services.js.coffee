@@ -20,6 +20,10 @@ angular.module("chekhovServices", ["ngResource"])
         method: 'GET'
         isArray:true
         url: '/checklists.json?archived=true'
+      all_lists:
+        method: 'GET'
+        isArray:true
+        url: '/checklists.json?all_lists=true'
   .factory "User", () ->
     user = {
         is_admin: window.is_admin,
@@ -28,6 +32,10 @@ angular.module("chekhovServices", ["ngResource"])
     }
   .factory "Analytics", ($resource) ->
     $resource "/analytics.json"
+  .factory "ChecklistCategories", ($resource) ->
+    $resource "/checklist_categories.json"
+  .factory "TemplateCategories", ($resource) ->
+    $resource "/checklist_categories.json"
   .factory "ChecklistStarter", (Checklists, Templates, $location, $rootScope) ->
     start: (template) ->
         # Increment the checklist count of the selected template

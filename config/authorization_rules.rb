@@ -6,6 +6,8 @@ authorization do
     has_permission_on :checklist_entries, :to => :manage
     has_permission_on :comments, :to => :manage
     has_permission_on :analytics, :to => :manage
+    has_permission_on :checklist_categories, :to => :manage
+    has_permission_on :template_categories, :to => :manage
   end
   role :access do
     has_permission_on :templates, :to => :read
@@ -24,6 +26,8 @@ authorization do
       if_permitted_to :use, :checklist
       if_permitted_to :manage, :checklist
     end
+    has_permission_on :checklist_categories, :to => :read
+    has_permission_on :template_categories, :to => :read
   end
 end
 

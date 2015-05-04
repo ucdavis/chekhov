@@ -8,7 +8,7 @@
 //= require angular-sanitize
 //= require angular-typeahead
 //= require bootstrap
-//= require ui-bootstrap
+//= require ui-bootstrap-tpls
 //= require sortable
 
 //= require router

@@ -4,7 +4,7 @@ class ChecklistsController < ApplicationController
   filter_access_to :all, :attribute_check => true
   filter_access_to :create, :attribute_check => false
   filter_access_to :index, :attribute_check => true, :load_method => :load_checklists
-  wrap_parameters :checklist, include: [:template_name, :name, :desc, :public, :started, :finished, :entries_attributes, :ticket_number, :comments_attributes]
+  wrap_parameters :checklist, include: [:template_name, :name, :desc, :public, :started, :finished, :entries_attributes, :ticket_number, :comments_attributes, :checklist_category]
 
   def index
   end
@@ -52,6 +52,10 @@ class ChecklistsController < ApplicationController
       params[:checklist][:finished] = Time.now
     else
       params[:checklist][:finished] = nil
+    end
+
+    if ! params[:checklist][:checklist_category].blank?
+      params[:checklist][:checklist_category] = ChecklistCategory.find_or_create_by(name: params[:checklist][:checklist_category][:name])
     end
     
     begin
@@ -154,7 +158,9 @@ class ChecklistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def checklist_params
-      params.require(:checklist).permit(:template_name, :name, :desc, :public, :user_id, :started, :finished, :ticket_number, entries_attributes: [:id, :content, :position, :checked, :finished, :completed_by], comments_attributes: [:id, :content, :author])
+      checklist = params.require(:checklist).permit(:template_name, :name, :desc, :public, :user_id, :started, :finished, :ticket_number, entries_attributes: [:id, :content, :position, :checked, :finished, :completed_by], comments_attributes: [:id, :content, :author])
+      checklist.store(:checklist_category, params[:checklist][:checklist_category])
+      return checklist
     end
 
     def load_checklists
@@ -162,6 +168,7 @@ class ChecklistsController < ApplicationController
       # Archived checklists are the inverse of the above line, so:
       # ([-1, @checklists.pluck(:id)].flatten] is dirty but ActiveRecord translates an empty array into NULL which results in there being no results if there are no open checklists)
       @checklists = Checklist.with_permissions_to(:read).where("checklists.finished is not null").order(updated_at: :desc).uniq if params[:archived] == 'true'
+      @checklists = Checklist.with_permissions_to(:read).order(updated_at: :desc).uniq if params[:all_lists] == 'true'
 
       if params[:query]
         @checklists = @checklists.where("lower(name) like ?", "%#{params[:query]}%").reorder(name: :asc)

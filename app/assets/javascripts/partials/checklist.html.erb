@@ -3,10 +3,14 @@
 </div>
 
 <div class="row" ng-show="loaded">
-  <h1 class="col-md-12" ng-hide="edit" ng-click="editTitle()" style="cursor: pointer;">
+  <b class="col-md-12" ng-hide="editCat" ng-click="edit('category')" style="margin: 0; cursor: pointer;">
+    {{ checklist.checklist_category.name || 'cat /dev/null > category' }}
+  </b>
+  <input id="checklist-category" ng-show="editCat" ng-model="checklist.checklist_category.name" type="text" class="form-control" typeahead-editable="false" typeahead="category.name for category in categories | filter:$viewValue | limitTo: 5" typeahead-on-select="saveCategory($item)" ng-blur="newCategory($event)"></input>
+  <h2 class="col-md-12" ng-hide="editTitle" ng-click="edit('title')" style="cursor: pointer; margin-top: 10px;">
     {{ checklist.name }}
-  </h1>
-  <input id="checklist-title" ng-show="edit" ng-model="checklist.name" type="text" class="form-control" on-blur="saveChanges('title')"></input>
+  </h2>
+  <input id="checklist-title" ng-show="editTitle" ng-model="checklist.name" type="text" class="form-control" on-blur="saveChanges('title')"></input>
   <div class="col-md-offset-1 col-md-11 checklist-info">
     <span style="float: left;">
     Created: <span class="text-muted">{{ checklist.started | date:'short' }} by {{ checklist.user.name || checklist.user.loginid }}</span><br>
@@ -17,7 +21,7 @@
     </span>
     <div style="clear: both;">
       <span style="float: left;">Description:</span>
-      <div style="float: left; width: 80%; margin-left: 0.75ch; cursor: pointer;" class="text-muted" ng-hide="editDesc" ng-click="editDescription()">
+      <div style="float: left; width: 80%; margin-left: 0.75ch; cursor: pointer;" class="text-muted" ng-hide="editDesc" ng-click="edit('desc')">
          {{ checklist.desc || 'No Description' }}
       </div>
       <textarea style="float: left; width: 80%; margin-left: 0.75ch;" id="desc" class="form-control" ng-show="editDesc" ng-model="checklist.desc" on-blur="saveChanges('desc')"></textarea>

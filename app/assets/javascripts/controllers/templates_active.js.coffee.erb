@@ -1,6 +1,16 @@
-Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($scope, $modal, $location, Checklists, User, $rootScope) ->
+Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($scope, $modal, $location, Checklists, User, ChecklistCategories, $rootScope) ->
   $scope.loaded = false
   $scope.error = null
+
+  $scope.startDate = new Date()
+  $scope.startDate.setMonth($scope.startDate.getMonth() - 1)
+
+  $scope.endDate = new Date()
+
+  $scope.display =
+    inProgress: true
+    archived: false
+
   Checklists.query {},
     (data) ->
       # Success
@@ -14,6 +24,38 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
   , (data) ->
       # Error
       $scope.error = "Error retrieving information from server"
+
+  success = (data) ->
+      # Success
+      $scope.user = User
+      $scope.checklists = _.map data, (checklist) ->
+        checklist.progbar = progbar(checklist)
+        checklist
+      $rootScope.active_count = $scope.checklists.length
+      $scope.loaded = true
+
+  nope = (data) ->
+    $scope.error = "Error retrieving information from server"
+
+  $scope.getChecklists = ->
+    if $scope.display.inProgress && $scope.display.archived
+      Checklists.all_lists {}, success, nope
+    else if $scope.display.inProgress
+      Checklists.query {}, success, nope
+    else if $scope.display.archived
+      Checklists.archived {}, success, nope
+    else
+      $scope.loaded = false
+
+  $scope.categories = ChecklistCategories.query {}
+
+  $scope.categoriesSelected = "all categories"
+
+  $scope.categorySelected = (index) ->
+    $scope.categoriesSelected = _.map(
+      _.filter($scope.categories, (category) -> category.selected)
+      , (category) -> category.name || "(no name)")
+     .join(", ") || "all categories"
 
   $scope.allActive = $scope.checklists
 

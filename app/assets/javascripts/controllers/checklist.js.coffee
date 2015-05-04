@@ -1,14 +1,15 @@
-Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeout, $location, $routeParams, Checklists, User) ->
+Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeout, $location, $routeParams, Checklists, User, ChecklistCategories) ->
   $scope.loaded = false
   $scope.checklist = {}
   $scope.checklist.entries_attributes = []
   $scope.checklist.comments_attributes = []
+  $scope.categories = ChecklistCategories.query {}
   $scope.user = User
   $scope.error = null
   $scope.saved = null
   $scope.progbar = { style: {width: "0%" }, text: "None completed" }
 
-  $scope.edit = if $location.search().new then true else false
+  $scope.editTitle = if $location.search().new then true else false
 
   #$('ul.nav li').removeClass 'active'
 
@@ -46,11 +47,23 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
         text: (if checkedEntries() isnt 0 then checkedEntries() + " of " + entryCount() + " completed" else "0%")
     }
 
-  $scope.editTitle = () ->
-    $scope.edit = true
+  $scope.edit = (type) ->
+    switch type
+      when "title"    then $scope.editTitle = true
+      when "desc"     then $scope.editDesc  = true
+      when "category" then $scope.editCat   = true
 
-  $scope.editDescription = () ->
-    $scope.editDesc = true
+  $scope.newCategory = (event) ->
+    # Don't do anything if typeahead box is open.
+    return  if $(event.target).attr('aria-expanded') == true
+
+    $scope.categories = ChecklistCategories.query {}
+    $scope.checklist.checklist_category.name = event.target.value
+    $scope.saveChanges('category')
+
+  $scope.saveCategory = (item) ->
+    $scope.checklist.checklist_category = item
+    $scope.saveChanges('category')
 
   $scope.saveChanges = (close = "none") ->
     $scope.saved = "Saving ..."
@@ -64,8 +77,9 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
         $scope.clearError()
         $scope.parseJSON(data)
 
-        $scope.edit = false  if close == "title"
+        $scope.editTitle = false  if close == "title"
         $scope.editDesc = false  if close == "desc"
+        $scope.editCat = false  if close == "category"
 
         # Clear new comment field
         $scope.newComment = ''
@@ -133,20 +147,17 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
       $('div#loading').html("<b>You don't have permission to view this checklist.</b>")
   )
 
-  $scope.editTitle()  if $scope.edit
+#  $scope.edit('title')  if $scope.edit
 
-  $scope.$watch('edit', (edit) ->
-      if edit
-        $('#checklist-title').focus()
-        $timeout (->
-            $('#checklist-title').focus()
-        ), 0
-  )
+  editWatcher = (item, id) ->
+    $scope.$watch(item, (edit) ->
+        if edit
+          $(id).focus()
+          $timeout (->
+              $(id).focus()
+          ), 0
+    )
 
-  $scope.$watch('editDesc', (edit) ->
-      if edit
-        $('#desc').focus()
-        $timeout (->
-            $('#desc').focus()
-        ), 0
-  )
+  editWatcher('editTitle', '#checklist-title')
+  editWatcher('editDesc', '#desc')
+  editWatcher('editCat', '#checklist-category')

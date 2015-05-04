@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150427222414) do
+ActiveRecord::Schema.define(version: 20150428225716) do
+
+  create_table "checklist_categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "checklist_entries", force: true do |t|
     t.integer  "checklist_id"
@@ -35,7 +41,10 @@ ActiveRecord::Schema.define(version: 20150427222414) do
     t.string   "template_name"
     t.integer  "ticket_number"
     t.text     "desc"
+    t.integer  "checklist_category_id"
   end
+
+  add_index "checklists", ["checklist_category_id"], name: "index_checklists_on_checklist_category_id"
 
   create_table "comments", force: true do |t|
     t.text     "content"
@@ -55,6 +64,12 @@ ActiveRecord::Schema.define(version: 20150427222414) do
   add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
 
+  create_table "template_categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "template_entries", force: true do |t|
     t.integer  "template_id"
     t.text     "content"
@@ -68,9 +83,12 @@ ActiveRecord::Schema.define(version: 20150427222414) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "checklist_count", default: 0
+    t.integer  "checklist_count",      default: 0
     t.text     "desc"
+    t.integer  "template_category_id"
   end
+
+  add_index "templates", ["template_category_id"], name: "index_templates_on_template_category_id"
 
   create_table "users", force: true do |t|
     t.string   "loginid"

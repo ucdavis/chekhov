@@ -1,4 +1,45 @@
-<div class="row" style="margin-top: 2em;">
+<div class="row" style="margin-top: 1em;">
+    <div class="col-xs-4 col-xs-offset-1 btn-group">
+      <label class="btn btn-primary" btn-checkbox ng-model="display.inProgress" ng-change="getChecklists()">
+        In Progress
+      </label>
+      <label type="button" class="btn btn-primary" btn-checkbox ng-model="display.archived" ng-change="getChecklists()">
+        Archived
+      </label>
+    </div>
+    <div class="col-xs-2" dropdown>
+      <button type="button" class="btn btn-info" dropdown-toggle>
+        Categories <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" stop-event="click">
+        <!-- Toggle buttons -->
+        <li class="checkbox" ng-repeat="category in categories"><label><input type="checkbox" ng-model="category.selected" ng-change="categorySelected($index)" /> {{ category.name || "(no name)" }}</label></li>
+      </ul>
+    </div>
+    <div class="col-xs-5" dropdown>
+      <button type="button" class="btn btn-info" dropdown-toggle>
+        Date Range <span class="caret"></span>
+      </button>
+      <div class="date-range dropdown-menu">
+        <div class="row">
+          <div class="col-xs-6">
+            <b>Start Date:</b>
+            <datepicker ng-model="startDate" min-date="minDate" show-weeks="true" class="well well-sm" stop-event="click"></datepicker>
+          </div>
+          <div class="col-xs-6">
+            <b>End Date:</b>
+            <datepicker ng-model="endDate" min-date="minDate" show-weeks="true" class="well well-sm" stop-event="click"></datepicker>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="row">
+    <div class="alert col-xs-10 col-xs-offset-1" style="margin-bottom: 0;">
+    Showing in progress and archived checklists from {{ categoriesSelected }} between {{ startDate | date }} and {{ endDate | date }}.
+    </div>
+</div>
+<div class="row">
   <div class="col-md-10 col-md-offset-1">
     <div class="alert alert-danger" ng-show="error">
       <button type="button" class="close" ng-click="clearError()">&times;</button>
