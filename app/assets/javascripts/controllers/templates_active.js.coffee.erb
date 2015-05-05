@@ -1,15 +1,8 @@
-Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($scope, $modal, $location, Checklists, User, ChecklistCategories, $rootScope) ->
+Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($scope, $modal, $location, Checklists, User, ChecklistCategories, Colorado, $rootScope) ->
   $scope.loaded = false
   $scope.error = null
 
-  $scope.startDate = new Date()
-  $scope.startDate.setMonth($scope.startDate.getMonth() - 1)
-
-  $scope.endDate = new Date()
-
-  $scope.display =
-    inProgress: true
-    archived: false
+  $scope.display = Colorado.whichChecklists
 
   $scope.categoriesSelected = false
 
@@ -30,10 +23,11 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
     $scope.error = "Error retrieving information from server"
 
   $scope.getChecklists = ->
+    $scope.display.categories = _.pluck(_.filter($scope.categories, (category) -> category.selected), "id")
     data =
-      'categories[]': _.pluck(_.filter($scope.categories, (category) -> category.selected), "id")
-      start: $scope.startDate
-      end: $scope.endDate
+      'categories[]': $scope.display.categories
+      start: $scope.display.startDate
+      end: $scope.display.endDate
 
     if $scope.display.inProgress && $scope.display.archived
       Checklists.all_lists data, success, nope
@@ -103,5 +97,16 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
       $scope.checklists = $scope.allActive
   , true
 
-  $scope.getChecklists()
-  $scope.categories = ChecklistCategories.query {}
+  ChecklistCategories.query {}, (data) ->
+    $scope.categories = _.map(data, (item) ->
+      return item if $scope.display.categories.indexOf(item.id) is -1
+
+      item.selected = true
+      return item
+    )
+
+    # We can only get checklists when we know which categories to get (if any),
+    # so have to do this after categories have loaded successfully
+    $scope.getChecklists()
+
+  , nope

@@ -24,11 +24,11 @@
         <div class="row">
           <div class="col-xs-6">
             <b>Start Date:</b>
-            <datepicker ng-model="startDate" min-date="minDate" show-weeks="true" class="well well-sm" stop-event="click" ng-change="getChecklists()"></datepicker>
+            <datepicker ng-model="display.startDate" min-date="minDate" show-weeks="true" class="well well-sm" stop-event="click" ng-change="getChecklists()"></datepicker>
           </div>
           <div class="col-xs-6">
             <b>End Date:</b>
-            <datepicker ng-model="endDate" min-date="minDate" show-weeks="true" class="well well-sm" stop-event="click" ng-change="getChecklists()"></datepicker>
+            <datepicker ng-model="display.endDate" min-date="minDate" show-weeks="true" class="well well-sm" stop-event="click" ng-change="getChecklists()"></datepicker>
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@
 </div>
 <div class="row">
     <div class="alert col-xs-10 col-xs-offset-1" style="margin-bottom: 0;">
-    Showing <span ng-hide="categoriesSelected">all</span> {{ statusOfChecklists }} checklists <span ng-show="categoriesSelected">from {{ categoriesSelected }}</span> between {{ startDate | date }} and {{ endDate | date }}.
+    Showing <span ng-hide="categoriesSelected">all</span> {{ statusOfChecklists }} checklists <span ng-show="categoriesSelected">from {{ categoriesSelected }}</span> between {{ display.startDate | date }} and {{ display.endDate | date }}.
     </div>
 </div>
 <div class="row">
