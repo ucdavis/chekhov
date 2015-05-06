@@ -193,7 +193,7 @@ class ChecklistsController < ApplicationController
       @checklists = checklists.order(updated_at: :desc).uniq if params[:all_lists] == 'true'
 
       if params[:query]
-        @checklists = checklists.where("lower(name) like ?", "%#{params[:query]}%").reorder(name: :asc)
+        @checklists = @checklists.where("lower(name) like ?", "%#{params[:query]}%").reorder(name: :asc)
         @is_search = true
       end
     end
