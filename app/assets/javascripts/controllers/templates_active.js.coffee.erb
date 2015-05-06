@@ -25,7 +25,8 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
   $scope.getChecklists = ->
     # Restore state of corresponding start and end dates when a date is chosen
     # after all time has been clicked (if the calendar was previously cleared to
-    # display checklists for all time)
+    # display checklists for all time). Set dates to today if they were not
+    # previously set.
     if $scope.display.startDate && !$scope.display.endDate
       $scope.display.endDate = $scope.display.oldDates.end
     else if $scope.display.endDate && !$scope.display.startDate
@@ -60,6 +61,13 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
     $scope.display.startDate = ""
     $scope.display.endDate = ""
     $scope.getChecklists()
+
+  # Resets all filters to initial state
+  $scope.resetFilters = () ->
+    $scope.display.categories = []
+    $scope.display.inProgress = true
+    $scope.display.archived = false
+    $scope.allTime()
 
   console.debug 'TemplatesActiveIndexCtrl', 'Initializing...'
 

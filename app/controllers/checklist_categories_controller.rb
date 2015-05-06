@@ -5,8 +5,12 @@ class ChecklistCategoriesController < ApplicationController
 
   # GET /checklist_categories
   # GET /checklist_categories.json
+  # Only display categories that actually have checklists. Categories don't
+  # actually get deleted from the list, but they "disappear" when there's no
+  # checklists in a given category (giving the illusion that the category
+  # doesn't exist).
   def index
-    @checklist_categories = ChecklistCategory.all
+    @checklist_categories = ChecklistCategory.joins(:checklists).group('checklist_categories.id').having('count(checklists.id) > 0')
   end
 
   # GET /checklist_categories/1

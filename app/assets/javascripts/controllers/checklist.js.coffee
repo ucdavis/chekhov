@@ -58,6 +58,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
     return  if $(event.target).attr('aria-expanded') == true
 
     $scope.categories = ChecklistCategories.query {}
+    $scope.checklist.checklist_category = {}
     $scope.checklist.checklist_category.name = event.target.value
     $scope.saveChanges('category')
 

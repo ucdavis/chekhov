@@ -60,12 +60,13 @@ angular.module("chekhovServices", ["ngResource"])
   # For preserving state (e.g., Colorado, ha ha get it?) of loaded checklists
   # for the active checklist view (see TemplatesActiveIndexCtrl)
   .factory "Colorado", () ->
-    startDate = new Date()
-    startDate.setMonth(startDate.getMonth() - 1)
     {
       whichChecklists:
-        startDate: startDate
-        endDate: new Date()
+        startDate: ""
+        endDate: ""
+        oldDates:
+          start: new Date()
+          end: new Date()
         inProgress: true
         archived: false
         categories: []
