@@ -196,5 +196,11 @@ class ChecklistsController < ApplicationController
         @checklists = @checklists.where("lower(name) like ?", "%#{params[:query]}%").reorder(name: :asc)
         @is_search = true
       end
+
+      if params[:ticket_number_query]
+        params[:ticket_number_query].slice!(0)
+        ticket_id = params[:ticket_number_query].to_i
+        @checklists = @checklists.where("ticket_number like ?", "%#{ticket_id}%")
+      end
     end
 end

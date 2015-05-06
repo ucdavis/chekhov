@@ -29,12 +29,29 @@ Chekhov.controller "SearchCtrl", @SearchCtrl = ($scope, $timeout, $location, Use
           , (data) ->
                 console.log "Error retrieving information from server"
 
+    sysaidSearcher = (query, cb) ->
+        return cb([])  if query.charAt(0) isnt '#'
+
+        suggestions = []
+        Checklists.query { all_lists: 'true', ticket_number_query: query },
+            (data) ->
+               for i of data
+                    obj = {} # Have to keep object within scope of for loop
+                             # because key is always the same. Not doing so
+                             # means overwrites
+                    obj = data[i]
+                    obj['checklist'] = data[i].name
+                    suggestions.push obj  unless isNaN(i)
+                cb suggestions
+
     searcher = (method, key) ->
         waiter = null
         cache = null
         fetching = false
 
         (query, cb) ->
+            return cb([])  if query.charAt(0) is '#'
+
             suggestions = []
             $timeout.cancel waiter
 
@@ -109,6 +126,11 @@ Chekhov.controller "SearchCtrl", @SearchCtrl = ($scope, $timeout, $location, Use
          displayKey: 'template'
          source: searcher Templates.query, 'template'
          templates: template 'Templates', 'template', 'template'
+      ,
+         name: 'sysaid'
+         displayKey: 'sysaid'
+         source: sysaidSearcher
+         templates: template 'Sysaid Number', 'checklist', 'archived'
     )
 
     # This is what happens when a user clicks on a suggestion or presses the
