@@ -23,6 +23,14 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
     $scope.error = "Error retrieving information from server"
 
   $scope.getChecklists = ->
+    # Restore state of corresponding start and end dates when a date is chosen
+    # after all time has been clicked (if the calendar was previously cleared to
+    # display checklists for all time)
+    if $scope.display.startDate && !$scope.display.endDate
+      $scope.display.endDate = $scope.display.oldDates.end
+    else if $scope.display.endDate && !$scope.display.startDate
+      $scope.display.startDate = $scope.display.oldDates.start
+
     $scope.display.categories = _.pluck(_.filter($scope.categories, (category) -> category.selected), "id")
     data =
       'categories[]': $scope.display.categories
@@ -36,13 +44,22 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
       Checklists.query data, success, nope
       $scope.statusOfChecklists = "in progress"
     else if $scope.display.archived
-      Checklists.archived data, success, nope
+      Checklists.archived data, success, nopet new javascript framework
       $scope.statusOfChecklists = "archived"
     else
       $scope.loaded = false
       $scope.statusOfChecklists = "non-existent"
 
   $scope.allActive = $scope.checklists
+
+  $scope.allTime = () ->
+    $scope.display.oldDates =
+      start: $scope.display.startDate
+      end: $scope.display.endDate
+
+    $scope.display.startDate = ""
+    $scope.display.endDate = ""
+    $scope.getChecklists()
 
   console.debug 'TemplatesActiveIndexCtrl', 'Initializing...'
 
