@@ -1,5 +1,25 @@
 <save-notification show="notifySave"></save-notification>
-<div class="row" style="margin-top: 2em;">
+<div class="row" style="margin-top: 1em;">
+    <div class="col-xs-offset-1 col-xs-2" dropdown>
+      <button type="button" class="btn btn-info" dropdown-toggle>
+        Categories <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" stop-event="click">
+        <!-- Toggle buttons -->
+        <li class="checkbox" ng-repeat="category in categories">
+          <label>
+            <input type="checkbox" ng-model="category.selected" ng-change="getTemplates()" /> {{ category.name || "(no name)" }}
+          </label>
+        </li>
+      </ul>
+    </div>
+</div>
+<div class="row">
+  <div class="alert col-xs-10 col-xs-offset-1" style="margin-bottom: 0;">
+    Showing <span ng-hide="categoriesSelected">all</span> templates<span ng-show="categoriesSelected"> from {{ categoriesSelected }}</span>. <a style="cursor: pointer;" ng-click="resetFilters()">Clear filters.</a>
+  </div>
+</div>
+<div class="row">
   <div class="col-md-10 col-md-offset-1">
     <div class="alert alert-danger" ng-show="error">
       <button type="button" class="close" ng-click="clearError()">&times;</button>

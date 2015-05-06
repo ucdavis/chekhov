@@ -29,6 +29,7 @@ class ChecklistsController < ApplicationController
     if @template
       @checklist.template_name = @template.name
       @checklist.desc = @template.desc
+      @checklist.checklist_category = ChecklistCategory.find_or_create_by(name: @template.template_category.name)
     end
     
     if @checklist.save
@@ -54,7 +55,9 @@ class ChecklistsController < ApplicationController
       params[:checklist][:finished] = nil
     end
 
-    if ! params[:checklist][:checklist_category].blank?
+    if ! params[:checklist][:checklist_category].blank? && ! params[:checklist][:checklist_category][:name].blank?
+      # Rationale for searching by name: I doubt anyone would name two
+      # categories by the same name.
       params[:checklist][:checklist_category] = ChecklistCategory.find_or_create_by(name: params[:checklist][:checklist_category][:name])
     end
     
@@ -190,7 +193,7 @@ class ChecklistsController < ApplicationController
       @checklists = checklists.order(updated_at: :desc).uniq if params[:all_lists] == 'true'
 
       if params[:query]
-        @checklists = @checklists.where("lower(name) like ?", "%#{params[:query]}%").reorder(name: :asc)
+        @checklists = checklists.where("lower(name) like ?", "%#{params[:query]}%").reorder(name: :asc)
         @is_search = true
       end
     end

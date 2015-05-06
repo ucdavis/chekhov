@@ -1,3 +1,3 @@
-class TemplateCategories < ActiveRecord::Base
+class TemplateCategory < ActiveRecord::Base
   has_many :templates
 end

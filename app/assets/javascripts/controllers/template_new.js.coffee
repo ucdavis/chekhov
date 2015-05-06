@@ -1,6 +1,7 @@
-Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, User, $location, $rootScope) ->
+Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, User, TemplateCategories, $location, $rootScope) ->
   $scope.newTemplate = {}
   $scope.newTemplate.entries_attributes = []
+  $scope.categories = TemplateCategories.query {}
   $scope.newContent = null
   $scope.position = 0
   $scope.error = null
@@ -23,6 +24,16 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, Use
 
   $scope.unsetEditingEntry = () ->
     $scope.editingEntry = null
+
+  $scope.newCategory = (event) ->
+    # Don't do anything if typeahead box is open.
+    return  if $(event.target).attr('aria-expanded') == true
+
+    $scope.newTemplate.template_category = {}
+    $scope.newTemplate.template_category.name = event.target.value
+
+  $scope.saveCategory = (item) ->
+    $scope.newTemplate.template_category = item
 
   $scope.save = () ->
     $scope.notifySave = "Saving..."

@@ -6,7 +6,7 @@ class TemplateCategoriesController < ApplicationController
   # GET /template_categories
   # GET /template_categories.json
   def index
-    @template_categories = TemplateCategory.all
+    @template_categories = TemplateCategory.joins(:templates).group('template_categories.id').having('count(templates.id) > 0')
   end
 
   # GET /template_categories/1

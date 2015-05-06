@@ -35,7 +35,7 @@ angular.module("chekhovServices", ["ngResource"])
   .factory "ChecklistCategories", ($resource) ->
     $resource "/checklist_categories.json"
   .factory "TemplateCategories", ($resource) ->
-    $resource "/checklist_categories.json"
+    $resource "/template_categories.json"
   .factory "ChecklistStarter", (Checklists, Templates, $location, $rootScope) ->
     start: (template) ->
         # Increment the checklist count of the selected template
@@ -57,6 +57,13 @@ angular.module("chekhovServices", ["ngResource"])
                 $scope.error = $scope.error + "<li>#{i} #{e}</li>"
               )
 
+  # For preserving state of loaded templates in the manage template and start
+  # new views (see TemplatesIndexCtrl)
+  .factory "State", () ->
+    {
+      categories: []
+    }
+
   # For preserving state (e.g., Colorado, ha ha get it?) of loaded checklists
   # for the active checklist view (see TemplatesActiveIndexCtrl)
   .factory "Colorado", () ->
@@ -71,4 +78,3 @@ angular.module("chekhovServices", ["ngResource"])
         archived: false
         categories: []
     }
-

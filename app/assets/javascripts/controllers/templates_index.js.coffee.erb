@@ -1,19 +1,37 @@
-Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, $location, Templates, Checklists, User, ChecklistStarter, $rootScope) ->
+Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, $location, Templates, Checklists, User, ChecklistStarter, TemplateCategories, State, $rootScope) ->
   $scope.loaded = false
   $scope.error = null
-  $scope.templates = Templates.query {},
-    (data) ->
-      # Success
-      $scope.loaded = true
-      $rootScope.template_active = $scope.templates.length
+  $scope.display = State
 
-  , (data) ->
-      # Error
-      $scope.error = "Error retrieving information from server"
+  # Gets templates from the appropriate categories and sets the info text to
+  # tell user which categories are selected
+  $scope.getTemplates = ->
+    selectedCategories = _.filter($scope.categories, (category) -> category.selected)
+    $scope.display.categories = _.pluck(selectedCategories, "id")
+    $scope.categoriesSelected = _.pluck(selectedCategories, "name").join(", ") || false
+
+    Templates.query { 'categories[]': $scope.display.categories },
+      (data) ->
+        # Success
+        $scope.templates = data
+        $scope.loaded = true
+        $rootScope.template_active = $scope.templates.length
+
+    , (data) ->
+        # Error
+        $scope.error = "Error retrieving information from server"
+
+  # Clears all selected categories
+  $scope.resetFilters = () ->
+    $scope.categories = _.map($scope.categories, (category) ->
+      delete category.selected
+      category
+    )
+    $scope.getTemplates()
 
   $scope.allTemplates = $scope.templates
 
-  $scope.canManage = User.is_admin and $location.path() is "/templates/manage" 
+  $scope.canManage = User.is_admin and $location.path() is "/templates/manage"
  
   $scope.activeTab = 1
   $scope.user = User
@@ -71,4 +89,14 @@ Chekhov.controller "TemplatesIndexCtrl", @TemplatesIndexCtrl = ($scope, $modal, 
       $scope.templates = $scope.allTemplates
   , true
 
+  TemplateCategories.query {}, (data) ->
+    $scope.categories = _.map(data, (item) ->
+      return item if $scope.display.categories.indexOf(item.id) is -1
 
+      item.selected = true
+      return item
+    )
+    $scope.getTemplates()
+
+  , (data) ->
+      $scope.error = "Error retrieving information from server"

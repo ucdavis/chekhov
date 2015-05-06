@@ -10,6 +10,19 @@
 
 <div class="row" style="margin-top: 2em;">
   <div class="col-md-10 col-md-offset-1">
+    <input id="checklist-category" placeholder="Add a Category" ng-model="newTemplate.template_category.name" type="text" class="form-control" typeahead-editable="false" typeahead="category.name for category in categories | filter:$viewValue | limitTo: 5" typeahead-on-select="saveCategory($item)" ng-blur="newCategory($event)"></input>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 2em;">
+  <div class="col-md-10 col-md-offset-1">
+    <textarea class="form-control" ng-model="newTemplate.desc" autofocus placeholder="Add a Description">
+    </textarea>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 2em;">
+  <div class="col-md-10 col-md-offset-1">
     <div class="alert alert-danger" ng-show="error">
       <button type="button" class="close" ng-click="clearError()">&times;</button>
       <div ng-bind-html="error"></div>

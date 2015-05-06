@@ -3,10 +3,6 @@
 </div>
 
 <div class="row" ng-show="loaded">
-  <b class="col-md-12" ng-hide="editCat" ng-click="edit('category')" style="margin: 0; cursor: pointer;">
-    {{ checklist.checklist_category.name || 'cat /dev/null > category' }}
-  </b>
-  <input id="checklist-category" ng-show="editCat" ng-model="checklist.checklist_category.name" type="text" class="form-control" typeahead-editable="false" typeahead="category.name for category in categories | filter:$viewValue | limitTo: 5" typeahead-on-select="saveCategory($item)" ng-blur="newCategory($event)"></input>
   <h2 class="col-md-12" ng-hide="editTitle" ng-click="edit('title')" style="cursor: pointer; margin-top: 10px;">
     {{ checklist.name }}
   </h2>
@@ -20,11 +16,19 @@
       Completed: {{ checklist.finished | date:'short' }} by {{ checklist.finished_by }}
     </span>
     <div style="clear: both;">
-      <span style="float: left;">Description:</span>
-      <div style="float: left; width: 80%; margin-left: 0.75ch; cursor: pointer;" class="text-muted" ng-hide="editDesc" ng-click="edit('desc')">
-         {{ checklist.desc || 'No Description' }}
+      <span style="float: left;">Category:</span>
+      <div style="cursor: pointer;" class="text-muted editable" ng-hide="editCat" ng-click="edit('category')">
+        {{ checklist.checklist_category.name }}
+        <span ng-hide='checklist.checklist_category.name'>This checklist has no category. Click here to add a category.</span>
       </div>
-      <textarea style="float: left; width: 80%; margin-left: 0.75ch;" id="desc" class="form-control" ng-show="editDesc" ng-model="checklist.desc" on-blur="saveChanges('desc')"></textarea>
+      <input id="checklist-category" ng-show="editCat" ng-model="checklist.checklist_category.name" type="text" class="form-control editable" typeahead-editable="false" typeahead="category.name for category in categories | filter:$viewValue | limitTo: 5" typeahead-on-select="saveCategory($item)" ng-blur="newCategory($event)"></input>
+    </div>
+    <div style="clear: both;">
+      <span style="float: left;">Description:</span>
+      <div style="cursor: pointer;" class="text-muted editable" ng-hide="editDesc" ng-click="edit('desc')">
+         {{ checklist.desc || 'This checklist has no description. Click here to add a description.' }}
+      </div>
+      <textarea id="desc" class="form-control editable" ng-show="editDesc" ng-model="checklist.desc" on-blur="saveChanges('desc')"></textarea>
     </div>
     <div class="ticket-public">
         Sysaid Ticket #: <span class="text-muted">{{ checklist.ticket_number || '(none)' }}</span><br />

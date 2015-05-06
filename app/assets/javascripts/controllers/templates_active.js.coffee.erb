@@ -45,7 +45,7 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
       Checklists.query data, success, nope
       $scope.statusOfChecklists = "in progress"
     else if $scope.display.archived
-      Checklists.archived data, success, nopet new javascript framework
+      Checklists.archived data, success, nope
       $scope.statusOfChecklists = "archived"
     else
       $scope.loaded = false
@@ -64,7 +64,10 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
 
   # Resets all filters to initial state
   $scope.resetFilters = () ->
-    $scope.display.categories = []
+    $scope.categories = _.map($scope.categories, (category) ->
+      delete category.selected
+      category
+    )
     $scope.display.inProgress = true
     $scope.display.archived = false
     $scope.allTime()

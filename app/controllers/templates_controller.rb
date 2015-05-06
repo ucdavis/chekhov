@@ -7,7 +7,7 @@ class TemplatesController < ApplicationController
   wrap_parameters :template, include: [:owner_id, :name, :checklist_count, :entries_attributes, :desc, :template_category]
   
   def index
-    @templates = Template.order(checklist_count: :desc)
+  # @templates = Template.order(checklist_count: :desc)
     @template_count = Template.count
     @archived_count = Checklist.where("finished is not null").count
     @active_count = Checklist.where("finished is null").count
@@ -62,11 +62,25 @@ class TemplatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def template_params
+      if ! params[:template][:template_category].blank? && ! params[:template][:template_category][:name].blank?
+        params[:template][:template_category] =
+          TemplateCategory.find_or_create_by(name: params[:template][:template_category][:name])
+      end
+
       params[:template][:owner_id] = Authorization.current_user[:id]
-      params.require(:template).permit(:owner_id, :name, :desc, :checklist_count, entries_attributes: [:id, :content, :position, :_destroy])
+      template = params.require(:template).permit(:owner_id, :name, :desc, :checklist_count, entries_attributes: [:id, :content, :position, :_destroy])
+      template.store(:template_category, params[:template][:template_category])
+
+      return template
     end
 
     def load_templates
-      @templates = Template.with_permissions_to(:read).all
+      templates = Template.with_permissions_to(:read)
+
+      if params[:categories] && params[:categories].count > 0
+        templates = templates.where('template_category_id in (?)', params[:categories])
+      end
+
+      @templates = templates.order(updated_at: :desc).uniq
     end
 end
