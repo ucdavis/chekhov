@@ -33,6 +33,7 @@
                <span class="name">{{ template.name }}</span>
             </div>
             <div class="col-xs-3">
+               <span style="color: #aaa; font-size: 10px; position: absolute; top: 5px; right: 5px;">{{ template.template_category.name }}</span> 
                <span class="hint-text">
                    <span class="template-actions" ng-show="canManage">
                     <a class="glyphicon glyphicon-trash first" tooltip-append-to-body="true" tooltip="Delete this template" ng-click="confirmDeleteTemplate(template)" stop-event="mouseup"></a>
