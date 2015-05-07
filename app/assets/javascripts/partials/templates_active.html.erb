@@ -1,5 +1,8 @@
-<div class="row" style="margin-top: 1em;">
-    <div class="col-xs-offset-1 col-xs-2" dropdown>
+<div class="row" id="nav-filters">
+    <span class="visible-xs col-xs-12">
+      <h4>Filters:</h4>
+    </span>
+    <div class="col-md-offset-1 col-sm-2" dropdown>
       <button type="button" class="btn btn-info" dropdown-toggle>
         Categories <span class="caret"></span>
       </button>
@@ -12,17 +15,17 @@
         </li>
       </ul>
     </div>
-    <div class="col-xs-3" dropdown>
+    <div class="col-sm-3" dropdown>
       <button type="button" class="btn btn-info" dropdown-toggle>
         Date Range <span class="caret"></span>
       </button>
       <div class="date-range dropdown-menu">
         <div class="row">
-          <div class='col-xs-6'>
+          <div class='col-sm-6'>
             <b>Start Date:</b>
             <datepicker ng-model="display.startDate" show-weeks="true" class="well well-sm" stop-event="click" ng-change="getChecklists()"></datepicker>
           </div>
-          <div class='col-xs-6'>
+          <div class='col-sm-6'>
             <b>End Date:</b>
             <datepicker ng-model="display.endDate" show-weeks="true" class="well well-sm" stop-event="click" ng-change="getChecklists()"></datepicker>
           </div>
@@ -34,7 +37,7 @@
         </div>
       </div>
     </div>
-    <div class="col-xs-4 btn-group">
+    <div class="col-sm-4 btn-group">
       <label class="btn btn-primary" btn-checkbox ng-model="display.inProgress" ng-change="getChecklists()">
         In Progress
       </label>
@@ -44,7 +47,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="alert col-xs-10 col-xs-offset-1" style="margin-bottom: 0;">
+    <div class="alert col-xs-10 col-md-offset-1" style="margin-bottom: 0;">
     Showing <span ng-hide="categoriesSelected">all</span> {{ statusOfChecklists }} checklists <span ng-show="categoriesSelected">from {{ categoriesSelected }}</span> <span ng-hide="display.startDate">for all time</span><span ng-show="display.startDate">between {{ display.startDate | date }} and {{ display.endDate | date }}</span>. <a style="cursor: pointer" ng-click="resetFilters()">Clear filters.</a>
     </div>
 </div>

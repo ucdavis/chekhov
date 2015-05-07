@@ -402,7 +402,19 @@ li.sortable-item {
     }
 
     .ticket-public {
-        display: none;
+      display: none;
+    }
+
+    @media (max-width: 991px) {
+      &.ticket-public {
+        margin-top: 10px;
+        #public {
+          margin-top: 5px;
+          .pull-right {
+            float: none !important;
+          }
+        }
+      }
     }
 
     .editable {
@@ -412,15 +424,32 @@ li.sortable-item {
     }
 }
 
+#nav-filters {
+    margin-top: 1em;
+
+    @media (max-width: 768px) {
+        padding: 5px 5px 15px 5px;
+        background-color: #eee;
+        border-radius: 3px;
+        margin-right: 5px;
+        div {
+            margin-top: 5px;
+        }
+    }
+}
+
 .date-range {
     display: none;
     position: absolute;
-    right: -200%;
-    left: -50%;
-    top: 100%;
     padding: 10px 20px 0 20px;
-    .open > & {
-        display: block;
+
+    @media (min-width: 768px) {
+      right: -200%;
+      left: -50%;
+      top: 100%;
+      .open > & {
+          display: block;
+      }
     }
 }
 

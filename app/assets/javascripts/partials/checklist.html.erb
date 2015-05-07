@@ -38,14 +38,14 @@
 </div>
 
 <div class="row checklist-info ticket-public" ng-show="loaded">
-  <div class="col-md-offset-1 col-md-5">
+  <div class="col-md-offset-1 col-md-5" id="ticket">
     <div class="input-group">
       <span class="input-group-addon">SysAid Ticket #</span>
       <input type="number" class="form-control" ng-model="checklist.ticket_number" placeholder="SysAid Ticket #"
         on-blur="setTicketNumber()" on-enter="saveChanges()"></input>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-6" id="public">
     <div class="btn-group pull-right" ng-show="user.is_admin || user.id == checklist.user_id">
         <button type="button" class="btn btn-info" ng-model="checklist.public" btn-radio="true" ng-click="togglePublic()">Public</button>
         <button type="button" class="btn btn-info" ng-model="checklist.public" btn-radio="false" ng-click="togglePublic()">Not Public</button>
