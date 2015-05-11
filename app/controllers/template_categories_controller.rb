@@ -10,8 +10,9 @@ class TemplateCategoriesController < ApplicationController
     @template_categories = TemplateCategory.joins(:templates).group('template_categories.id').having('count(templates.id) > 0')
   end
 
-  # GET /template_categories/1/edit
-  def edit
+  # GET /template_categories/1
+  # GET /template_categories/1.json
+  def show
   end
 
   # POST /template_categories
