@@ -1,7 +1,8 @@
 class ChecklistCategoriesController < ApplicationController
   respond_to :json
   before_action :set_checklist_category, only: [:show, :edit, :update, :destroy]
-  filter_resource_access
+  filter_access_to :all
+  wrap_parameters :checklist_category, include: [:name, :id ]
 
   # GET /checklist_categories
   # GET /checklist_categories.json
@@ -16,15 +17,6 @@ class ChecklistCategoriesController < ApplicationController
   # GET /checklist_categories/1
   # GET /checklist_categories/1.json
   def show
-  end
-
-  # GET /checklist_categories/new
-  def new
-    @checklist_category = ChecklistCategory.new
-  end
-
-  # GET /checklist_categories/1/edit
-  def edit
   end
 
   # POST /checklist_categories
@@ -70,6 +62,6 @@ class ChecklistCategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def checklist_category_params
-      params[:checklist_category]
+      params.require(:checklist_category).permit(:id, :name)
     end
 end

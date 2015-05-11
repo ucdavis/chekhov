@@ -6,44 +6,44 @@ class TemplateCategoriesControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index
+    grant_admin_access
+
+    get :index, format: 'json'
     assert_response :success
     assert_not_nil assigns(:template_categories)
   end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
   test "should create template_category" do
+    grant_admin_access
+
     assert_difference('TemplateCategory.count') do
-      post :create, template_category: {  }
+      post :create, format: 'json', template_category: { name: "A Template Category" }
     end
 
-    assert_redirected_to template_category_path(assigns(:template_category))
+    assert_response :success
   end
 
   test "should show template_category" do
-    get :show, id: @template_category
-    assert_response :success
-  end
+    grant_admin_access
 
-  test "should get edit" do
-    get :edit, id: @template_category
+    get :show, format: 'json', id: @template_category
     assert_response :success
   end
 
   test "should update template_category" do
-    patch :update, id: @template_category, template_category: {  }
-    assert_redirected_to template_category_path(assigns(:template_category))
+    grant_admin_access
+
+    patch :update, id: @template_category, format: 'json', template_category: { name: "A Template Category" }
+    assert_response :success
   end
 
   test "should destroy template_category" do
+    grant_admin_access
+
     assert_difference('TemplateCategory.count', -1) do
-      delete :destroy, id: @template_category
+      delete :destroy, format: 'json', id: @template_category
     end
 
-    assert_redirected_to template_categories_path
+    assert_response :success
   end
 end

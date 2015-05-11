@@ -1,22 +1,13 @@
 class TemplateCategoriesController < ApplicationController
   respond_to :json
   before_action :set_template_category, only: [:show, :edit, :update, :destroy]
-  filter_resource_access
+  filter_access_to :all
+  wrap_parameters :template_category, include: [ :name, :id ]
 
   # GET /template_categories
   # GET /template_categories.json
   def index
     @template_categories = TemplateCategory.joins(:templates).group('template_categories.id').having('count(templates.id) > 0')
-  end
-
-  # GET /template_categories/1
-  # GET /template_categories/1.json
-  def show
-  end
-
-  # GET /template_categories/new
-  def new
-    @template_category = TemplateCategory.new
   end
 
   # GET /template_categories/1/edit
@@ -66,6 +57,6 @@ class TemplateCategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def template_category_params
-      params[:template_category]
+      params.require(:template_category).permit(:id, :name)
     end
 end

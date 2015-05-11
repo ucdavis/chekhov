@@ -20,4 +20,23 @@ class ActiveSupport::TestCase
     request.session.delete(:user_id)
     CASClient::Frameworks::Rails::Filter.fake(nil)
   end
+
+  def grant_admin_access
+    without_access_control do
+      Authentication.module_eval do
+        def current_user
+          return Authorization.current_user = User.find_by_loginid(:casuser)
+        end
+      end
+
+      User.module_eval do
+        def role_symbols
+          @role_symbols = [ :admin ]
+        end
+      end
+
+      request.session[:auth_via] = 'cas'
+      request.session[:user_id] = users(:one)
+    end
+  end
 end
