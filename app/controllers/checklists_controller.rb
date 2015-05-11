@@ -59,6 +59,8 @@ class ChecklistsController < ApplicationController
       # Rationale for searching by name: I doubt anyone would name two
       # categories by the same name.
       params[:checklist][:checklist_category] = ChecklistCategory.find_or_create_by(name: params[:checklist][:checklist_category][:name])
+    else
+      params[:checklist][:checklist_category] = nil
     end
     
     begin
@@ -186,11 +188,11 @@ class ChecklistsController < ApplicationController
         checklists = checklists.where("checklist_category_id in (?)", params[:categories])
       end
 
-      @checklists = checklists.joins(:entries).where("checklists.finished is null").order(updated_at: :desc).uniq
+      @checklists = checklists.includes(:checklist_category, :entries, :user).where("checklists.finished is null").order(updated_at: :desc).uniq
       # Archived checklists are the inverse of the above line, so:
       # ([-1, @checklists.pluck(:id)].flatten] is dirty but ActiveRecord translates an empty array into NULL which results in there being no results if there are no open checklists)
-      @checklists = checklists.where("checklists.finished is not null").order(updated_at: :desc).uniq if params[:archived] == 'true'
-      @checklists = checklists.order(updated_at: :desc).uniq if params[:all_lists] == 'true'
+      @checklists = checklists.includes(:checklist_category, :entries, :user).where("checklists.finished is not null").order(updated_at: :desc).uniq if params[:archived] == 'true'
+      @checklists = checklists.includes(:checklist_category, :entries, :user).order(updated_at: :desc).uniq if params[:all_lists] == 'true'
 
       if params[:query]
         @checklists = @checklists.where("lower(name) like ?", "%#{params[:query]}%").reorder(name: :asc)

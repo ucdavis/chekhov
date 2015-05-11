@@ -3,7 +3,7 @@ class Template < ActiveRecord::Base
   
   belongs_to :owner, :class_name => 'User'
   belongs_to :template_category
-  has_many :entries, :class_name => 'TemplateEntry', :dependent => :destroy, :order => "position"
+  has_many :entries, -> { order(:position) }, :class_name => 'TemplateEntry', :dependent => :destroy
   
   validates_presence_of :owner, :name
   validates_uniqueness_of :name

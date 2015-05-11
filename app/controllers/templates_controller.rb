@@ -65,6 +65,8 @@ class TemplatesController < ApplicationController
       if ! params[:template][:template_category].blank? && ! params[:template][:template_category][:name].blank?
         params[:template][:template_category] =
           TemplateCategory.find_or_create_by(name: params[:template][:template_category][:name])
+      else
+        params[:template][:template_category] = nil
       end
 
       params[:template][:owner_id] = Authorization.current_user[:id]
@@ -78,9 +80,9 @@ class TemplatesController < ApplicationController
       templates = Template.with_permissions_to(:read)
 
       if params[:categories] && params[:categories].count > 0
-        templates = templates.where('template_category_id in (?)', params[:categories])
+        templates = templates.includes(:entries).where('template_category_id in (?)', params[:categories])
       end
 
-      @templates = templates.order(updated_at: :desc).uniq
+      @templates = templates.includes(:entries).order(updated_at: :desc).uniq
     end
 end

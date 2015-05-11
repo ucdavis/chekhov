@@ -55,7 +55,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
 
   $scope.newCategory = (event) ->
     # Don't do anything if typeahead box is open.
-    return  if $(event.target).attr('aria-expanded') == true
+    return  if $(event.target).attr('aria-expanded') is 'true'
 
     $scope.categories = ChecklistCategories.query {}
     $scope.checklist.checklist_category = {}

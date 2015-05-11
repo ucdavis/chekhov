@@ -4,8 +4,8 @@ class Checklist < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :checklist_category
-  has_many :entries, :class_name => 'ChecklistEntry', :dependent => :destroy, :order => "position"
-  has_many :comments, :dependent => :destroy, :order => "created_at"
+  has_many :entries, -> { order(:position) },  :class_name => 'ChecklistEntry', :dependent => :destroy 
+  has_many :comments, -> { order(:created_at) }, :dependent => :destroy
   
   validates_presence_of :user_id, :name, :template_name
   validates :public, :inclusion => {:in => [true, false]}
@@ -31,11 +31,11 @@ class Checklist < ActiveRecord::Base
   end
 
   def entry_count
-    self.entries.count
+    self.entries.size
   end
 
   def finished_count
-    self.entries.where(checked: true).count()
+    self.entries.select { |e| e.checked == true }.size
   end
 
   private
