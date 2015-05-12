@@ -29,7 +29,9 @@ class ChecklistsController < ApplicationController
     if @template
       @checklist.template_name = @template.name
       @checklist.desc = @template.desc
-      @checklist.checklist_category = ChecklistCategory.find_or_create_by(name: @template.template_category.name)
+      if !!@template.template_category
+        @checklist.checklist_category = ChecklistCategory.find_or_create_by(name: @template.template_category.name)
+      end
     end
     
     if @checklist.save
