@@ -20,7 +20,7 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
   $scope.removeFromEntries = (position) ->
     entry = _.findWhere($scope.template.entries_attributes, {position: position})
     entry._destroy = true
-  
+
   $scope.setEditingEntry = (position) ->
     $scope.editingEntry = position
 
