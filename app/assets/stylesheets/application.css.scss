@@ -1,7 +1,6 @@
 /*
  *= require bootstrap
  *= require justified-nav
- *= require print
  */
 
 body {
@@ -306,7 +305,7 @@ li.sortable-item {
     padding: 5px 0;
 
     &.first {
-        background: #eee url('move-handle.gif') no-repeat left center;
+        background: #eee image-url('move-handle.gif') no-repeat left center;
         border-left-width: 1px;
         border-radius: 3px 0 0 3px;
         padding-left: 1.5em;
