@@ -44,7 +44,7 @@
             <span class="item-actions" ng-hide="editingEntry == $index">
                 <i class="glyphicon glyphicon-trash icon-right" ng-click="removeFromEntries(entry.position)"
                    tooltip="Delete this entry" tooltip-append-to-body="true"></i>
-                <i class="glyphicon glyphicon-edit icon-right" ng-click="setEditingEntry(entry.position)"
+                <i class="glyphicon glyphicon-edit icon-right" ng-click="setEditingEntry($index)"
                    tooltip="Edit this entry" tooltip-append-to-body="true"></i>
             </span>
           </span>
