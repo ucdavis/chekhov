@@ -68,5 +68,20 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, Use
   $scope.sortableOptions =
     axis: 'y'
     update: (e, ui, a, b) ->
-      $scope.newTemplate.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex
-      $scope.newTemplate.entries_attributes[ui.item.sortable.dropindex].position = ui.item.sortable.index
+      console.log $scope.newTemplate.entries_attributes
+      # Moving down
+      if ui.item.sortable.dropindex > ui.item.sortable.index
+        $scope.newTemplate.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex + 0.5
+      # Moving up
+      else
+        $scope.newTemplate.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex - 0.5
+
+      # Re-number to use integers
+      $scope.newTemplate.entries_attributes =
+        _.map(_.zip(_.sortBy($scope.newTemplate.entries_attributes, "position"),
+                    _.range($scope.newTemplate.entries_attributes.length)),
+              (entry) ->
+                entry[0].position = entry[1]
+                entry[0]
+        )
+      console.log $scope.newTemplate.entries_attributes
