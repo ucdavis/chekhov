@@ -71,8 +71,21 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
   $scope.sortableOptions =
     axis: 'y'
     update: (e, ui, a, b) ->
-      $scope.template.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex
-      $scope.template.entries_attributes[ui.item.sortable.dropindex].position = ui.item.sortable.index
+      # Moving down
+      if ui.item.sortable.dropindex > ui.item.sortable.index
+        $scope.template.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex + 0.5
+      # Moving up
+      else
+        $scope.template.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex - 0.5
+
+      # Re-number to use integers
+      $scope.template.entries_attributes =
+        _.map(_.zip(_.sortBy($scope.template.entries_attributes, "position"),
+                    _.range($scope.template.entries_attributes.length)),
+              (entry) ->
+                entry[0].position = entry[1]
+                entry[0]
+        )
   
   refreshIds = ->
     Templates.get {id: $routeParams.id},

@@ -1,24 +1,30 @@
 <save-notification show="notifySave" no-timeout="noTimeout"></save-notification>
 
-<h3 class="text-center">New Template</h3>
+<h3 class="text-center no-print">New Template</h3>
 
 <div class="row" style="margin-top: 2em;">
   <div class="col-md-10 col-md-offset-1">
-    <input class="form-control input-lg" type="text" placeholder="Name this checklist" ng-model="newTemplate.name" style="text-align: center;" autofocus />
+    <input class="form-control input-lg no-print" type="text" placeholder="Name this checklist" ng-model="newTemplate.name" style="text-align: center;" autofocus />
+    <div class="print-only" style="font-size: 16pt; font-weight: bold;">{{ newTemplate.name }}</div>
   </div>
 </div>
 
-<div class="row" style="margin-top: 2em;">
+<div class="row no-print" style="margin-top: 2em;">
   <div class="col-md-10 col-md-offset-1">
     <input id="checklist-category" placeholder="Add a Category" ng-model="newTemplate.template_category.name" type="text" class="form-control" typeahead-editable="false" typeahead="category.name for category in categories | filter:$viewValue | limitTo: 5" typeahead-on-select="saveCategory($item)" ng-blur="newCategory($event)"></input>
   </div>
 </div>
 
-<div class="row" style="margin-top: 2em;">
+<div class="row no-print" style="margin-top: 2em;">
   <div class="col-md-10 col-md-offset-1">
     <textarea class="form-control" ng-model="newTemplate.desc" autofocus placeholder="Add a Description">
     </textarea>
   </div>
+</div>
+
+<div class="print-only" style="margin-top: 0.5em; white-space: pre-line;">
+    <b>Category:</b> {{ newTemplate.template_category.name }}<br>
+    <b>Description:</b> {{ newTemplate.desc }}<br>
 </div>
 
 <div class="row" style="margin-top: 2em;">
@@ -29,8 +35,12 @@
     </div>
 
     <ul class="sortable-list" ng-model="newTemplate.entries_attributes" ui-sortable="sortableOptions">
+      <li class="print-only">
+        <span class="col-xs-1 first"></span>
+        <span class='col-xs-9'></span>
+        <span class='col-xs-2 last'>Completed By</span>
+      </li>
       <li class="sortable-item" ng-repeat="entry in newTemplate.entries_attributes">
-        <div class="item-wrapper">
           <span class="col-xs-1 first">{{$index+1}}.</span>
           <span class="col-xs-9" ng-hide="editingEntry == $index">{{ entry.content }}</span>
           <span class="col-xs-9" ng-show="editingEntry == $index">
@@ -45,15 +55,14 @@
                tooltip="Edit this entry"></i>
             </span>
           </span>
-        </div>
       </li>
     </ul>
-    <ul class="nav nav-pills nav-stacked">
+    <ul class="nav nav-pills nav-stacked no-print">
       <li>
         <input class="form-control" type="text" placeholder="New entry" ng-model="newContent" on-enter="addToEntries()" />
       </li>
     </ul>
 
-    <button class="btn btn-primary col-md-4 col-md-offset-4" style="margin-top: 2em;" ng-click="save()">Create</button>
+    <button class="btn btn-primary col-md-4 col-md-offset-4 no-print" style="margin-top: 2em;" ng-click="save()">Create</button>
   </div>
 </div>
