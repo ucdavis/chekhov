@@ -65,6 +65,10 @@ body {
     display: block;
 }
 
+.no-print {
+    display: none;
+}
+
 .entries {
   margin-top: 0.25in;
   display: table;
@@ -78,6 +82,7 @@ body {
     & > div {
       display: table-cell;
       height: 4ex;
+      min-height: 4ex;
       vertical-align: middle;
       padding: 2pt 4pt;
       border: 1px solid #000;
@@ -100,6 +105,48 @@ body {
 
     .checked-user {
       font-size: 10pt;
+    }
+  }
+}
+
+ul.sortable-list {
+  display: table;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border-collapse: collapse;
+
+  li.sortable-item, li.print-only {
+    display: table-row;
+    border-collapse: collapse;
+
+    [class|=col-xs] {
+      border: 1px solid #000;
+      display: table-cell;
+      vertical-align: middle;
+      height: 4ex;
+      min-height: 4ex;
+      padding: 2pt 4pt;
+    }
+
+    .first {
+      padding: 0 5px;
+      border-right: none;
+    }
+
+    .col-xs-9 {
+      border-left: none;
+    }
+
+    .last {
+      border-left: 1px solid #000;
+      width: 20%;
+      font-weight: bold;
+
+      .item-actions {
+        display: none;
+      }
     }
   }
 }
