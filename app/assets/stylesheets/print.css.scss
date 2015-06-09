@@ -109,6 +109,13 @@ body {
   }
 }
 
+.completed-by {
+  width: 20%;
+  text-align: center;
+  float: right;
+  font-weight: bold;
+}
+
 ul.sortable-list {
   display: table;
   list-style-type: none;

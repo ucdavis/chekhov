@@ -36,12 +36,9 @@
       <div ng-bind-html="error"></div>
     </div>
 
+    <div class="print-only completed-by">Completed By</div>
+    <br style="clear: both;">
     <ul class="sortable-list" ng-model="template.entries_attributes" ui-sortable="sortableOptions">
-      <li class="print-only">
-        <span class="col-xs-1 first"></span>
-        <span class="col-xs-9"></span>
-        <span class="col-xs-2 last">Completed By</span>
-      </li>
       <li class="sortable-item" ng-repeat="entry in template.entries_attributes" ng-hide="entry._destroy">
          <!-- Not sure if this wrapper is necessary -->
          <!-- <div class="item-wrapper"> -->

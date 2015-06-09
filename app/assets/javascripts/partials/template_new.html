@@ -33,13 +33,10 @@
       <button type="button" class="close" ng-click="clearError()">&times;</button>
       <div ng-bind-html="error"></div>
     </div>
-
+    
+    <div class="print-only completed-by">Completed By</div>
+    <br style="clear: both;">
     <ul class="sortable-list" ng-model="newTemplate.entries_attributes" ui-sortable="sortableOptions">
-      <li class="print-only">
-        <span class="col-xs-1 first"></span>
-        <span class='col-xs-9'></span>
-        <span class='col-xs-2 last'>Completed By</span>
-      </li>
       <li class="sortable-item" ng-repeat="entry in newTemplate.entries_attributes">
           <span class="col-xs-1 first">{{$index+1}}.</span>
           <span class="col-xs-9" ng-hide="editingEntry == $index">{{ entry.content }}</span>
