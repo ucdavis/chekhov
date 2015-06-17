@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
       redirect_to access_denied_path
     else
       # Non-JSON, machine-facing error
-      render :text => "Permission denied.", :status => 403
+      render :plain => "Permission denied.", :status => 403
     end
   end
 
