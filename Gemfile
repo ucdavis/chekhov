@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.0.13'
+gem 'rails', '~> 4.1.11'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -44,7 +44,6 @@ end
 gem 'rubycas-client', :git => 'https://github.com/rubycas/rubycas-client.git'
 
 # Provides authorization layer
-gem 'declarative_authorization'
-
+gem 'declarative_authorization', :git => 'https://github.com/stffn/declarative_authorization.git'
 
 gem 'activerecord-session_store'

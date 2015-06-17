@@ -42,7 +42,7 @@ module Authentication
     CASClient::Frameworks::Rails::Filter.filter(self)
 
     if session[:cas_user]
-      @user = User.find_or_initialize_by_loginid(session[:cas_user])
+      @user = User.find_or_initialize_by(loginid: session[:cas_user])
 
       if @user.new_record?
         rm_json = RolesManagement.fetch_json_by_loginid(@user.loginid)
