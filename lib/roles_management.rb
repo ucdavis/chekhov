@@ -17,7 +17,7 @@ class RolesManagement
     require 'net/http'
     require 'json'
     require 'yaml'
-  
+
     uri = URI(DSS_RM_SETTINGS['HOST'] + "/people/#{loginid}.json")
     req = Net::HTTP::Get.new(uri)
     req['Accept'] = "application/vnd.roles-management.v1"
