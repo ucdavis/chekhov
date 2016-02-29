@@ -1,12 +1,6 @@
 class SiteController < ApplicationController
   skip_before_filter :authenticate, :only => [:welcome, :access_denied, :status]
   skip_before_filter :require_login, :only => [:welcome, :access_denied, :auth, :status]
-  
-  def welcome
-    respond_to do |format|
-      format.html { render 'welcome', layout: 'site' }
-    end
-  end
 
   def access_denied
   end

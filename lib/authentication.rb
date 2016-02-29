@@ -50,7 +50,7 @@ module Authentication
           @user.rm_id = rm_json["id"]
           @user.name = rm_json["name"]
           @user.email = rm_json["email"]
-
+          
           Authorization.ignore_access_control(true)
 
           @user.save!

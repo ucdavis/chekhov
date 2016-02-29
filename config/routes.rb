@@ -1,6 +1,5 @@
 Chekhov::Application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
-  get '/welcome' => 'site#welcome'
   get '/access_denied' => 'site#access_denied'
   get '/status' => 'site#status', defaults: { format: 'json'}
 
@@ -12,5 +11,5 @@ Chekhov::Application.routes.draw do
   resources :template_categories
   resources :analytics
   
-  root 'site#welcome'
+  root 'templates#index'
 end
