@@ -11,5 +11,5 @@ Chekhov::Application.routes.draw do
   resources :template_categories
   resources :analytics
   
-  root 'site#auth'
+  root 'templates#index'
 end
