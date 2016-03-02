@@ -38,6 +38,7 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
     $scope.template.template_category = item
 
   $scope.save = () ->
+    $scope.addToEntries();
     $scope.notifySave = "Saving..."
     $scope.noTimeout = true
 
