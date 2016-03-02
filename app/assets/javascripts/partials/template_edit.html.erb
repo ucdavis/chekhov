@@ -61,10 +61,10 @@
     </ul>
     <ul class="nav nav-pills nav-stacked no-print">
       <li>
-        <input class="form-control" type="text" placeholder="New entry" ng-model="newContent" on-enter="addToEntries()" />
+        <input class="form-control" type="text" placeholder="New entry" ng-model="newContent" ng-blur="addToEntries()" on-enter="addToEntries()" />
       </li>
     </ul>
 
-    <button class="btn btn-primary col-md-4 col-md-offset-4 no-print" style="margin-top: 2em;" ng-click="save()">Save</button>
+    <button class="btn btn-primary col-md-4 col-md-offset-4 no-print" style="margin-top: 2em;" ng-mousedown="save()">Save</button>
   </div>
 </div>
