@@ -45,7 +45,7 @@
           <span class="col-xs-1 first">{{$index+1}}.</span>
           <span class="col-xs-9" ng-hide="editingEntry == $index">{{ entry.content }}</span>
           <span class="col-xs-9" ng-show="editingEntry == $index">
-            <input class="item-edit" type="text" ng-model="entry.content"
+            <textarea class="item-edit" type="text" ng-model="entry.content"
               on-enter="unsetEditingEntry()" on-blur="unsetEditingEntry()" />
           </span>
           <span class="col-xs-2 last">
