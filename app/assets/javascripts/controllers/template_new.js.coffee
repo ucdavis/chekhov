@@ -36,6 +36,9 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, Use
     $scope.newTemplate.template_category = item
 
   $scope.save = () ->
+    # Save an entry if the area is not empty
+    $scope.addToEntries();
+    
     $scope.notifySave = "Saving..."
     $scope.noTimeout = true
     if not User.is_admin
