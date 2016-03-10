@@ -10,6 +10,7 @@
 //= require bootstrap
 //= require ui-bootstrap-tpls
 //= require sortable
+//= require elastic
 
 //= require router
 //= require chekhov

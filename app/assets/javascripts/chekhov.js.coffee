@@ -2,7 +2,7 @@
 includeCSRF = ($httpProvider) ->
   $httpProvider.defaults.headers.common["X-CSRF-Token"] = $("meta[name=csrf-token]").attr("content")
 
-window.Chekhov = angular.module("ChekhovApp", ["ngRoute", "ngSanitize","chekhovServices","ui.bootstrap","ui.sortable", "siyfion.sfTypeahead"]).run(
+window.Chekhov = angular.module("ChekhovApp", ["ngRoute", "ngSanitize","chekhovServices","ui.bootstrap","ui.sortable", "siyfion.sfTypeahead", "monospaced.elastic"]).run(
     ($rootScope, $window) ->
         $rootScope.template_count = $window.template_count
         $rootScope.archived_count = $window.archived_count
