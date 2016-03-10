@@ -41,11 +41,11 @@
     <ul class="sortable-list" ng-model="template.entries_attributes" ui-sortable="sortableOptions">
       <li class="sortable-item" ng-repeat="entry in template.entries_attributes" ng-hide="entry._destroy">
          <!-- Not sure if this wrapper is necessary -->
-        <div class="item-wrapper">
+        <!-- <div class="item-wrapper"> -->
           <span class="col-xs-1 first">{{$index+1}}.</span>
           <span class="col-xs-9" ng-hide="editingEntry == $index">{{ entry.content }}</span>
           <span class="col-xs-9" ng-show="editingEntry == $index">
-            <textarea class="item-edit" type="text" ng-model="entry.content"
+            <textarea class="item-edit" msd-elastic ng-model="entry.content"
               on-enter="unsetEditingEntry()" on-blur="unsetEditingEntry()" />
           </span>
           <span class="col-xs-2 last">
@@ -56,7 +56,7 @@
                    tooltip="Edit this entry" tooltip-append-to-body="true"></i>
             </span>
           </span>
-       </div>
+       <!-- </div> -->
       </li>
     </ul>
     <ul class="nav nav-pills nav-stacked no-print">
