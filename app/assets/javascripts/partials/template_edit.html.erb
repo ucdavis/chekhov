@@ -44,7 +44,7 @@
         <!-- <div class="item-wrapper"> -->
           <span class="col-xs-1 first">{{$index+1}}.</span>
           <span class="col-xs-9" ng-hide="editingEntry == $index">{{ entry.content }}</span>
-          <span class="col-xs-9" ng-show="editingEntry == $index">
+          <span class="col-xs-9" ng-if="editingEntry == $index">
             <textarea class="item-edit" msd-elastic ng-model="entry.content"
               on-enter="unsetEditingEntry()" on-blur="unsetEditingEntry()" />
           </span>
