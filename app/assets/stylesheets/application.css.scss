@@ -384,7 +384,7 @@ li.sortable-item {
         height: inherit;
         padding: 4px 6px;
     }
-
+    
     .btn {
         padding: 4px 6px;
     }
@@ -709,4 +709,10 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
 
 .print-only {
     display: none;
+}
+
+.row {
+  .form-control {
+    resize: none;
+  }
 }
