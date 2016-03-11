@@ -40,8 +40,8 @@
       <li class="sortable-item" ng-repeat="entry in newTemplate.entries_attributes">
           <span class="col-xs-1 first">{{$index+1}}.</span>
           <span class="col-xs-9" ng-hide="editingEntry == $index">{{ entry.content }}</span>
-          <span class="col-xs-9" ng-show="editingEntry == $index">
-            <input class="item-edit" type="text" ng-model="entry.content"
+          <span class="col-xs-9" ng-if="editingEntry == $index">
+            <textarea class="item-edit" rows="1" msd-elastic ng-model="entry.content"
               on-enter="unsetEditingEntry()" on-blur="unsetEditingEntry()" />
           </span>
           <span class="col-xs-2 last">
