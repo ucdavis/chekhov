@@ -711,8 +711,6 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
     display: none;
 }
 
-.row {
-  .form-control {
-    resize: none;
-  }
+.form-control {
+  resize: none;
 }
