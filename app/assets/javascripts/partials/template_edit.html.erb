@@ -58,7 +58,7 @@
     </ul>
     <ul class="nav nav-pills nav-stacked no-print">
       <li>
-        <input class="form-control" type="text" placeholder="New entry" ng-model="newContent" ng-blur="addToEntries()" on-enter="addToEntries()" />
+        <textarea class="form-control" rows="1" msd-elastic placeholder="New entry" ng-model="newContent" ng-blur="addToEntries()" on-enter="addToEntries()" />
       </li>
     </ul>
     <!-- The button moves once a new entry is added which prevents the mouseup event from ng-click from triggering -->
