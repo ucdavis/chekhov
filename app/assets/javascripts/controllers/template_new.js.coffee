@@ -5,20 +5,26 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, Use
   $scope.newContent = null
   $scope.position = 0
   $scope.error = null
-  
+
   console.debug 'TemplateNewCtrl', 'Initializing...'
+
+  $scope.addEntryAbove = (position) ->
+    $scope.newTemplate.entries_attributes.splice position, 0, {content: "", position: position}
+    $scope.position++
+    updatePosition()
+    $scope.setEditingEntry(position)
 
   $scope.addToEntries = () ->
     if $scope.newContent
       $scope.newTemplate.entries_attributes.push {content: $scope.newContent, position: $scope.position}
       $scope.position++
     $scope.newContent = ""
-  
+
   $scope.removeFromEntries = (position) ->
     entry = _.findWhere($scope.newTemplate.entries_attributes, {position: position})
     index = $scope.newTemplate.entries_attributes.indexOf(entry)
     $scope.newTemplate.entries_attributes.splice(index,1)
-  
+
   $scope.setEditingEntry = (position) ->
     $scope.editingEntry = position
 
@@ -38,7 +44,7 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, Use
   $scope.save = () ->
     # Save an entry if the area is not empty
     $scope.addToEntries();
-    
+
     $scope.notifySave = "Saving..."
     $scope.noTimeout = true
     if not User.is_admin
@@ -80,11 +86,14 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, Use
         $scope.newTemplate.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex - 0.5
 
       # Re-number to use integers
-      $scope.newTemplate.entries_attributes =
-        _.map(_.zip(_.sortBy($scope.newTemplate.entries_attributes, "position"),
-                    _.range($scope.newTemplate.entries_attributes.length)),
-              (entry) ->
-                entry[0].position = entry[1]
-                entry[0]
-        )
-      console.log $scope.newTemplate.entries_attributes
+        updatePosition()
+
+  updatePosition = ->
+    $scope.newTemplate.entries_attributes =
+      _.map(_.zip(_.sortBy($scope.newTemplate.entries_attributes, "position"),
+                  _.range($scope.newTemplate.entries_attributes.length)),
+            (entry) ->
+              entry[0].position = entry[1]
+              entry[0]
+      )
+    console.log $scope.newTemplate.entries_attributes

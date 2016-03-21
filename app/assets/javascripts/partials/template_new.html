@@ -33,7 +33,7 @@
       <button type="button" class="close" ng-click="clearError()">&times;</button>
       <div ng-bind-html="error"></div>
     </div>
-    
+
     <div class="print-only completed-by">Completed By</div>
     <br style="clear: both;">
     <ul class="sortable-list" ng-model="newTemplate.entries_attributes" ui-sortable="sortableOptions">
@@ -50,6 +50,8 @@
                tooltip="Delete this entry"></i>
             <i class="glyphicon glyphicon-edit icon-right" ng-click="setEditingEntry(entry.position)"
                tooltip="Edit this entry"></i>
+            <i class="glyphicon glyphicon-plus icon-right" ng-click="addEntryAbove(entry.position)"
+               tooltip="Add an entry above" tooltip-append-to-body="true"></i>
             </span>
           </span>
       </li>
