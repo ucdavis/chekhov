@@ -9,8 +9,6 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
   $scope.saved = null
   $scope.notifySave = null
 
-  console.debug 'TemplateEditCtrl', 'Initializing...'
-
   $scope.addEntryAbove = (position) ->
     $scope.template.entries_attributes.splice position, 0, {content: "", position: position}
     $scope.position++
@@ -98,8 +96,7 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
               entry[0].position = entry[1]
               entry[0]
       )
-    console.log $scope.newTemplate.entries_attributes
-    
+
   refreshIds = ->
     Templates.get {id: $routeParams.id},
       (data) ->
