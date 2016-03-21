@@ -15,6 +15,7 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
     $scope.template.entries_attributes.splice position, 0, {content: "", position: position}
     $scope.position++
     updatePosition()
+    $scope.setEditingEntry(position)
 
   $scope.addToEntries = () ->
     if $scope.newContent
