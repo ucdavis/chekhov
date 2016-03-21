@@ -33,7 +33,7 @@
       <button type="button" class="close" ng-click="clearError()">&times;</button>
       <div ng-bind-html="error"></div>
     </div>
-    
+
     <div class="print-only completed-by">Completed By</div>
     <br style="clear: both;">
     <ul class="sortable-list" ng-model="newTemplate.entries_attributes" ui-sortable="sortableOptions">
@@ -42,7 +42,7 @@
           <span class="col-xs-9" ng-hide="editingEntry == $index">{{ entry.content }}</span>
           <span class="col-xs-9" ng-if="editingEntry == $index">
             <textarea class="item-edit" rows="1" msd-elastic ng-model="entry.content"
-              on-enter="unsetEditingEntry()" on-blur="unsetEditingEntry()" />
+              on-enter="unsetEditingEntry()" on-blur="unsetEditingEntry()" focus-on-show />
           </span>
           <span class="col-xs-2 last">
             <span class="item-actions" ng-hide="editingEntry == $index">
