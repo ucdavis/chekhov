@@ -11,9 +11,10 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
 
   console.debug 'TemplateEditCtrl', 'Initializing...'
 
-  $scope.addEntryBelow = (position) ->
-    $scope.template.entries_attributes.push {content: "", position: position + 1}
+  $scope.addEntryAbove = (position) ->
+    $scope.template.entries_attributes.splice position-1, 0, {content: "", position: position-1}
     $scope.position++
+    updatePosition()
 
   $scope.addToEntries = () ->
     if $scope.newContent
@@ -86,13 +87,16 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
         $scope.template.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex - 0.5
 
       # Re-number to use integers
-      $scope.template.entries_attributes =
-        _.map(_.zip(_.sortBy($scope.template.entries_attributes, "position"),
-                    _.range($scope.template.entries_attributes.length)),
-              (entry) ->
-                entry[0].position = entry[1]
-                entry[0]
-        )
+      updatePosition()
+
+  updatePosition = ->
+    $scope.template.entries_attributes =
+      _.map(_.zip(_.sortBy($scope.template.entries_attributes, "position"),
+                  _.range($scope.template.entries_attributes.length)),
+            (entry) ->
+              entry[0].position = entry[1]
+              entry[0]
+      )
 
   refreshIds = ->
     Templates.get {id: $routeParams.id},
