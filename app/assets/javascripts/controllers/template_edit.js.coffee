@@ -12,7 +12,7 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
   console.debug 'TemplateEditCtrl', 'Initializing...'
 
   $scope.addEntryAbove = (position) ->
-    $scope.template.entries_attributes.splice position, 0, {content: "", position: position-1}
+    $scope.template.entries_attributes.splice position, 0, {content: "", position: position}
     $scope.position++
     updatePosition()
 
