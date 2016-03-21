@@ -9,8 +9,12 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
   $scope.saved = null
   $scope.notifySave = null
 
-  console.debug 'TemplateEditCtrl', 'Initializing...'
-  
+  $scope.addEntryAbove = (position) ->
+    $scope.template.entries_attributes.splice position, 0, {content: "", position: position}
+    $scope.position++
+    updatePosition()
+    $scope.setEditingEntry(position)
+
   $scope.addToEntries = () ->
     if $scope.newContent
       $scope.template.entries_attributes.push {content: $scope.newContent, position: $scope.position}
@@ -54,7 +58,7 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
           $scope.notifySave = "Saved"
           refreshIds()
           $location.path("/templates/manage")
-          
+
       , (data) ->
           # Error
           $scope.noTimeout = false
@@ -70,7 +74,7 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
 
   $scope.clearError = ->
     $scope.error = null
-  
+
   $scope.sortableOptions =
     axis: 'y'
     update: (e, ui, a, b) ->
@@ -82,14 +86,17 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
         $scope.template.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex - 0.5
 
       # Re-number to use integers
-      $scope.template.entries_attributes =
-        _.map(_.zip(_.sortBy($scope.template.entries_attributes, "position"),
-                    _.range($scope.template.entries_attributes.length)),
-              (entry) ->
-                entry[0].position = entry[1]
-                entry[0]
-        )
-  
+      updatePosition()
+
+  updatePosition = ->
+    $scope.template.entries_attributes =
+      _.map(_.zip(_.sortBy($scope.template.entries_attributes, "position"),
+                  _.range($scope.template.entries_attributes.length)),
+            (entry) ->
+              entry[0].position = entry[1]
+              entry[0]
+      )
+
   refreshIds = ->
     Templates.get {id: $routeParams.id},
       (data) ->
