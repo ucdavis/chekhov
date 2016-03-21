@@ -17,7 +17,7 @@
 
 <div class="row no-print" style="margin-top: 2em;">
   <div class="col-md-10 col-md-offset-1">
-    <textarea class="form-control" ng-model="newTemplate.desc" autofocus placeholder="Add a Description">
+    <textarea class="form-control" msd-elastic ng-model="newTemplate.desc" autofocus placeholder="Add a Description">
     </textarea>
   </div>
 </div>
@@ -40,8 +40,8 @@
       <li class="sortable-item" ng-repeat="entry in newTemplate.entries_attributes">
           <span class="col-xs-1 first">{{$index+1}}.</span>
           <span class="col-xs-9" ng-hide="editingEntry == $index">{{ entry.content }}</span>
-          <span class="col-xs-9" ng-show="editingEntry == $index">
-            <input class="item-edit" type="text" ng-model="entry.content"
+          <span class="col-xs-9" ng-if="editingEntry == $index">
+            <textarea class="item-edit" rows="1" msd-elastic ng-model="entry.content"
               on-enter="unsetEditingEntry()" on-blur="unsetEditingEntry()" />
           </span>
           <span class="col-xs-2 last">
@@ -56,7 +56,7 @@
     </ul>
     <ul class="nav nav-pills nav-stacked no-print">
       <li>
-        <input class="form-control" type="text" placeholder="New entry" ng-model="newContent" ng-blur="addToEntries()" on-enter="addToEntries()" />
+        <textarea class="form-control" rows="1" msd-elastic placeholder="New entry" ng-model="newContent" ng-blur="addToEntries()" on-enter="addToEntries()" />
       </li>
     </ul>
     <!-- The button moves once a new entry is added which prevents the mouseup event from ng-click from triggering -->
