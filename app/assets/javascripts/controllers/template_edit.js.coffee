@@ -98,7 +98,8 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
               entry[0].position = entry[1]
               entry[0]
       )
-
+    console.log $scope.newTemplate.entries_attributes
+    
   refreshIds = ->
     Templates.get {id: $routeParams.id},
       (data) ->
