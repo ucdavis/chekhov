@@ -168,10 +168,8 @@ $gray: #888;
         }
     }
 
-    .checkbox {
-      &:hover {
-        cursor: pointer;
-      }
+    input[type='checkbox'] {
+      cursor: pointer;
     }
 }
 
