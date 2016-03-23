@@ -66,6 +66,7 @@
         <div class="checklist entry" ng-repeat="checklist in checklists | filter: {name: searchtext}" ckv-click="openChecklist(checklist.id)" ng-show="loaded"> -->
             <div class="col-xs-9">
                 <span class="name">{{ checklist.name }}</span>
+                <span style="color: #aaa; font-size: 10px; position: absolute; bottom: 12px; left: 8px;">{{date('Y')}} days and counting</span>
                 <div class="progbar">
                     <div ng-style="checklist.progbar" ng-class="{'no-progress': !checklist.progbar}">
                         <span ng-show="checklist.progbar">{{ checklist.finished_count }} of {{ checklist.entry_count }} completed</span>
@@ -74,7 +75,7 @@
                 </div>
             </div>
             <div class="col-xs-3">
-                 <span style="color: #aaa; font-size: 10px; position: absolute; top: 5px; right: 5px;">{{ checklist.checklist_category.name }}</span> 
+                 <span style="color: #aaa; font-size: 10px; position: absolute; top: 5px; right: 5px;">{{ checklist.checklist_category.name }}</span>
                 <span class="hint-text">
                     <span class="template-actions" ng-show="user.is_admin || user.id == checklist.user_id">
                         <a class="glyphicon glyphicon-trash first" tooltip-append-to-body="true" tooltip="Delete this checklist" ng-click="confirmDeleteChecklist(checklist)" stop-event="mouseup"></a>
