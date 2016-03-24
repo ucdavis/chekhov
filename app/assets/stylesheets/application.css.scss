@@ -712,12 +712,25 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
 }
 
 .row {
+
   .title {
-      display: flex;
       h2 {
         margin-top: 0px;
         margin-left: 2.5%;
+        float: left;
       }
+
+      .col-xs-offset-1.col-xs-2 {
+        float: right;
+        margin-right: 10%;
+      }
+
+      .alert.col-xs-10.col-xs-offset-1 {
+        float: right;
+        text-align: right;
+        margin-right: 8%;
+      }
+
   }
 
   .form-control {
