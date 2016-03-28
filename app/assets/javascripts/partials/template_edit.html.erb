@@ -1,3 +1,6 @@
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
 <save-notification show="notifySave" no-timeout="noTimeout"></save-notification>
 
 
@@ -5,9 +8,8 @@
 <div class="row text-center" ng-hide="loaded" id="loading"><img src="<%= asset_path "ajax-loader.gif" %>"></div>
 
 <div class="row" ng-show="loaded">
-  <div class="btn-group pull-right" ng-show="user.is_admin || user.id == checklist.user_id">
-      <button type="button" class="btn btn-info" ng-model="template.public" btn-radio="true" ng-click="togglePublic()">Public</button>
-      <button type="button" class="btn btn-info" ng-model="template.public" btn-radio="false" ng-click="togglePublic()">Not Public</button>
+  <div class= "pull-right">
+    <input data-toggle="toggle" type="checkbox" data-on="Force Private On" data-off="Force Private Off" data-width="150px" ng-click="togglePublic()"></button>
   </div>
 </div>
 
