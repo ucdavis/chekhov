@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428225716) do
+ActiveRecord::Schema.define(version: 20160328224645) do
 
   create_table "checklist_categories", force: true do |t|
     t.string   "name"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20150428225716) do
     t.integer  "checklist_count",      default: 0
     t.text     "desc"
     t.integer  "template_category_id"
+    t.boolean  "force_private"
   end
 
   add_index "templates", ["template_category_id"], name: "index_templates_on_template_category_id"
