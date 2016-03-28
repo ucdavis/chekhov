@@ -1,8 +1,15 @@
 <save-notification show="notifySave" no-timeout="noTimeout"></save-notification>
 
-<h3 class="text-center no-print">Edit Template</h3>
 
+<h3 class="text-center no-print">Edit Template</h3>
 <div class="row text-center" ng-hide="loaded" id="loading"><img src="<%= asset_path "ajax-loader.gif" %>"></div>
+
+<div class="row" ng-show="loaded">
+  <div class="btn-group pull-right" ng-show="user.is_admin || user.id == checklist.user_id">
+      <button type="button" class="btn btn-info" ng-model="template.public" btn-radio="true" ng-click="togglePublic()">Public</button>
+      <button type="button" class="btn btn-info" ng-model="template.public" btn-radio="false" ng-click="togglePublic()">Not Public</button>
+  </div>
+</div>
 
 <div class="row" style="margin-top: 2em;" ng-show="loaded">
   <div class="col-md-10 col-md-offset-1">
