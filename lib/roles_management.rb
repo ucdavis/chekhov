@@ -8,9 +8,13 @@ class RolesManagement
   def self.fetch_role_symbols_by_loginid(loginid)
     result = fetch_json_by_loginid(loginid)
 
-    return result["role_assignments"]
-      .find_all{ |r| r["application_id"] == DSS_RM_SETTINGS['RM_APP_ID'] }
-      .map{ |r| r["token"].to_sym }
+    unless result
+      return []
+    else
+      return result["role_assignments"]
+        .find_all{ |r| r["application_id"] == DSS_RM_SETTINGS['RM_APP_ID'] }
+        .map{ |r| r["token"].to_sym }
+    end
   end
 
   def self.fetch_json_by_loginid(loginid)
