@@ -2,13 +2,6 @@
 
 <h3 class="text-center no-print">New Template</h3>
 
-<div class="row">
-  <div class= "checkbox pull-right">
-    <input type="checkbox" ng-model="newTemplate.force_private" ng-click="toggleForcePrivate()" ng-checked="newTemplate.force_private">
-    <p>Force Private</p>
-  </div>
-</div>
-
 <div class="row" style="margin-top: 2em;">
   <div class="col-md-10 col-md-offset-1">
     <input class="form-control input-lg no-print" type="text" placeholder="Name this checklist" ng-model="newTemplate.name" style="text-align: center;" autofocus />
@@ -34,7 +27,14 @@
     <b>Description:</b> {{ newTemplate.desc }}<br>
 </div>
 
-<div class="row" style="margin-top: 2em;">
+<div class="row">
+  <div class= "checkbox col-md-10 col-md-offset-1">
+    <input type="checkbox" ng-model="newTemplate.force_private" ng-click="toggleForcePrivate()" ng-checked="newTemplate.force_private">
+    <p>Force Private</p>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-md-10 col-md-offset-1">
     <div class="alert alert-danger" ng-show="error">
       <button type="button" class="close" ng-click="clearError()">&times;</button>
