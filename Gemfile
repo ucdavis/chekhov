@@ -47,3 +47,5 @@ gem 'rubycas-client', :git => 'https://github.com/rubycas/rubycas-client.git'
 gem 'declarative_authorization', :git => 'https://github.com/stffn/declarative_authorization.git'
 
 gem 'activerecord-session_store'
+
+gem 'whenever', :require => false
