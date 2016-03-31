@@ -14,7 +14,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
   #$('ul.nav li').removeClass 'active'
 
   $scope.isForcePrivate = () ->
-    return $scope.checklist_is_force_private
+    return $scope.checklist.is_force_private
 
   $scope.togglePublic = () ->
     $scope.checklist.public = (if $scope.checklist.public then false else true)
