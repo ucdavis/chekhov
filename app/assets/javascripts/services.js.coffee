@@ -77,5 +77,6 @@ angular.module("chekhovServices", ["ngResource"])
           end: new Date()
         inProgress: true
         archived: false
+        is_force_private: false
         categories: []
     }
