@@ -10,7 +10,10 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
   $scope.notifySave = null
 
   console.debug 'TemplateEditCtrl', 'Initializing...'
-  
+
+  $scope.toggleForcePrivate = () ->
+    $scope.template.force_private = (if $scope.template.force_private then false else true)
+
   $scope.addToEntries = () ->
     if $scope.newContent
       $scope.template.entries_attributes.push {content: $scope.newContent, position: $scope.position}
@@ -50,11 +53,12 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
     if $scope.template.entries_attributes.length and $scope.template.name
       Templates.update $scope.template,
         (data) ->
+          console.log data
           $scope.noTimeout = false
           $scope.notifySave = "Saved"
           refreshIds()
           $location.path("/templates/manage")
-          
+
       , (data) ->
           # Error
           $scope.noTimeout = false
@@ -70,7 +74,7 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
 
   $scope.clearError = ->
     $scope.error = null
-  
+
   $scope.sortableOptions =
     axis: 'y'
     update: (e, ui, a, b) ->
@@ -89,7 +93,7 @@ Chekhov.controller "TemplateEditCtrl", @TemplateEditCtrl = ($scope, $timeout, $r
                 entry[0].position = entry[1]
                 entry[0]
         )
-  
+
   refreshIds = ->
     Templates.get {id: $routeParams.id},
       (data) ->

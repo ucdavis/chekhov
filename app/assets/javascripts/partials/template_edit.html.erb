@@ -1,7 +1,6 @@
 <save-notification show="notifySave" no-timeout="noTimeout"></save-notification>
 
 <h3 class="text-center no-print">Edit Template</h3>
-
 <div class="row text-center" ng-hide="loaded" id="loading"><img src="<%= asset_path "ajax-loader.gif" %>"></div>
 
 <div class="row" style="margin-top: 2em;" ng-show="loaded">
@@ -29,7 +28,14 @@
 <b>Description:</b> {{ template.desc }}<br>
 </div>
 
-<div class="row" style="margin-top: 2em;" ng-show="loaded">
+<div class="row" ng-show="loaded">
+  <div class= "col-md-10 col-md-offset-1 checkbox">
+    <input type="checkbox" ng-model="template.force_private" ng-click="toggleForcePrivate()" ng-checked="template.force_private">
+    Force Private
+  </div>
+</div>
+
+<div class="row" ng-show="loaded">
   <div class="col-md-10 col-md-offset-1">
     <div class="alert alert-danger" ng-show="error">
       <button type="button" class="close" ng-click="clearError()">&times;</button>

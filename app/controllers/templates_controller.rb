@@ -4,7 +4,7 @@ class TemplatesController < ApplicationController
   filter_access_to :all, :attribute_check => true
   filter_access_to :create, :attribute_check => false
   filter_access_to :index, :attribute_check => true, :load_method => :load_templates
-  wrap_parameters :template, include: [:owner_id, :name, :checklist_count, :entries_attributes, :desc, :template_category]
+  wrap_parameters :template, include: [:owner_id, :name, :checklist_count, :entries_attributes, :desc, :template_category, :force_private]
 
   def index
   # @templates = Template.order(checklist_count: :desc)
@@ -70,7 +70,7 @@ class TemplatesController < ApplicationController
       end
 
       params[:template][:owner_id] = Authorization.current_user[:id]
-      template = params.require(:template).permit(:owner_id, :name, :desc, :checklist_count, entries_attributes: [:id, :content, :position, :_destroy])
+      template = params.require(:template).permit(:owner_id, :name, :desc, :checklist_count, :force_private, entries_attributes: [:id, :content, :position, :_destroy])
       template.store(:template_category, params[:template][:template_category])
 
       return template

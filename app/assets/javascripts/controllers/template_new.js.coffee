@@ -5,20 +5,23 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, Use
   $scope.newContent = null
   $scope.position = 0
   $scope.error = null
-  
+
   console.debug 'TemplateNewCtrl', 'Initializing...'
+
+  $scope.toggleForcePrivate = () ->
+    $scope.newTemplate.force_private = (if $scope.newTemplate.force_private then false else true)
 
   $scope.addToEntries = () ->
     if $scope.newContent
       $scope.newTemplate.entries_attributes.push {content: $scope.newContent, position: $scope.position}
       $scope.position++
     $scope.newContent = ""
-  
+
   $scope.removeFromEntries = (position) ->
     entry = _.findWhere($scope.newTemplate.entries_attributes, {position: position})
     index = $scope.newTemplate.entries_attributes.indexOf(entry)
     $scope.newTemplate.entries_attributes.splice(index,1)
-  
+
   $scope.setEditingEntry = (position) ->
     $scope.editingEntry = position
 
@@ -38,7 +41,7 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, Use
   $scope.save = () ->
     # Save an entry if the area is not empty
     $scope.addToEntries();
-    
+
     $scope.notifySave = "Saving..."
     $scope.noTimeout = true
     if not User.is_admin
