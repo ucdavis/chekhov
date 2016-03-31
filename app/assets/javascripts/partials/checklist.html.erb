@@ -46,7 +46,7 @@
     </div>
   </div>
   <div class="col-md-6" id="public">
-    <div class="btn-group pull-right" ng-show="(user.is_admin || user.id == checklist.user_id) && isForcePrivate()">
+    <div class="btn-group pull-right" ng-show="(user.is_admin || user.id == checklist.user_id) && !isForcePrivate()">
         <button type="button" class="btn btn-info" ng-model="checklist.public" btn-radio="true" ng-click="togglePublic()">Public</button>
         <button type="button" class="btn btn-info" ng-model="checklist.public" btn-radio="false" ng-click="togglePublic()">Not Public</button>
     </div>
