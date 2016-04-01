@@ -4,3 +4,10 @@
 require File.expand_path('../config/application', __FILE__)
 
 Chekhov::Application.load_tasks
+
+namespace :checklist do
+  desc 'Send email based on checklist status'
+  task :warn do {
+    # Compare the created_at of all checklist with today's date
+    # if a checklist has been going on for more than a week, then send an email to creator
+  }
