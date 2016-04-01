@@ -6,7 +6,18 @@ Chekhov.controller "TemplatesActiveIndexCtrl", @TemplatesActiveIndexCtrl = ($sco
 
   $scope.categoriesSelected = false
 
+  $scope.getDays = (startDate) ->
+    Date dateStarted = new Date(startDate)
+    dateStarted.setHours(0,0,0,0)
+    Date currentDate = new Date()
+    currentDate.setHours(0,0,0,0)
+    $dateDiff = currentDate.getTime() - dateStarted.getTime()
+    $days = parseInt ($dateDiff / (1000 * 60 * 60 * 24) + .5)
+
+    return $days
+
   success = (data) ->
+      debugger
       # Success
       $scope.user = User
       $scope.checklists = _.map data, (checklist) ->
