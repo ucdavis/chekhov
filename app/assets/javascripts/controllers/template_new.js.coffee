@@ -6,7 +6,11 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, Use
   $scope.position = 0
   $scope.error = null
 
-  console.debug 'TemplateNewCtrl', 'Initializing...'
+  $scope.addEntryAbove = (position) ->
+    $scope.newTemplate.entries_attributes.splice position, 0, {content: "", position: position}
+    $scope.position++
+    updatePosition()
+    $scope.setEditingEntry(position)
 
   $scope.toggleForcePrivate = () ->
     $scope.newTemplate.force_private = (if $scope.newTemplate.force_private then false else true)
@@ -74,7 +78,6 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, Use
   $scope.sortableOptions =
     axis: 'y'
     update: (e, ui, a, b) ->
-      console.log $scope.newTemplate.entries_attributes
       # Moving down
       if ui.item.sortable.dropindex > ui.item.sortable.index
         $scope.newTemplate.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex + 0.5
@@ -83,11 +86,13 @@ Chekhov.controller "TemplateNewCtrl", @TemplateNewCtrl = ($scope, Templates, Use
         $scope.newTemplate.entries_attributes[ui.item.sortable.index].position = ui.item.sortable.dropindex - 0.5
 
       # Re-number to use integers
-      $scope.newTemplate.entries_attributes =
-        _.map(_.zip(_.sortBy($scope.newTemplate.entries_attributes, "position"),
-                    _.range($scope.newTemplate.entries_attributes.length)),
-              (entry) ->
-                entry[0].position = entry[1]
-                entry[0]
-        )
-      console.log $scope.newTemplate.entries_attributes
+        updatePosition()
+
+  updatePosition = ->
+    $scope.newTemplate.entries_attributes =
+      _.map(_.zip(_.sortBy($scope.newTemplate.entries_attributes, "position"),
+                  _.range($scope.newTemplate.entries_attributes.length)),
+            (entry) ->
+              entry[0].position = entry[1]
+              entry[0]
+      )
