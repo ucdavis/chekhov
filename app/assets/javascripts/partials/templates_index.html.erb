@@ -1,5 +1,6 @@
 <save-notification show="notifySave"></save-notification>
-<div class="row" style="margin-top: 1em;">
+<div class="row title" style="margin-top: 1em;">
+  <h2>Choose a Template</h1>
     <div class="col-xs-offset-1 col-xs-2" dropdown>
       <button type="button" class="btn btn-info" dropdown-toggle>
         Categories <span class="caret"></span>
@@ -14,7 +15,7 @@
       </ul>
     </div>
 </div>
-<div class="row">
+<div class="row title">
   <div class="alert col-xs-10 col-xs-offset-1" style="margin-bottom: 0;">
     Showing <span ng-hide="categoriesSelected">all</span> templates<span ng-show="categoriesSelected"> from {{ categoriesSelected }}</span>. <a style="cursor: pointer;" ng-click="resetFilters()">Clear filters.</a>
   </div>
@@ -40,7 +41,6 @@
                     <a class="glyphicon glyphicon-refresh" tooltip-append-to-body="true" tooltip="Duplicate this template" stop-event="mouseup" href="#/templates/duplicate/{{template.id}}"></a>
                     <a class="glyphicon glyphicon-edit" tooltip-append-to-body="true" tooltip="Edit this template" stop-event="mouseup" href="#/templates/edit/{{template.id}}"></a>
                   </span>
-                  <span class="no-copy" ng-show="!canManage">Use this template</span>
               </span>
             </div>
             <br style="clear: both;">
