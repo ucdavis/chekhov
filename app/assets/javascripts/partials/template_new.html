@@ -27,7 +27,14 @@
     <b>Description:</b> {{ newTemplate.desc }}<br>
 </div>
 
-<div class="row" style="margin-top: 2em;">
+<div class="row">
+  <div class= "checkbox col-md-10 col-md-offset-1">
+    <input type="checkbox" ng-model="newTemplate.force_private" ng-click="toggleForcePrivate()" ng-checked="newTemplate.force_private">
+    <p>Force Private</p>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-md-10 col-md-offset-1">
     <div class="alert alert-danger" ng-show="error">
       <button type="button" class="close" ng-click="clearError()">&times;</button>
@@ -50,6 +57,8 @@
                tooltip="Delete this entry"></i>
             <i class="glyphicon glyphicon-edit icon-right" ng-click="setEditingEntry(entry.position)"
                tooltip="Edit this entry"></i>
+            <i class="glyphicon glyphicon-plus icon-right" ng-click="addEntryAbove(entry.position)"
+               tooltip="Add an entry above" tooltip-append-to-body="true"></i>
             </span>
           </span>
       </li>

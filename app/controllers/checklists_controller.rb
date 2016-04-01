@@ -10,6 +10,8 @@ class ChecklistsController < ApplicationController
   end
 
   def show
+    template = Template.where(:name => @checklist.template_name).first
+    @is_force_private = template && (template.force_private == true)
   end
 
   def new
@@ -25,7 +27,7 @@ class ChecklistsController < ApplicationController
     @checklist = Checklist.new(checklist_params)
 
     @template = Template.find_by_id(params[:template_id])
-  
+
     if @template
       @checklist.template_name = @template.name
       @checklist.desc = @template.desc
@@ -33,10 +35,10 @@ class ChecklistsController < ApplicationController
         @checklist.checklist_category = ChecklistCategory.find_or_create_by(name: @template.template_category.name)
       end
     end
-    
+
     if @checklist.save
       flash[:notice] = "Checklist was successfully created."
-      
+
       # Copy template_entries into checklist
       Checklist.transaction do
         @template.entries.each do |template_entry|
@@ -44,12 +46,12 @@ class ChecklistsController < ApplicationController
         end
       end
     end
-    
+
     respond_with(@checklist)
   end
 
   def update
-    # Set the finished time value only if all entries are checked 
+    # Set the finished time value only if all entries are checked
     unchecked_entries = params[:checklist][:entries_attributes].select {|e| e['checked'] == false}
     if unchecked_entries.length == 0
       params[:checklist][:finished] = Time.now
@@ -64,11 +66,14 @@ class ChecklistsController < ApplicationController
     else
       params[:checklist][:checklist_category] = nil
     end
-    
+
     begin
       update_sysaid_activities(params)
       update_sysaid_notes(params)
-      
+
+      template = Template.where(:name => @checklist.template_name).first
+      @is_force_private = template && (template.force_private == true)
+
       flash[:notice] = "Checklist was successfully updated." if @checklist.update(checklist_params)
 
       respond_to do |format|
@@ -76,7 +81,7 @@ class ChecklistsController < ApplicationController
       end
     rescue SysAidError => e
       flash[:notice] = "Could not update checklist: #{e}."
-      
+
       respond_to do |format|
         format.json { render :json => {:errors => {:SysAid => ["#{e}"]}}, status: 422 }
       end
@@ -96,7 +101,7 @@ class ChecklistsController < ApplicationController
     def set_checklist
       @checklist = Checklist.find(params[:id])
     end
-    
+
     def update_sysaid_notes(params)
       # Checklist comments should be saved to SysAid's 'Notes' section (if a SysAid ticket number is provided)
       params[:checklist][:comments_attributes].each do |c|
@@ -104,7 +109,7 @@ class ChecklistsController < ApplicationController
         # sync only the new comment with SysAid (if ticket number is available)
         if c[:id].nil?
           c[:author] = Authorization.current_user[:name]
-          
+
           unless params[:checklist][:ticket_number].blank?
             ticket = SysAid::Ticket.find_by_id params[:checklist][:ticket_number]
 
@@ -120,7 +125,7 @@ class ChecklistsController < ApplicationController
           end
         end
       end if params[:checklist][:comments_attributes]
-      
+
       # A permalink to the checklist should be added to SysAid's 'Notes' section whenever the ticket_number is set or changed.
       if (@checklist.ticket_number != params[:checklist][:ticket_number]) and params[:checklist][:ticket_number]
         ticket = SysAid::Ticket.find_by_id params[:checklist][:ticket_number]
@@ -132,20 +137,20 @@ class ChecklistsController < ApplicationController
         end
       end
     end
-    
+
     # Creates SysAid activities for newly checked items only if a SysAid ticket number is set
     def update_sysaid_activities(params)
       return unless params[:checklist][:ticket_number]
-      
+
       ticket_id = params[:checklist][:ticket_number].to_i
-      
+
       params[:checklist][:entries_attributes].each do |e|
         # If saving a checked item with no author, it's implied the current_user
         # is checking the box.
         if e[:checked] and e[:completed_by].nil?
           e[:completed_by] = User.find(Authorization.current_user[:id]).name
           e[:finished] = Time.now
-          
+
           # Log this 'checking' in SysAid
           unless params[:checklist][:ticket_number].blank?
             unless e[:time_spent].blank?
@@ -155,7 +160,7 @@ class ChecklistsController < ApplicationController
               activity.to_time = DateTime.now
               activity.from_time = DateTime.now - (e[:time_spent].to_i).minutes
               activity.user = current_user.loginid
-            
+
               raise SysAidError, "Failed to save new activity to SysAid" unless activity.save
             end
           end
