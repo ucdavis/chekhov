@@ -71,6 +71,9 @@ class ChecklistsController < ApplicationController
       update_sysaid_activities(params)
       update_sysaid_notes(params)
 
+      template = Template.where(:name => @checklist.template_name).first
+      @is_force_private = template && (template.force_private == true)
+
       flash[:notice] = "Checklist was successfully updated." if @checklist.update(checklist_params)
 
       respond_to do |format|
