@@ -7,7 +7,7 @@ angular.module("chekhovServices", ["ngResource"])
         method: "PUT"
       destroy:
         method: "DELETE"
-      
+
   .factory "Checklists", ($resource) ->
     $resource "/checklists/:id.json",
       id: "@id"
@@ -40,7 +40,7 @@ angular.module("chekhovServices", ["ngResource"])
     start: (template) ->
         # Increment the checklist count of the selected template
         count = template.checklist_count + 1
-        checklist = {public: true, name: template.name + ' ' + count.toString() }
+        checklist = {public: !template.force_private, name: template.name + ' ' + count.toString() }
 
         # Create and redirect to the new checklist
         Checklists.save {template_id: template.id, name: checklist.name, public: checklist.public},
@@ -77,5 +77,6 @@ angular.module("chekhovServices", ["ngResource"])
           end: new Date()
         inProgress: true
         archived: false
+        is_force_private: false
         categories: []
     }
