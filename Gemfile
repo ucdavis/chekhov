@@ -48,4 +48,8 @@ gem 'declarative_authorization', :git => 'https://github.com/stffn/declarative_a
 
 gem 'activerecord-session_store'
 
+# Provides a method for scheduling tasks
 gem 'whenever', :require => false
+
+# Debugging Emails
+gem "letter_opener", :group => :development
