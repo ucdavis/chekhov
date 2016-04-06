@@ -3,11 +3,12 @@ class ChecklistMailer < ActionMailer::Base
 
   def send_email(message, recipient, subject)
     @message = message
-    mail(:subject => subject, :to => recipient)
+    mail(:subject => subject, :to => recipient).deliver
   end
 
   def send_abandoned(checklist, recipient)
     @checklist = checklist
-    mail(:subject => "Abandoned Checklist", :to => recipient)
+    mail(:subject => "Abandoned Checklist", :to => recipient).deliver
   end
 end
+
