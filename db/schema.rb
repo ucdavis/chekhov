@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328224645) do
+ActiveRecord::Schema.define(version: 20160407231406) do
 
   create_table "checklist_categories", force: true do |t|
     t.string   "name"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20160328224645) do
     t.integer  "ticket_number"
     t.text     "desc"
     t.integer  "checklist_category_id"
+    t.boolean  "archived"
   end
 
   add_index "checklists", ["checklist_category_id"], name: "index_checklists_on_checklist_category_id"
