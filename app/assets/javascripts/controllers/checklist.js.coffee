@@ -79,8 +79,6 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
 
     Checklists.update $scope.checklist,
       (data) ->
-        console.log data
-        console.log $scope.checklist.archived
         # Success
         $scope.clearError()
         $scope.parseJSON(data)
