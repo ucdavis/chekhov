@@ -195,10 +195,10 @@ class ChecklistsController < ApplicationController
         checklists = checklists.where("checklist_category_id in (?)", params[:categories])
       end
 
-      @checklists = checklists.includes(:checklist_category, :entries, :user).where("checklists.finished is null").order(updated_at: :desc).uniq
+      @checklists = checklists.includes(:checklist_category, :entries, :user).where(archived: [false, nil]).order(updated_at: :desc).uniq
       # Archived checklists are the inverse of the above line, so:
       # ([-1, @checklists.pluck(:id)].flatten] is dirty but ActiveRecord translates an empty array into NULL which results in there being no results if there are no open checklists)
-      @checklists = checklists.includes(:checklist_category, :entries, :user).where("checklists.finished is not null").order(updated_at: :desc).uniq if params[:archived] == 'true'
+      @checklists = checklists.includes(:checklist_category, :entries, :user).where(archived: true).order(updated_at: :desc).uniq if params[:archived] == 'true'
       @checklists = checklists.includes(:checklist_category, :entries, :user).order(updated_at: :desc).uniq if params[:all_lists] == 'true'
 
       if params[:query]
