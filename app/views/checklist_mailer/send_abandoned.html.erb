@@ -6,21 +6,7 @@
   <body>
     <p><%= @checklist.name %> has been abandoned...</p>
 
-    <!-- <div ng-repeat="entry in checklist.entries_attributes" class="entry"
-      popover-template='<%= asset_path("partials/time_spent.html") %>'
-      popover-placement="left"
-      popover-trigger="{{{true: 'click', false: 'never'}[displayTimeSpent(entry)]}}"
-      ckv-click="check(entry)">
-      <div class="col-xs-1">
-        <input type="checkbox" ng-checked="entry.checked"></input>
-      </div>
-    </div> -->
-
-
-
-
-
-    <a href= <%= url_for :host => 'http://localhost:3000', :controller => 'site' , :action =>'show_checklist', :id => @checklist.id %>>Visit</a>
-    <button>Close</button>
+    <a href= <%= url_for :host => 'http://localhost:3000', :controller => 'site', :action =>'show_checklist', :id => @checklist.id %>>Visit</a>
+    <a href= <%= url_for :host => 'http://localhost:3000', :controller => 'site', :action => 'archive_checklist', :id => @checklist.id %>>Close</a>
   </body>
 </html>

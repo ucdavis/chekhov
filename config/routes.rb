@@ -3,6 +3,7 @@ Chekhov::Application.routes.draw do
   get '/access_denied' => 'site#access_denied'
   get '/status' => 'site#status', defaults: { format: 'json'}
   get '/showChecklist/:id' => 'site#show_checklist'
+  get '/archiveChecklist/:id' => 'site#archive_checklist'
 
   match '/auth' => 'site#auth', via: [:get, :post]
 

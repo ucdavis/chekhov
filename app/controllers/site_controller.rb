@@ -8,6 +8,18 @@ class SiteController < ApplicationController
     redirect_to url
   end
 
+  def archive_checklist
+    # Archive checklist
+    checklist = Checklist.where(:id => params[:id]).take
+    checklist.archived = true
+    checklist.save
+
+    # Redirect to checklist
+    url = "/#/checklists/" + params[:id]
+    redirect_to url
+  end
+
+
   def access_denied
   end
 
