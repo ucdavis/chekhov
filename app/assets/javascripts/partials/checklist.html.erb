@@ -17,6 +17,9 @@
     </span>
     <div style="clear: both;">
       <span style="float: left;">Category:</span>
+      <span class="pull-right badge" id="completed-badge" ng-show="checklist.archived">
+        Archived
+      </span>
       <div style="cursor: pointer;" class="text-muted editable" ng-hide="editCat" ng-click="edit('category')">
         {{ checklist.checklist_category.name }}
         <span ng-hide='checklist.checklist_category.name'>This checklist has no category. Click here to add a category.</span>
