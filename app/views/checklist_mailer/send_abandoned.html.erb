@@ -4,9 +4,14 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p><%= @checklist.name %> has been abandoned...</p>
+    <p>You have an unused checklist in Chekhov: <a href= <%= url_for :host => @host, :controller => 'site', :action =>'show_checklist', :id => @checklist.id %>><%= @checklist.name %></a>
+    </p>
 
-    <a href= <%= url_for :host => @host, :controller => 'site', :action =>'show_checklist', :id => @checklist.id %>>Visit</a>
-    <a href= <%= url_for :host => @host, :controller => 'site', :action => 'archive_checklist', :id => @checklist.id %>>Close</a>
+    <p>Please <a href= <%= url_for :host => @host, :controller => 'site', :action => 'archive_checklist', :id => @checklist.id %>>close</a> it if you are no longer using it.
+
+    <p>
+      Thank you, <br>
+      The Chekhov Robot
+    </p>
   </body>
 </html>
