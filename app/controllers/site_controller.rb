@@ -3,14 +3,14 @@ class SiteController < ApplicationController
   skip_before_filter :require_login, :only => [:welcome, :access_denied, :auth, :status]
 
   def show_checklist
-    checklist_num = params[:id]
+    checklist_num = params[:id].to_i
     url = "/#/checklists/" + checklist_num
     redirect_to url
   end
 
   def archive_checklist
     # Archive checklist
-    checklist = Checklist.where(:id => params[:id]).take
+    checklist = Checklist.where(:id => params[:id].to_i).take
     checklist.archived = true
     checklist.save
 
