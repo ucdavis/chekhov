@@ -2,8 +2,8 @@ Chekhov::Application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   get '/access_denied' => 'site#access_denied'
   get '/status' => 'site#status', defaults: { format: 'json'}
-  get '/showChecklist/:id' => 'site#show_checklist'
-  get '/archiveChecklist/:id' => 'site#archive_checklist'
+  get '/:id/show' => 'checklists#show_checklist'
+  get '/:id/archive' => 'checklists#archive'
 
   match '/auth' => 'site#auth', via: [:get, :post]
 

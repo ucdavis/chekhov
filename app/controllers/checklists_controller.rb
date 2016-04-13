@@ -6,6 +6,28 @@ class ChecklistsController < ApplicationController
   filter_access_to :index, :attribute_check => true, :load_method => :load_checklists
   wrap_parameters :checklist, include: [:template_name, :name, :desc, :public, :started, :finished, :entries_attributes, :ticket_number, :comments_attributes, :checklist_category, :archived]
 
+  def show_checklist
+    # Type casted to int to prevent malicious intent for params :id
+    checklist_num = params[:id].to_i
+
+    url = "/#/checklists/" + checklist_num.to_s
+    redirect_to url
+  end
+
+  def archive
+    # Type casted to int to prevent malicious intent for params :id
+    checklist_num = params[:id].to_i
+
+    # Archive checklist
+    checklist = Checklist.where(:id => checklist_num).take
+    checklist.archived = true
+    checklist.save
+
+    # Redirect to checklist
+    url = "/#/checklists/" + checklist_num.to_s
+    redirect_to url
+  end
+
   def index
   end
 
