@@ -17,6 +17,7 @@ Chekhov::Application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :letter_opener
 
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
   ActionMailer::Base.delivery_method = :file
 
 #   ActionMailer::Base.smtp_settings = {
