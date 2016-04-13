@@ -7,7 +7,7 @@
     <p>You have an unused checklist in Chekhov: <a href= <%= url_for :controller => 'checklists', :action =>'show_checklist', :id => @checklist.id, :only_path => false %>><%= @checklist.name %></a>
     </p>
 
-    <p>Please <a href= <%= url_for :controller => 'checklists', :action => 'archive_checklist', :id => @checklist.id, :only_path => false %>>close</a> it if you are no longer using it.
+    <p>Please <a href= <%= url_for :controller => 'checklists', :action => 'archive', :id => @checklist.id, :only_path => false %>>close</a> it if you are no longer using it.
 
     <p>
       Thank you, <br>
