@@ -24,6 +24,6 @@ module Chekhov
     # Load modules in lib/
     config.autoload_paths += %W(#{config.root}/lib)
     config.assets.paths << Rails.root.join('vendor', 'assets', 'fonts')
-    config.action_mailer.default_url_options = { host: "localhost:3000" }
+    config.action_mailer.default_url_options = { host: "chekhov.dss.ucdavis.edu" }
   end
 end
