@@ -1,0 +1,2 @@
+# This value must be set to generate links using url_for in emails
+HOST: ""
