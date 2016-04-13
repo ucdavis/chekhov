@@ -18,6 +18,8 @@
 config/dss_rm.yml
 config/sysaid.yml
 config/secret_token.yml
+config/settings.yml
+
 .DS_Store
 *~
 session.vim
