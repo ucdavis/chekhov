@@ -3,19 +3,24 @@ class SiteController < ApplicationController
   skip_before_filter :require_login, :only => [:welcome, :access_denied, :auth, :status]
 
   def show_checklist
+    # Type casted to int to prevent malicious intent for params :id
     checklist_num = params[:id].to_i
-    url = "/#/checklists/" + checklist_num
+    
+    url = "/#/checklists/" + checklist_num.to_s
     redirect_to url
   end
 
   def archive_checklist
+    # Type casted to int to prevent malicious intent for params :id
+    checklist_num = params[:id].to_i
+
     # Archive checklist
-    checklist = Checklist.where(:id => params[:id].to_i).take
+    checklist = Checklist.where(:id => checklist_num).take
     checklist.archived = true
     checklist.save
 
     # Redirect to checklist
-    url = "/#/checklists/" + params[:id]
+    url = "/#/checklists/" + checklist_num.to_s
     redirect_to url
   end
 
