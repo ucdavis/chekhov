@@ -8,7 +8,7 @@ class ChecklistMailer < ActionMailer::Base
 
   def send_abandoned(checklist, recipient)
     @checklist = checklist
-    @host = Rails.application.routes.default_url_options[:host]
-    mail(:subject => "Abandoned Checklist", :to => recipient).deliver
+    @host = ActionMailer::Base.default_url_options[:host]
+    mail(:subject => "Unused Checklist", :to => recipient).deliver
   end
 end
