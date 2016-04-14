@@ -45,10 +45,17 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
   # items have been completed compared to the total. Displays 0% for the text if
   # nothing's been completed (it's all that fits in 2em).
   updateProgressBar = ->
+    # Used to avoid 0% for width
+    # If this is removed, then the progress bar visibly outputs "0 of"
+    if checkedEntries() > 0
+      val  = checkedEntries()
+    else
+      val = 0.5
+
     $scope.progbar = {
         style:
-            width: Math.round((checkedEntries() / entryCount()) * 100) + "%"
-        text: (if checkedEntries() isnt 0 then checkedEntries() + " of " + entryCount() + " completed" else "0%")
+            width: Math.round((val / entryCount()) * 100) + "%"
+        text: checkedEntries() + " of " + entryCount() + " completed"
     }
 
   $scope.edit = (type) ->
