@@ -70,7 +70,7 @@
                 <div class="progbar">
                     <div ng-style="checklist.progbar" ng-class="{'no-progress': !checklist.progbar}">
                         <span ng-show="checklist.progbar">{{ checklist.finished_count }} of {{ checklist.entry_count }} completed</span>
-                        <span ng-hide="checklist.progbar">0% complete</span>
+                        <span ng-hide="checklist.progbar">0 of {{ checklist.entry_count }} completed</span>
                     </div>
                 </div>
             </div>
