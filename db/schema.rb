@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407231406) do
+ActiveRecord::Schema.define(version: 20160413231406) do
 
   create_table "checklist_categories", force: true do |t|
     t.string   "name"
