@@ -26,6 +26,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
     entry.completed_by = $scope.user.user_name
     entry.finished = new Date()
     #Save iff it is unchecked or no ticket associated
+    updateProgressBar()
     $scope.saveChanges() if (!entry.checked || $scope.checklist.ticket_number == null)
 
   $scope.displayTimeSpent= (entry) ->
@@ -87,9 +88,6 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
 
         # Clear new comment field
         $scope.newComment = ''
-
-        # Update progress bar
-        updateProgressBar()
 
         # Archive the checklist when all of entries are checked
         if checkedEntries() is entryCount()
