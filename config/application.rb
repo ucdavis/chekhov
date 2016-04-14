@@ -20,9 +20,10 @@ module Chekhov
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.enforce_available_locales = true
     config.i18n.default_locale = :en
-    
+
     # Load modules in lib/
     config.autoload_paths += %W(#{config.root}/lib)
     config.assets.paths << Rails.root.join('vendor', 'assets', 'fonts')
+    config.action_mailer.default_url_options = { host: "chekhov.dss.ucdavis.edu" }
   end
 end

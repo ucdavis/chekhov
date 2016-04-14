@@ -9,12 +9,12 @@ class SiteController < ApplicationController
     req = params['req'].blank? ? templates_url : params['req']
     redirect_to req
   end
-  
+
   def status
       @number_of_checklists = Checklist.all.count
-      
+
       respond_to do |format|
-          format.json { render :json => {NumberOfChecklists: @number_of_checklists, Status: "OK"}}
+          format.json { render :json => {checklist_count: @number_of_checklists, Status: "OK"}}
       end
   end
 

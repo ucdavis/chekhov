@@ -72,6 +72,8 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
   $scope.saveChanges = (close = "none") ->
     $scope.saved = "Saving ..."
 
+    $scope.checklist.archived = (checkedEntries() >= entryCount()) ? true : false
+
     previouslyFinished = $scope.checklist.finished
     $scope.checklist.comments_attributes.push {content: $scope.newComment} if $scope.newComment
 

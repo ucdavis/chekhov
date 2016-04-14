@@ -47,3 +47,9 @@ gem 'rubycas-client', :git => 'https://github.com/rubycas/rubycas-client.git'
 gem 'declarative_authorization', :git => 'https://github.com/stffn/declarative_authorization.git'
 
 gem 'activerecord-session_store'
+
+# Provides a method for scheduling tasks
+gem 'whenever', :require => false
+
+# Debugging Emails
+gem "letter_opener", :group => :development

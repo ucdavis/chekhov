@@ -15,7 +15,7 @@ authorization do
     has_permission_on :checklists, :to => :manage do
       if_attribute :user => is { user }
     end
-    has_permission_on :checklists, :to => :use do
+    has_permission_on :checklists, :to => [:use, :show_checklist, :archive] do
       if_attribute :public => true
     end
     has_permission_on :checklist_entries, :to => :manage do

@@ -18,10 +18,10 @@
 config/dss_rm.yml
 config/sysaid.yml
 config/secret_token.yml
+
 .DS_Store
 *~
 session.vim
 notes.gpg
 .powenv
 *.swp
-
