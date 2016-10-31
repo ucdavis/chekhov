@@ -13,6 +13,10 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
 
   #$('ul.nav li').removeClass 'active'
 
+  $scope.archiveToggle = () ->
+    $scope.checklist.archived = if $scope.checklist.archived then false else true
+    $scope.saveChanges()
+
   $scope.isForcePrivate = () ->
     return $scope.checklist.is_force_private
 
@@ -77,7 +81,7 @@ Chekhov.controller "ChecklistCtrl", @ChecklistCtrl = ($scope, $rootScope, $timeo
   $scope.saveChanges = (close = "none") ->
     $scope.saved = "Saving ..."
 
-    $scope.checklist.archived = if checkedEntries() >= entryCount() then true else false
+    $scope.checklist.archived = if checkedEntries() >= entryCount() || $scope.checklist.archived then true else false
 
     previouslyFinished = $scope.checklist.finished
     $scope.checklist.comments_attributes.push {content: $scope.newComment} if $scope.newComment

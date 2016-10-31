@@ -107,6 +107,9 @@
       <br style="clear: both;">
     </div>
   </div>
+  <div class="btn-group pull-right" ng-show="(user.is_admin || user.id == checklist.user_id)">
+      <button type="button" class="btn btn-info" ng-model="checklist.public" ng-click="archiveToggle()">{{checklist.archived ? "Unarchive" : "Archive"}}</button>
+  </div>
 </div>
 </div>
 
